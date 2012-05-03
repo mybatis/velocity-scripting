@@ -60,9 +60,9 @@
   </dependencies>
 
   <scm>
-    <url>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/mybatis-velocity/trunk</url>
-    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/mybatis-velocity/trunk</connection>
-    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/mybatis-velocity/trunk</developerConnection>
+    <url>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</url>
+    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</connection>
+    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</developerConnection>
   </scm>
 
   <distributionManagement>
