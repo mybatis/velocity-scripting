@@ -58,7 +58,7 @@
       <artifactId>hsqldb</artifactId>
       <version>2.2.4</version>
       <scope>test</scope>
-    </dependency>   
+    </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -91,7 +91,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
   </dependencies>
 
   <scm>
@@ -136,6 +136,14 @@
         </configuration>
       </plugin>
     </plugins>
+    <testResources>
+      <testResource>
+        <directory>${project.build.testSourceDirectory}</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
   </build>
 
 </project>

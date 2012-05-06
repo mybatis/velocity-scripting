@@ -37,9 +37,10 @@ public class SQLScriptSource implements SqlSource {
 
   public SQLScriptSource(Configuration configuration, MapperBuilderAssistant builderAssistant, String script, Class<?> parameterTypeClass, String databaseId) {
     this.configuration = configuration;
-    ParameterMappingSourceParser parser = new ParameterMappingSourceParser(configuration, script, parameterTypeClass);
-    parameterMappingSources = parser.getParameterMappingSources();
-    script = parser.getSql();
+    IncludeHandlerParser includeParser = new IncludeHandlerParser(configuration, builderAssistant);
+    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(configuration, includeParser.parse(script), parameterTypeClass);
+    parameterMappingSources = mappingParser.getParameterMappingSources();
+    script = mappingParser.getSql();
     compiledScript = VelocityFacade.compile(script, "velocity-template-" + (++templateIndex));
   }
 

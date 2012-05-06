@@ -23,15 +23,17 @@
 
 <mapper namespace="org.mybatis.scripting.velocity.use">
 
+  <sql id="columns">firstName #if($_parameter.includeLastName), lastName#end</sql>
+
   <select id="selectNames" resultType="org.mybatis.scripting.velocity.use.Name">
-    SELECT firstName #if($_parameter.includeLastName), lastName#end
+    SELECT @include{columns}
     FROM names
     WHERE lastName LIKE @{name}
   </select>
 
   <select id="selectNamesWithExpressions" resultType="org.mybatis.scripting.velocity.use.Name">
     #set( $pattern = $_parameter.name + "%" )
-    SELECT firstName #if($_parameter.includeLastName), lastName#end
+    SELECT @include{columns}
     FROM names
     WHERE lastName LIKE @{pattern, javaType=string}
   </select>
