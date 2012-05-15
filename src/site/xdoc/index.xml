@@ -223,10 +223,6 @@ FROM City
         <p>@{ property, attr1=val1, attr2=val2, ... }</p>
         <p>Where attrs must be any of: javaType, jdbcType, mode, numericScale, resultMap, typeHandler, jdbcTypeName</p>
       </subsection>
-      <subsection name="Included SQL Fragments">
-        <p>@include{ refid }</p>
-        <p>Where refid is an existing sql fragment declared by &lt;sql id="refid"&gt; ... &lt;/sql&gt;</p>
-      </subsection>
     </section>
   </body>
 
