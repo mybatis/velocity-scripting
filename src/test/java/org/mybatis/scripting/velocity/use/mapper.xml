@@ -25,15 +25,19 @@
 
   <sql id="columns">firstName #if($_parameter.includeLastName), lastName#end</sql>
 
+  <sql id="nested">
+    'SOME NOISE', <include refid="columns"/>
+  </sql>
+
   <select id="selectNames" resultType="org.mybatis.scripting.velocity.use.Name">
-    SELECT @include{columns}
+    SELECT <include refid="nested" />
     FROM names
     WHERE lastName LIKE @{name}
   </select>
 
   <select id="selectNamesWithExpressions" resultType="org.mybatis.scripting.velocity.use.Name">
     #set( $pattern = $_parameter.name + "%" )
-    SELECT @include{columns}
+    SELECT <include refid="columns" />
     FROM names
     WHERE lastName LIKE @{pattern, javaType=string}
   </select>
@@ -57,5 +61,13 @@
       #end
     #end
   </select>
+
+  <insert id="insertName" parameterType="org.mybatis.scripting.velocity.use.Name">
+    <selectKey keyProperty="id" resultType="int">
+      CALL IDENTITY()
+    </selectKey>
+    INSERT INTO names(firstName, lastName)
+    VALUES (@{firstName}, @{lastName})
+  </insert>
 
 </mapper>

@@ -17,7 +17,6 @@ package org.mybatis.scripting.velocity;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlSource;
@@ -35,10 +34,9 @@ public class SQLScriptSource implements SqlSource {
   private final Object compiledScript;
   private final Configuration configuration;
 
-  public SQLScriptSource(Configuration configuration, MapperBuilderAssistant builderAssistant, String script, Class<?> parameterTypeClass, String databaseId) {
+  public SQLScriptSource(Configuration configuration, String script, Class<?> parameterTypeClass) {
     this.configuration = configuration;
-    IncludeHandlerParser includeParser = new IncludeHandlerParser(configuration, builderAssistant);
-    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(configuration, includeParser.parse(script), parameterTypeClass);
+    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(configuration, script, parameterTypeClass);
     parameterMappingSources = mappingParser.getParameterMappingSources();
     script = mappingParser.getSql();
     compiledScript = VelocityFacade.compile(script, "velocity-template-" + (++templateIndex));

@@ -15,7 +15,6 @@
  */
 package org.mybatis.scripting.velocity;
 
-import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -33,17 +32,19 @@ public class Driver implements LanguageDriver {
   }
 
   @Override
-  public SqlSource createSqlSource(Configuration configuration, MapperBuilderAssistant builderAssistant, Object script, Class<?> parameterTypeClass, String databaseId) {
+  public SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterTypeClass) {
     if (parameterTypeClass == null) {
       parameterTypeClass = Object.class;
     }
-    if (script instanceof XNode) {
-      return new SQLScriptSource(configuration, builderAssistant, ((XNode)script).getStringBody(""), parameterTypeClass, databaseId);
-    }
-    else {
-      return new SQLScriptSource(configuration, builderAssistant, script.toString(), parameterTypeClass, databaseId);
-    }
+    return new SQLScriptSource(configuration, script.getNode().getTextContent(), parameterTypeClass);
+  }
 
+  @Override
+  public SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterTypeClass) {
+    if (parameterTypeClass == null) {
+      parameterTypeClass = Object.class;
+    }
+    return new SQLScriptSource(configuration, script, parameterTypeClass);
   }
 
 }

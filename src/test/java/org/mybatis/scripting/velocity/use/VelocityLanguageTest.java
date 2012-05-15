@@ -169,4 +169,20 @@ public class VelocityLanguageTest {
     }
   }
 
+  @Test
+  public void testSelectKey() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      Name fred = new Name();
+      fred.setFirstName("Fred");
+      fred.setLastName("Flinstone");
+      sqlSession.insert("org.mybatis.scripting.velocity.use.insertName", fred);
+      assertTrue(fred.getId() != 0);
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
 }
