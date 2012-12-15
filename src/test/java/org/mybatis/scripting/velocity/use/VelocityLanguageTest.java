@@ -151,6 +151,29 @@ public class VelocityLanguageTest {
 
   @Test
   @SuppressWarnings("unchecked")
+  public void testDynamicSelectWithIterationOverMap() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      Map<Integer, String> ids = new HashMap<Integer, String>();
+      ids.put(2, "Wilma");
+      ids.put(4, "Barney");
+      ids.put(5, "Betty");
+      Map param = new HashMap();
+      param.put("ids", ids);
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationOverMap", param);
+      assertEquals(3, answer.size());
+      for (Name n : answer) {
+        assertEquals(ids.get(n.getId()).toString(), n.getFirstName());
+      }
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  @SuppressWarnings("unchecked")
   public void testDynamicSelectWithIterationComplex() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {

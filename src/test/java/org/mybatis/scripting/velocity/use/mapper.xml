@@ -52,6 +52,16 @@
     #end
   </select>
 
+  <select id="selectNamesWithIterationOverMap" resultType="org.mybatis.scripting.velocity.use.Name">
+    SELECT *
+    FROM names
+    #where()
+      #repeat($_parameter.ids.entrySet() $id ',' 'id IN (' ')')
+        @{id.key}
+      #end
+    #end
+  </select>
+
   <select id="selectNamesWithIterationComplex" resultType="org.mybatis.scripting.velocity.use.Name">
     SELECT *
     FROM names
