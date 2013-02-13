@@ -1,0 +1,945 @@
+<api>
+<package name="org.mybatis.scripting.velocity"
+>
+<class name="Driver"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="org.apache.ibatis.scripting.LanguageDriver">
+</implements>
+<constructor name="Driver"
+ type="org.mybatis.scripting.velocity.Driver"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="createParameterHandler"
+ return="org.apache.ibatis.executor.parameter.ParameterHandler"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mappedStatement" type="org.apache.ibatis.mapping.MappedStatement">
+</parameter>
+<parameter name="parameterObject" type="java.lang.Object">
+</parameter>
+<parameter name="boundSql" type="org.apache.ibatis.mapping.BoundSql">
+</parameter>
+</method>
+<method name="createSqlSource"
+ return="org.apache.ibatis.mapping.SqlSource"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+</parameter>
+<parameter name="script" type="java.lang.String">
+</parameter>
+<parameter name="parameterTypeClass" type="java.lang.Class&lt;?&gt;">
+</parameter>
+</method>
+<method name="createSqlSource"
+ return="org.apache.ibatis.mapping.SqlSource"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+</parameter>
+<parameter name="script" type="org.apache.ibatis.parsing.XNode">
+</parameter>
+<parameter name="parameterTypeClass" type="java.lang.Class&lt;?&gt;">
+</parameter>
+</method>
+</class>
+<class name="FastLinkedList"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="java.io.Serializable">
+</implements>
+<constructor name="FastLinkedList"
+ type="org.mybatis.scripting.velocity.FastLinkedList"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="add"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="e" type="E">
+</parameter>
+</method>
+<method name="isEmpty"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="start"
+ return="org.mybatis.scripting.velocity.FastLinkedList.Node"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="FastLinkedList.Node"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="FastLinkedList.Node"
+ type="org.mybatis.scripting.velocity.FastLinkedList.Node"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="E">
+</parameter>
+</constructor>
+<method name="hasNext"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="ParameterMappingCollector"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ParameterMappingCollector"
+ type="org.mybatis.scripting.velocity.ParameterMappingCollector"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="parameterMappingSources" type="org.apache.ibatis.mapping.ParameterMapping[]">
+</parameter>
+<parameter name="context" type="java.util.Map&lt;java.lang.String, java.lang.Object&gt;">
+</parameter>
+<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+</parameter>
+</constructor>
+<method name="g"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mapping" type="int">
+</parameter>
+</method>
+<method name="getItemKey"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getParameterMappings"
+ return="java.util.List&lt;org.apache.ibatis.mapping.ParameterMapping&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setItemKey"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="itemKey" type="java.lang.String">
+</parameter>
+</method>
+</class>
+<class name="ParameterMappingSourceParser"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ParameterMappingSourceParser"
+ type="org.mybatis.scripting.velocity.ParameterMappingSourceParser"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+</parameter>
+<parameter name="script" type="java.lang.String">
+</parameter>
+<parameter name="parameterType" type="java.lang.Class&lt;?&gt;">
+</parameter>
+</constructor>
+<method name="getParameterMappingSources"
+ return="org.apache.ibatis.mapping.ParameterMapping[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSql"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="RepeatDirective"
+ extends="org.apache.velocity.runtime.directive.Directive"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="RepeatDirective"
+ type="org.mybatis.scripting.velocity.RepeatDirective"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="clean"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="context" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+<parameter name="o" type="java.lang.Object">
+</parameter>
+<parameter name="collector" type="org.mybatis.scripting.velocity.ParameterMappingCollector">
+</parameter>
+<parameter name="savedItemKey" type="java.lang.String">
+</parameter>
+</method>
+<method name="getName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getType"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="put"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="context" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+<parameter name="key" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.Object">
+</parameter>
+</method>
+<method name="render"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="context" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+<parameter name="writer" type="java.io.Writer">
+</parameter>
+<parameter name="node" type="org.apache.velocity.runtime.parser.node.Node">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+<exception name="MethodInvocationException" type="org.apache.velocity.exception.MethodInvocationException">
+</exception>
+<exception name="ParseErrorException" type="org.apache.velocity.exception.ParseErrorException">
+</exception>
+<exception name="ResourceNotFoundException" type="org.apache.velocity.exception.ResourceNotFoundException">
+</exception>
+</method>
+<field name="uberInfo"
+ type="org.apache.velocity.util.introspection.Info"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+</class>
+<class name="RepeatDirective.NullHolderContext"
+ extends="org.apache.velocity.context.ChainedInternalContextAdapter"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</class>
+<class name="RepeatDirective.RepeatScope"
+ extends="org.apache.velocity.runtime.directive.Scope"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="RepeatDirective.RepeatScope"
+ type="org.mybatis.scripting.velocity.RepeatDirective.RepeatScope"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="owner" type="java.lang.Object">
+</parameter>
+<parameter name="replaces" type="java.lang.Object">
+</parameter>
+<parameter name="var" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="getCount"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFirst"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getHasNext"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getIndex"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getLast"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getVar"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="hasNext"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isFirst"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isLast"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="hasNext"
+ type="boolean"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="index"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="var"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+</class>
+<class name="SQLScriptSource"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="org.apache.ibatis.mapping.SqlSource">
+</implements>
+<constructor name="SQLScriptSource"
+ type="org.mybatis.scripting.velocity.SQLScriptSource"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+</parameter>
+<parameter name="script" type="java.lang.String">
+</parameter>
+<parameter name="parameterTypeClass" type="java.lang.Class&lt;?&gt;">
+</parameter>
+</constructor>
+<method name="getBoundSql"
+ return="org.apache.ibatis.mapping.BoundSql"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="parameterObject" type="java.lang.Object">
+</parameter>
+</method>
+<field name="DATABASE_ID_KEY"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;_databaseId&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="MAPPING_COLLECTOR_KEY"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;_pmc&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="PARAMETER_OBJECT_KEY"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;_parameter&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+</class>
+<class name="SetDirective"
+ extends="org.mybatis.scripting.velocity.TrimDirective"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="SetDirective"
+ type="org.mybatis.scripting.velocity.SetDirective"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+</class>
+<class name="TrimDirective"
+ extends="org.apache.velocity.runtime.directive.Directive"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="TrimDirective"
+ type="org.mybatis.scripting.velocity.TrimDirective"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="getName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getParams"
+ return="org.mybatis.scripting.velocity.TrimDirective.Params"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="context" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+<parameter name="node" type="org.apache.velocity.runtime.parser.node.Node">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+<exception name="MethodInvocationException" type="org.apache.velocity.exception.MethodInvocationException">
+</exception>
+<exception name="ParseErrorException" type="org.apache.velocity.exception.ParseErrorException">
+</exception>
+<exception name="ResourceNotFoundException" type="org.apache.velocity.exception.ResourceNotFoundException">
+</exception>
+</method>
+<method name="getType"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="render"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ica" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+<parameter name="writer" type="java.io.Writer">
+</parameter>
+<parameter name="node" type="org.apache.velocity.runtime.parser.node.Node">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+<exception name="MethodInvocationException" type="org.apache.velocity.exception.MethodInvocationException">
+</exception>
+<exception name="ParseErrorException" type="org.apache.velocity.exception.ParseErrorException">
+</exception>
+<exception name="ResourceNotFoundException" type="org.apache.velocity.exception.ResourceNotFoundException">
+</exception>
+</method>
+<method name="render"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="params" type="org.mybatis.scripting.velocity.TrimDirective.Params">
+</parameter>
+<parameter name="writer" type="java.io.Writer">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+<exception name="MethodInvocationException" type="org.apache.velocity.exception.MethodInvocationException">
+</exception>
+<exception name="ParseErrorException" type="org.apache.velocity.exception.ParseErrorException">
+</exception>
+<exception name="ResourceNotFoundException" type="org.apache.velocity.exception.ResourceNotFoundException">
+</exception>
+</method>
+</class>
+<class name="TrimDirective.Params"
+ extends="java.lang.Object"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<constructor name="TrimDirective.Params"
+ type="org.mybatis.scripting.velocity.TrimDirective.Params"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</constructor>
+<method name="getBody"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPrefix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPrefixOverrides"
+ return="org.mybatis.scripting.velocity.FastLinkedList&lt;java.lang.String&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSuffix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSuffixOverrides"
+ return="org.mybatis.scripting.velocity.FastLinkedList&lt;java.lang.String&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setBody"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="body" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPrefix"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="prefix" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPrefixOverrides"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="list" type="java.lang.String">
+</parameter>
+</method>
+<method name="setSuffix"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="suffix" type="java.lang.String">
+</parameter>
+</method>
+<method name="setSuffixOverrides"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="list" type="java.lang.String">
+</parameter>
+</method>
+</class>
+<class name="VelocityFacade"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="VelocityFacade"
+ type="org.mybatis.scripting.velocity.VelocityFacade"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="apply"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="template" type="java.lang.Object">
+</parameter>
+<parameter name="context" type="java.util.Map&lt;java.lang.String, java.lang.Object&gt;">
+</parameter>
+</method>
+<method name="compile"
+ return="java.lang.Object"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="script" type="java.lang.String">
+</parameter>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+</class>
+<class name="WhereDirective"
+ extends="org.mybatis.scripting.velocity.TrimDirective"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="WhereDirective"
+ type="org.mybatis.scripting.velocity.WhereDirective"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+</class>
+</package>
+</api>
