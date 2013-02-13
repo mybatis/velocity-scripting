@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2011-2012 The MyBatis Team
+  Copyright 2011-2013 The MyBatis Team
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -14,26 +14,51 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-
-<!--
-  version $Id: pom.xml 4983 2012-03-19 13:23:27Z simone.tripodi $
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>14</version>
+    <version>17-SNAPSHOT</version>
   </parent>
 
   <groupId>org.mybatis.scripting</groupId>
   <artifactId>mybatis-velocity</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
+
   <name>MyBatis Velocity</name>
   <description>Velocity support for MyBatis</description>
   <url>http://www.mybatis.org/scripting/velocity</url>
+
+  <scm>
+    <url>http://github.com/mybatis/velocity-scripting</url>
+    <connection>scm:git:ssh://github.com/mybatis/velocity-scripting.git</connection>
+    <developerConnection>scm:git:git+ssh://git@github.com/mybatis/velocity-scripting.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issue Management</system>
+    <url>https://github.com/mybatis/velocity-scripting/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/mybatis/velocity-scripting</url>
+  </ciManagement>
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <url>gitsite:git@github.com/mybatis/velocity-scripting.git</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <findbugs.onlyAnalyze>org.mybatis.scripting.velocity.*</findbugs.onlyAnalyze>
+    <javac.src.version>1.6</javac.src.version>
+    <javac.target.version>1.6</javac.target.version>
+    <gcu.product>Velocity</gcu.product>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -91,40 +116,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-
   </dependencies>
-
-  <scm>
-    <url>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</url>
-    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</connection>
-    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/scripting/trunk/mybatis-velocity</developerConnection>
-  </scm>
-
-  <distributionManagement>
-    <site>
-      <id>mybatis.site</id>
-      <!--
-       | make it overridible, FTP is terribly slow when launched from Maven Wagon
-       | an alternative strategy could be deploying the site locally
-       |
-       |    -Dsite.deploymentUrl=file://...
-       |
-       | then async redeploying it via Filezilla/whatelese
-      -->
-      <url>${site.deploymentUrl}</url>
-    </site>
-  </distributionManagement>
-
-  <properties>
-    <findbugs.onlyAnalyze>org.mybatis.scripting.velocity.*</findbugs.onlyAnalyze>
-    <javac.src.version>1.6</javac.src.version>
-    <javac.target.version>1.6</javac.target.version>
-    <gcu.product>Velocity</gcu.product>
-    <!--
-     | see distributionManagement.site.url
-    -->
-    <site.deploymentUrl>ftp://${mybatis.host}/scripting/velocity/</site.deploymentUrl>
-  </properties>
 
   <build>
     <plugins>
