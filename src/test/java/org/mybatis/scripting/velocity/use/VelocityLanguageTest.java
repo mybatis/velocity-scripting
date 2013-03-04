@@ -130,6 +130,40 @@ public class VelocityLanguageTest {
   }
 
   @Test
+  public void testSelectNamesWithFormattedParam() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      Parameter p = new Parameter(true, "Fli");
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithFormattedParam", p);
+      assertEquals(3, answer.size());
+      for (Name n : answer) {
+        assertEquals("Flintstone", n.getLastName());
+      }
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  public void testSelectNamesWithFormattedParamSafe() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      Parameter p = new Parameter(true, "Fli");
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithFormattedParamSafe", p);
+      assertEquals(3, answer.size());
+      for (Name n : answer) {
+        assertEquals("Flintstone", n.getLastName());
+      }
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
   @SuppressWarnings("unchecked")
   public void testDynamicSelectWithIteration() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
