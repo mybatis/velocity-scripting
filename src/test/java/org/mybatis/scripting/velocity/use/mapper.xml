@@ -42,6 +42,19 @@
     WHERE lastName LIKE @{pattern, javaType=string}
   </select>
 
+  <select id="selectNamesWithFormattedParam" resultType="org.mybatis.scripting.velocity.use.Name">
+    SELECT <include refid="columns" />
+    FROM names
+    WHERE lastName LIKE $trailingWildCardFormatter.formatLiteral($_parameter.name)
+  </select>
+
+  <select id="selectNamesWithFormattedParamSafe" resultType="org.mybatis.scripting.velocity.use.Name">
+    #set( $pattern = $trailingWildCardFormatter.format($_parameter.name) )
+    SELECT <include refid="columns" />
+    FROM names
+    WHERE lastName LIKE @{pattern, javaType=string}
+  </select>
+
   <select id="selectNamesWithIteration" resultType="org.mybatis.scripting.velocity.use.Name">
     SELECT *
     FROM names
