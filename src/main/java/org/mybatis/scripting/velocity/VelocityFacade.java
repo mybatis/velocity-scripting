@@ -17,8 +17,11 @@ package org.mybatis.scripting.velocity;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -27,15 +30,18 @@ import org.apache.velocity.runtime.parser.node.SimpleNode;
 
 public class VelocityFacade {
 
+  private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = "additional.context.attributes";
+  private static final String EXTERNAL_PROPERTIES = "mybatis-velocity.properties";
+  
   private static final RuntimeInstance engine;
+  
+  /** Contains thread safe objects to be set in the velocity context.*/
+  private static final Map<String, Object> additionalCtxAttributes;
+  private static final Properties settings;
 
   static {
-    final Properties settings = new Properties();
-    settings.setProperty("userdirective",
-        TrimDirective.class.getName()  + "," +
-        WhereDirective.class.getName() + "," +
-        SetDirective.class.getName()   + "," +
-        RepeatDirective.class.getName());
+    settings = loadPropeties();
+    additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());
     engine = new RuntimeInstance();
     engine.init(settings);
   }
@@ -56,8 +62,50 @@ public class VelocityFacade {
 
   public static String apply(Object template, Map<String, Object> context) {
     final StringWriter out = new StringWriter();
-    ((Template)template).merge(new VelocityContext(context), out);
+    context.putAll(additionalCtxAttributes);
+    ((Template) template).merge(new VelocityContext(context), out);
     return out.toString();
   }
 
+  private static Properties loadPropeties() {
+    final Properties props = new Properties();
+    // Defaults
+    props.setProperty("resource.loader", "class");
+    props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+    
+    
+    try {
+      // External properties
+      ClassLoader cl = Thread.currentThread().getContextClassLoader();
+      props.load(cl.getResourceAsStream(EXTERNAL_PROPERTIES));
+    } catch (Exception ex) {
+      // No custom properties
+    }
+    
+    props.setProperty("userdirective",
+            TrimDirective.class.getName() + ","
+            + WhereDirective.class.getName() + ","
+            + SetDirective.class.getName() + ","
+            + RepeatDirective.class.getName());
+    return props;
+  }
+
+  private static Map<String, Object> loadAdditionalCtxAttributes() {
+    Map<String, Object> attributes = new HashMap<String, Object>();
+    String additionalContextAttributes = settings.getProperty(ADDITIONAL_CTX_ATTRIBUTES_KEY);
+    if (additionalContextAttributes == null) {
+      return attributes;
+    }
+
+    try {
+      String[] entries = additionalContextAttributes.split(",");
+      for (String str : entries) {
+        String[] entry = str.trim().split(":");
+        attributes.put(entry[0].trim(), Class.forName(entry[1].trim()).newInstance());
+      }
+    } catch (Exception ex) {
+       throw new BuilderException("Error parsing velocity property '" + ADDITIONAL_CTX_ATTRIBUTES_KEY + "'", ex);
+    }
+    return attributes;
+  }
 }
