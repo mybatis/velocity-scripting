@@ -148,12 +148,13 @@ public class RepeatDirective extends Directive {
         }
       }
 
-      if (i.hasNext()) {
+      counter++;
+      maxNbrLoopsExceeded = counter >= 1000;
+
+      if (i.hasNext() && !maxNbrLoopsExceeded) {
         writer.append(separator);
       }
 
-      counter++;
-      maxNbrLoopsExceeded = counter >= 1000;
     }
     writer.append(close);
     clean(context, o, collector, savedItemKey);
