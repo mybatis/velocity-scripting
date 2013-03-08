@@ -18,6 +18,7 @@ package org.mybatis.scripting.velocity.use;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -221,6 +222,25 @@ public class VelocityLanguageTest {
         assertEquals(names[i].getId(), answer.get(i).getId());
       }
 
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  public void testDynamicSelectWithIterationBoundary() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      List<Name> names = new ArrayList<Name>();
+      for (int i = 0; i < 1001; i++) {
+		names.add(new Name(i));
+	}
+      
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      param.put("names", names);
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationComplex", param);
+      assertEquals(5, answer.size());
     } finally {
       sqlSession.close();
     }
