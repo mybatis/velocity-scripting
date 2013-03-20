@@ -262,4 +262,16 @@ public class VelocityLanguageTest {
     }
   }
 
+	@Test
+	public void testSelectWithCustomUserDirective() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+			List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithCustomUserDirective", param);
+			assertEquals(5, answer.size());
+		} finally {
+			sqlSession.close();
+		}
+	}
+
 }
