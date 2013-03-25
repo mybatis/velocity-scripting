@@ -27,11 +27,16 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.runtime.RuntimeInstance;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
+import org.apache.velocity.util.StringUtils;
 
 public class VelocityFacade {
 
   private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = "additional.context.attributes";
   private static final String EXTERNAL_PROPERTIES = "mybatis-velocity.properties";
+  private static final String DIRECTIVES = TrimDirective.class.getName() 
+						    + "," + WhereDirective.class.getName() 
+						    + "," + SetDirective.class.getName() 
+						    + "," + RepeatDirective.class.getName();
   
   private static final RuntimeInstance engine;
   
@@ -40,7 +45,8 @@ public class VelocityFacade {
   private static final Properties settings;
 
   static {
-    settings = loadPropeties();
+
+	settings = loadPropeties();
     additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());
     engine = new RuntimeInstance();
     engine.init(settings);
@@ -82,11 +88,14 @@ public class VelocityFacade {
       // No custom properties
     }
     
-    props.setProperty("userdirective",
-            TrimDirective.class.getName() + ","
-            + WhereDirective.class.getName() + ","
-            + SetDirective.class.getName() + ","
-            + RepeatDirective.class.getName());
+    // Append the user defined directives if provided
+    String userDirective = StringUtils.nullTrim(props.getProperty("userdirective"));
+    if(userDirective == null) {
+    	userDirective = DIRECTIVES;
+    } else {
+    	userDirective += "," + DIRECTIVES;
+    }
+    props.setProperty("userdirective", userDirective);
     return props;
   }
 
