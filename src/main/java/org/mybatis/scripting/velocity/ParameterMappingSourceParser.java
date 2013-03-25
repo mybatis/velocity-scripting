@@ -18,9 +18,10 @@ package org.mybatis.scripting.velocity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.builder.BaseBuilder;
 import org.apache.ibatis.builder.BuilderException;
-import org.apache.ibatis.builder.ParameterExpressionParser;
+import org.apache.ibatis.builder.ParameterExpression;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.parsing.TokenHandler;
@@ -136,7 +137,7 @@ public class ParameterMappingSourceParser {
 
     private Map<String, String> parseParameterMapping(String content) {
       try {
-        return ParameterExpressionParser.parse(content);
+        return new ParameterExpression(content);
       } catch (BuilderException ex) {
         throw ex;
       } catch (Exception ex) {
