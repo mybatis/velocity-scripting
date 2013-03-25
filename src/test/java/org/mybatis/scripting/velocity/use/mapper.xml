@@ -85,6 +85,11 @@
     #end
   </select>
 
+ <select id="selectWithCustomUserDirective" resultType="org.mybatis.scripting.velocity.use.Name">
+    #genSql()
+    #end
+  </select>
+
   <insert id="insertName" parameterType="org.mybatis.scripting.velocity.use.Name">
     <selectKey keyProperty="id" resultType="int">
       CALL IDENTITY()
