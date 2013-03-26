@@ -90,6 +90,15 @@
     #end
   </select>
 
+  <select id="selectNamesWithInDirective" resultType="org.mybatis.scripting.velocity.use.Name">
+    SELECT *
+    FROM names
+       WHERE 
+       #in($_parameter.names $name 'id')
+         @{name.id}
+       #end
+  </select>
+
   <insert id="insertName" parameterType="org.mybatis.scripting.velocity.use.Name">
     <selectKey keyProperty="id" resultType="int">
       CALL IDENTITY()
