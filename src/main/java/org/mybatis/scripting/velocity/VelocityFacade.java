@@ -36,6 +36,7 @@ public class VelocityFacade {
   private static final String DIRECTIVES = TrimDirective.class.getName() 
 						    + "," + WhereDirective.class.getName() 
 						    + "," + SetDirective.class.getName() 
+						    + "," + InDirective.class.getName()
 						    + "," + RepeatDirective.class.getName();
   
   private static final RuntimeInstance engine;
