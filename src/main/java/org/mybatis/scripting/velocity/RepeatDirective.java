@@ -40,6 +40,8 @@ import org.apache.velocity.util.introspection.Info;
  */
 public class RepeatDirective extends Directive {
 
+  protected static final int MAX_IN_CLAUSE_SIZE = 1000;
+	
   /** Immutable fields */
   private String var;
   private String open = "";
@@ -149,7 +151,7 @@ public class RepeatDirective extends Directive {
       }
 
       counter++;
-      maxNbrLoopsExceeded = counter >= 1000;
+      maxNbrLoopsExceeded = counter >= MAX_IN_CLAUSE_SIZE;
 
       if (i.hasNext() && !maxNbrLoopsExceeded) {
         writer.append(separator);
@@ -236,7 +238,7 @@ public class RepeatDirective extends Directive {
     private String loopVariableKey = "";
     private boolean active = true;
 
-    private NullHolderContext(String key, InternalContextAdapter context) {
+    protected NullHolderContext(String key, InternalContextAdapter context) {
       super(context);
       if (key != null) {
         loopVariableKey = key;
