@@ -214,6 +214,57 @@ FROM City
 #end
         ]]></source>
       </subsection>
+      <subsection name="in">
+        <h5>#in( collection  var  field ) body #end</h5>
+        <p>
+          Generates a SQL IN clause and breaks it into groups of 1000 items seperated by an OR clause to get around database limitations on the maximum number of items that can be handled. 
+          It also supports iterative parameter bindings via @{...} syntax.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Arg</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>collection</td>
+              <td>List or array to iterate</td>
+              <td>List or Array</td>
+              <td>Empty List</td>
+              <td>$_parameter.selectedIds</td>
+            </tr>
+            <tr>
+              <td>var</td>
+              <td>Variable to be used in the loop</td>
+              <td>Reference</td>
+              <td></td>
+              <td>$item</td>
+            </tr>
+            <tr>
+              <td>field</td>
+              <td>Field name to be inserted before the IN clause</td>
+              <td>String</td>
+              <td>Empty String</td>
+              <td>"state_id"</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Example:</p>
+        <source><![CDATA[
+SELECT *
+FROM City
+#where()
+  #in( $_parameter.ids $id "state_id" )
+    @{id}
+  #end
+#end
+        ]]></source>
+      </subsection>
     </section>
     <section name="MyBatis specific syntax">
       <subsection name="Parameter Bindings">
