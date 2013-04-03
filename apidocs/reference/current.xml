@@ -155,6 +155,23 @@
 >
 </method>
 </class>
+<class name="InDirective"
+ extends="org.mybatis.scripting.velocity.RepeatDirective"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="InDirective"
+ type="org.mybatis.scripting.velocity.InDirective"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+</class>
 <class name="ParameterMappingCollector"
  extends="java.lang.Object"
  abstract="false"
@@ -370,6 +387,17 @@
 <exception name="ResourceNotFoundException" type="org.apache.velocity.exception.ResourceNotFoundException">
 </exception>
 </method>
+<field name="MAX_IN_CLAUSE_SIZE"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="1000"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
 <field name="uberInfo"
  type="org.apache.velocity.util.introspection.Info"
  transient="false"
@@ -389,6 +417,18 @@
  deprecated="not deprecated"
  visibility="protected"
 >
+<constructor name="RepeatDirective.NullHolderContext"
+ type="org.mybatis.scripting.velocity.RepeatDirective.NullHolderContext"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+<parameter name="context" type="org.apache.velocity.context.InternalContextAdapter">
+</parameter>
+</constructor>
 </class>
 <class name="RepeatDirective.RepeatScope"
  extends="org.apache.velocity.runtime.directive.Scope"
