@@ -18,13 +18,6 @@
   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
   name="MyBatis-Velocity">
 
-  <bannerLeft>
-    <name>MyBatis-Velocity</name>
-    <src>../images/logo.png</src>
-    <alt>MyBatis-Velocity</alt>
-    <href>index.html</href>
-  </bannerLeft>
-
   <body>
     <menu name="Documentation">
       <item name="Quick start" href="index.html"/>
