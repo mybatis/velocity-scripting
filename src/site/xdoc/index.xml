@@ -266,6 +266,47 @@ FROM City
         ]]></source>
       </subsection>
     </section>
+    <section name="User Defined Directives">
+      <p>
+      mybatis-velocity allows you to write your own velocity directive:
+      </p>
+        <ul>
+          <li>
+             Create a property file named  mybatis-velocity.properties and put in on the classpath.
+          </li>
+          <li>
+             Create your own velocity directive.
+          </li>
+          <li>
+             Add the directive to the property file.
+          </li>
+         <li>
+             Use the directive in the mapper xml file.
+            <br/>
+          </li>
+        </ul>
+        <p>Example:</p>
+
+        <source><![CDATA[
+// User defined directive
+package com.myproject.directives;
+
+public class MyDirective extends Directive {
+  
+}
+
+//mybatis-velocity.properties
+userdirective=com.myproject.directives.MyDirective,com.myproject.directives.SpecialDirective;
+
+// mapper xml file
+SELECT *
+FROM City
+  #myDirective()
+    ......
+  #end
+        ]]></source>
+
+    </section>
     <section name="MyBatis specific syntax">
       <subsection name="Parameter Bindings">
         <p>@{ property, attr1=val1, attr2=val2, ... }</p>
