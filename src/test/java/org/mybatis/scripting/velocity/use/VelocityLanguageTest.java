@@ -39,6 +39,10 @@ public class VelocityLanguageTest {
 
   protected static SqlSessionFactory sqlSessionFactory;
 
+  public enum IDS {
+    ZERO, ONE, TWO, THREE, FOUR, FIVE
+  }
+  
   @BeforeClass
   public static void setUp() throws Exception {
     Connection conn = null;
@@ -135,6 +139,22 @@ public class VelocityLanguageTest {
 
       Parameter p = new Parameter(true, "Fli");
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithFormattedParam", p);
+      assertEquals(3, answer.size());
+      for (Name n : answer) {
+        assertEquals("Flintstone", n.getLastName());
+      }
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  public void testEnumBinding() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectEnumBinding");
       assertEquals(3, answer.size());
       for (Name n : answer) {
         assertEquals("Flintstone", n.getLastName());

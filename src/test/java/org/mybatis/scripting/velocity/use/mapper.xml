@@ -107,4 +107,12 @@
     VALUES (@{firstName}, @{lastName})
   </insert>
 
+  <select id="selectEnumBinding" resultType="org.mybatis.scripting.velocity.use.Name">
+    #set( $ids = $enumBinder.bind('org.mybatis.scripting.velocity.use.VelocityLanguageTest$IDS') )
+    SELECT *
+    FROM names
+       WHERE 
+        id IN (@{ids.ONE}, @{ids.TWO}, @{ids.THREE})
+  </select>
+
 </mapper>
