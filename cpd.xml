@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="18" tokens="156">
-<file line="52" path="/home/eduardo/git/velocity-scripting/src/main/java/org/mybatis/scripting/velocity/InDirective.java"/>
-<file line="55" path="/home/eduardo/git/velocity-scripting/src/main/java/org/mybatis/scripting/velocity/RepeatDirective.java"/>
+<file line="52" path="/Users/stripodi/Documents/mybatis/velocity-scripting/target/checkout/src/main/java/org/mybatis/scripting/velocity/InDirective.java"/>
+<file line="55" path="/Users/stripodi/Documents/mybatis/velocity-scripting/target/checkout/src/main/java/org/mybatis/scripting/velocity/RepeatDirective.java"/>
 <codefragment>
 <![CDATA[
 	}

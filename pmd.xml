@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-04-03T10:39:00.800">
-<file name="/home/eduardo/git/velocity-scripting/src/main/java/org/mybatis/scripting/velocity/ParameterMappingSourceParser.java">
+<pmd version="4.3" timestamp="2013-04-25T10:39:28.974">
+<file name="/Users/stripodi/Documents/mybatis/velocity-scripting/target/checkout/src/main/java/org/mybatis/scripting/velocity/ParameterMappingSourceParser.java">
 <violation beginline="123" endline="125" begincolumn="45" endcolumn="9" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.mybatis.scripting.velocity" class="ParameterMappingSourceParser$ParameterMappingTokenHandler" method="buildParameterMapping" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
 Avoid empty if statements
 </violation>
 </file>
-<file name="/home/eduardo/git/velocity-scripting/src/main/java/org/mybatis/scripting/velocity/VelocityFacade.java">
+<file name="/Users/stripodi/Documents/mybatis/velocity-scripting/target/checkout/src/main/java/org/mybatis/scripting/velocity/VelocityFacade.java">
 <violation beginline="88" endline="90" begincolumn="7" endcolumn="5" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.mybatis.scripting.velocity" class="VelocityFacade" method="loadPropeties" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
