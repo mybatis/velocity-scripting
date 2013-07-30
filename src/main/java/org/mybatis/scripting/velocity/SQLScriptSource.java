@@ -27,6 +27,7 @@ public class SQLScriptSource implements SqlSource {
   protected static final String PARAMETER_OBJECT_KEY = "_parameter";
   protected static final String DATABASE_ID_KEY = "_databaseId";
   protected static final String MAPPING_COLLECTOR_KEY = "_pmc";
+  protected static final String VARIABLES_KEY = "_vars";
 
   private static int templateIndex = 0;
 
@@ -51,6 +52,7 @@ public class SQLScriptSource implements SqlSource {
     context.put(DATABASE_ID_KEY, configuration.getDatabaseId());
     context.put(PARAMETER_OBJECT_KEY, parameterObject);
     context.put(MAPPING_COLLECTOR_KEY, pmc);
+    context.put(VARIABLES_KEY, configuration.getVariables());
 
     final String sql = VelocityFacade.apply(compiledScript, context);
     BoundSql boundSql = new BoundSql(configuration, sql, pmc.getParameterMappings(), parameterObject);
