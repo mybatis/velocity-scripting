@@ -25,7 +25,7 @@
 
   <groupId>org.mybatis.scripting</groupId>
   <artifactId>mybatis-velocity</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>MyBatis Velocity</name>
@@ -36,7 +36,7 @@
     <url>http://github.com/mybatis/velocity-scripting</url>
     <connection>scm:git:ssh://github.com/mybatis/velocity-scripting.git</connection>
     <developerConnection>scm:git:git+ssh://git@github.com/mybatis/velocity-scripting.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>mybatis-velocity-1.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -64,7 +64,7 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.2.3-SNAPSHOT</version>
+      <version>3.2.3</version>
     </dependency>
         <dependency>
       <groupId>org.apache.velocity</groupId>
