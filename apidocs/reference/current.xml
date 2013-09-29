@@ -652,6 +652,17 @@
  visibility="protected"
 >
 </field>
+<field name="VARIABLES_KEY"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;_vars&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
 </class>
 <class name="SetDirective"
  extends="org.mybatis.scripting.velocity.TrimDirective"

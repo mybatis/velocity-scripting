@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-04-25T10:39:28.974">
+<pmd version="4.3" timestamp="2013-09-29T21:53:32.305">
 <file name="/Users/stripodi/Documents/mybatis/velocity-scripting/target/checkout/src/main/java/org/mybatis/scripting/velocity/ParameterMappingSourceParser.java">
 <violation beginline="123" endline="125" begincolumn="45" endcolumn="9" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.mybatis.scripting.velocity" class="ParameterMappingSourceParser$ParameterMappingTokenHandler" method="buildParameterMapping" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
 Avoid empty if statements
