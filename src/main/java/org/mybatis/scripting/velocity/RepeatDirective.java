@@ -16,6 +16,7 @@
 package org.mybatis.scripting.velocity;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Iterator;
 import org.apache.velocity.context.ChainedInternalContextAdapter;
@@ -90,8 +91,6 @@ public class RepeatDirective extends Directive {
   public boolean render(InternalContextAdapter context, Writer writer, Node node)
       throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
 
-    writer.append(open);
-
     Object listObject = node.jjtGetChild(0).value(context);
 
     if (listObject == null) {
@@ -125,7 +124,7 @@ public class RepeatDirective extends Directive {
     context.put(getName(), foreach);
 
     NullHolderContext nullHolderContext = null;
-
+    StringWriter buffer = new StringWriter();
     while (!maxNbrLoopsExceeded && i.hasNext()) {
       Object value = i.next();
       put(context, var, value);
@@ -137,9 +136,9 @@ public class RepeatDirective extends Directive {
           if (nullHolderContext == null) {
             nullHolderContext = new NullHolderContext(var, context);
           }
-          node.jjtGetChild(node.jjtGetNumChildren()-1).render(nullHolderContext, writer);
+          node.jjtGetChild(node.jjtGetNumChildren()-1).render(nullHolderContext, buffer);
         } else {
-          node.jjtGetChild(node.jjtGetNumChildren()-1).render(context, writer);
+          node.jjtGetChild(node.jjtGetNumChildren()-1).render(context, buffer);
         }
       } catch (StopCommand stop) {
         if (stop.isFor(this)) {
@@ -154,11 +153,16 @@ public class RepeatDirective extends Directive {
       maxNbrLoopsExceeded = counter >= MAX_IN_CLAUSE_SIZE;
 
       if (i.hasNext() && !maxNbrLoopsExceeded) {
-        writer.append(separator);
+        buffer.append(separator);
       }
 
     }
-    writer.append(close);
+    String content = buffer.toString().trim();
+    if (!"".equals(content)) {
+      writer.append(open);
+      writer.append(content);
+      writer.append(close);
+    }
     clean(context, o, collector, savedItemKey);
     return true;
 

@@ -53,6 +53,7 @@ public class TrimDirective extends Directive {
   public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
     int leftIndex = 0;
     int rightIndex = params.maxBody;
+    if (rightIndex == 0) return false;
     if (!params.prefixOverrides.isEmpty()) {
       final String LEFT = params.body.substring(0, params.maxPrefixLength < params.maxBody ? params.maxPrefixLength : params.maxBody).toUpperCase(Locale.ENGLISH);
       FastLinkedList<String>.Node n = params.prefixOverrides.start();
