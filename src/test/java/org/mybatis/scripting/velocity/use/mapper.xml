@@ -65,6 +65,14 @@
     #end
   </select>
 
+  <select id="selectWithTrim" resultType="org.mybatis.scripting.velocity.use.Name">
+    SELECT *
+    FROM names
+      #trim("WHERE" "" "" "FOOFOO")
+        1=1
+      #end    
+  </select>
+
   <select id="selectNamesWithIterationOverMap" resultType="org.mybatis.scripting.velocity.use.Name">
     SELECT *
     FROM names

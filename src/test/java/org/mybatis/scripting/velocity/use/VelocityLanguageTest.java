@@ -218,6 +218,22 @@ public class VelocityLanguageTest {
   }
 
   @Test
+  public void testTrim() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+
+      int[] ids = {};
+      Map<String, int[]> param = new HashMap<String, int[]>();
+      param.put("ids", ids);
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithTrim", param);
+      assertEquals(5, answer.size());
+
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
   public void testDynamicSelectWithIterationOverMap() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {

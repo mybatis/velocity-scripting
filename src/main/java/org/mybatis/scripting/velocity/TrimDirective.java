@@ -53,7 +53,9 @@ public class TrimDirective extends Directive {
   public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
     int leftIndex = 0;
     int rightIndex = params.maxBody;
-    if (rightIndex == 0) return false;
+    if (rightIndex == 0) {
+      return false;
+    }
     if (!params.prefixOverrides.isEmpty()) {
       final String LEFT = params.body.substring(0, params.maxPrefixLength < params.maxBody ? params.maxPrefixLength : params.maxBody).toUpperCase(Locale.ENGLISH);
       FastLinkedList<String>.Node n = params.prefixOverrides.start();
@@ -66,7 +68,7 @@ public class TrimDirective extends Directive {
       }
     }
     if (!params.suffixOverrides.isEmpty()) {
-      final String RIGHT = params.body.substring(rightIndex - params.maxSuffixLength).toUpperCase(Locale.ENGLISH);
+      final String RIGHT = params.body.substring(rightIndex > params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0).toUpperCase(Locale.ENGLISH);
       FastLinkedList<String>.Node n = params.suffixOverrides.start();
       while (n != null) {
         if (RIGHT.endsWith(n.data)) {
@@ -76,21 +78,33 @@ public class TrimDirective extends Directive {
         n = n.next;
       }
     }
-    writer.append(params.prefix).append(' ');
-    writer.append(params.body, leftIndex, rightIndex).append(' ');
-    writer.append(params.suffix);
+    if (rightIndex > leftIndex) {
+      String content = params.body.substring(leftIndex, rightIndex).trim();
+      if (!"".equals(content)) {
+        writer.append(params.prefix).append(' ');
+        writer.append(params.body, leftIndex, rightIndex).append(' ');
+        writer.append(params.suffix);
+      }
+    }
     return true;
   }
 
   protected static final class Params {
 
     String prefix = "";
+
     String suffix = "";
+
     FastLinkedList<String> prefixOverrides = new FastLinkedList<String>();
+
     FastLinkedList<String> suffixOverrides = new FastLinkedList<String>();
+
     String body = "";
+
     int maxPrefixLength = 0;
+
     int maxSuffixLength = 0;
+
     int maxBody = 0;
 
     public String getBody() {
@@ -150,16 +164,21 @@ public class TrimDirective extends Directive {
         if (!(child instanceof ASTBlock)) {
           if (i == 0) {
             params.setPrefix(String.valueOf(child.value(context)));
-          } else if (i == 1) {
+          }
+          else if (i == 1) {
             params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
-          } else if (i == 2) {
+          }
+          else if (i == 2) {
             params.setSuffix(String.valueOf(child.value(context)));
-          } else if (i == 3) {
+          }
+          else if (i == 3) {
             params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
-          } else {
+          }
+          else {
             break;
           }
-        } else {
+        }
+        else {
           StringWriter blockContent = new StringWriter();
           child.render(context, blockContent);
           params.setBody(blockContent.toString().trim());
@@ -183,7 +202,7 @@ public class TrimDirective extends Directive {
           if (len > max) {
             max = len;
           }
-          i = r+1;
+          i = r + 1;
         }
         else {
           break;
