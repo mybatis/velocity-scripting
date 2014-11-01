@@ -18,7 +18,6 @@ package org.mybatis.scripting.velocity;
 import java.io.StringWriter;
 import java.util.Properties;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

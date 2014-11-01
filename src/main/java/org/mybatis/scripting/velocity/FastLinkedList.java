@@ -22,6 +22,8 @@ import java.io.Serializable;
  */
 public final class FastLinkedList<E extends Serializable> implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   private Node first = null;
 
   private Node last = null;

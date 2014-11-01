@@ -24,12 +24,12 @@ public class TrailingWildCardFormatter {
     String param = val.toString().replaceAll("\'", "\''");
     return "'" + param + "%'";
   }
-  
+
   public String format(Object val) {
     if (val == null) {
       return "";
     }
     return val + "%";
   }
-  
+
 }
