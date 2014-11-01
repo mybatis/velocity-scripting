@@ -25,24 +25,23 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
 
-
 public class CustomUserDirective extends Directive {
 
-	@Override
-	public String getName() {
-		return "genSql";
-	}
+  @Override
+  public String getName() {
+    return "genSql";
+  }
 
-	@Override
-	public int getType() {
-		return BLOCK;
-	}
+  @Override
+  public int getType() {
+    return BLOCK;
+  }
 
-	@Override
-	public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException, ResourceNotFoundException,
-			ParseErrorException, MethodInvocationException {
-		writer.append("SELECT * FROM Names");
-		return true;
-	}
+  @Override
+  public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException, ResourceNotFoundException,
+      ParseErrorException, MethodInvocationException {
+    writer.append("SELECT * FROM Names");
+    return true;
+  }
 
 }

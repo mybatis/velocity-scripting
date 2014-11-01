@@ -42,7 +42,7 @@ public class VelocityLanguageTest {
   public enum IDS {
     ZERO, ONE, TWO, THREE, FOUR, FIVE
   }
-  
+
   @BeforeClass
   public static void setUp() throws Exception {
     Connection conn = null;
@@ -281,8 +281,8 @@ public class VelocityLanguageTest {
 
       List<Name> names = new ArrayList<Name>();
       for (int i = 0; i < 1001; i++) {
-		names.add(new Name(i));
-	}
+    names.add(new Name(i));
+  }
       
       Map<String, List<Name>> param = new HashMap<String, List<Name>>();
       param.put("names", names);
@@ -309,100 +309,100 @@ public class VelocityLanguageTest {
     }
   }
 
-	@Test
-	public void testSelectWithCustomUserDirective() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
-			List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithCustomUserDirective", param);
-			assertEquals(5, answer.size());
-		} finally {
-			sqlSession.close();
-		}
-	}
+  @Test
+  public void testSelectWithCustomUserDirective() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithCustomUserDirective", param);
+      assertEquals(5, answer.size());
+    } finally {
+      sqlSession.close();
+    }
+  }
 
-	@Test
-	public void testDynamicSelectWithInDirectiveForOneThousandPlusOne() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			List<Name> names = new ArrayList<Name>();
-			for (int i = 0; i < 1001; i++) {
-				names.add(new Name(i + 1));
-			}
+  @Test
+  public void testDynamicSelectWithInDirectiveForOneThousandPlusOne() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      List<Name> names = new ArrayList<Name>();
+      for (int i = 0; i < 1001; i++) {
+        names.add(new Name(i + 1));
+      }
 
-			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
-			param.put("names", names);
-			List<Name> answer = sqlSession
-					.selectList(
-							"org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
-							param);
-			assertEquals(5, answer.size());
-		} finally {
-			sqlSession.close();
-		}
-	}
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      param.put("names", names);
+      List<Name> answer = sqlSession
+          .selectList(
+              "org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
+              param);
+      assertEquals(5, answer.size());
+    } finally {
+      sqlSession.close();
+    }
+  }
 
-	@Test
-	public void testDynamicSelectWithInDirectiveForOneThousand() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			List<Name> names = new ArrayList<Name>();
-			for (int i = 0; i < 1000; i++) {
-				names.add(new Name(i + 1));
-			}
+  @Test
+  public void testDynamicSelectWithInDirectiveForOneThousand() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      List<Name> names = new ArrayList<Name>();
+      for (int i = 0; i < 1000; i++) {
+        names.add(new Name(i + 1));
+      }
 
-			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
-			param.put("names", names);
-			List<Name> answer = sqlSession
-					.selectList(
-							"org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
-							param);
-			assertEquals(5, answer.size());
-		} finally {
-			sqlSession.close();
-		}
-	}
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      param.put("names", names);
+      List<Name> answer = sqlSession
+          .selectList(
+              "org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
+              param);
+      assertEquals(5, answer.size());
+    } finally {
+      sqlSession.close();
+    }
+  }
 
-	@Test
-	public void testDynamicSelectWithInDirectiveForOneThousandMinusOne() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			List<Name> names = new ArrayList<Name>();
-			for (int i = 0; i < 999; i++) {
-				names.add(new Name(i + 1));
-			}
+  @Test
+  public void testDynamicSelectWithInDirectiveForOneThousandMinusOne() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      List<Name> names = new ArrayList<Name>();
+      for (int i = 0; i < 999; i++) {
+        names.add(new Name(i + 1));
+      }
 
-			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
-			param.put("names", names);
-			List<Name> answer = sqlSession
-					.selectList(
-							"org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
-							param);
-			assertEquals(5, answer.size());
-		} finally {
-			sqlSession.close();
-		}
-	}
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      param.put("names", names);
+      List<Name> answer = sqlSession
+          .selectList(
+              "org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
+              param);
+      assertEquals(5, answer.size());
+    } finally {
+      sqlSession.close();
+    }
+  }
 
-	@Test
-	public void testDynamicSelectWithInDirectiveForOneItem() {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			List<Name> names = new ArrayList<Name>();
-			for (int i = 0; i < 1; i++) {
-				names.add(new Name(i + 1));
-			}
+  @Test
+  public void testDynamicSelectWithInDirectiveForOneItem() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      List<Name> names = new ArrayList<Name>();
+      for (int i = 0; i < 1; i++) {
+        names.add(new Name(i + 1));
+      }
 
-			Map<String, List<Name>> param = new HashMap<String, List<Name>>();
-			param.put("names", names);
-			List<Name> answer = sqlSession
-					.selectList(
-							"org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
-							param);
-			assertEquals(1, answer.size());
-		} finally {
-			sqlSession.close();
-		}
-	}
-	
+      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      param.put("names", names);
+      List<Name> answer = sqlSession
+          .selectList(
+              "org.mybatis.scripting.velocity.use.selectNamesWithInDirective",
+              param);
+      assertEquals(1, answer.size());
+    } finally {
+      sqlSession.close();
+    }
+  }
+
 }

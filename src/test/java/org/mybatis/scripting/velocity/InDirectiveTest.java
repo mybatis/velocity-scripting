@@ -32,99 +32,99 @@ import org.junit.Test;
 
 public class InDirectiveTest {
 
-	static VelocityContext ctxt;
-	static VelocityEngine velocity;
+  static VelocityContext ctxt;
+  static VelocityEngine velocity;
 
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		Properties p = new Properties();
-		p.setProperty("userdirective", InDirective.class.getName());
-		velocity = new VelocityEngine();
-		velocity.init(p);
-		ctxt = new VelocityContext();
-		ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY, 
-				new ParameterMappingCollector(new ParameterMapping[]{}, new HashMap<String, Object>(), new Configuration()));
-		StringWriter writer = new StringWriter();
-		velocity.evaluate(ctxt, writer, "WARM", "1+1");
-	}
+  @BeforeClass
+  public static void setUpClass() throws Exception {
+    Properties p = new Properties();
+    p.setProperty("userdirective", InDirective.class.getName());
+    velocity = new VelocityEngine();
+    velocity.init(p);
+    ctxt = new VelocityContext();
+    ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY, 
+        new ParameterMappingCollector(new ParameterMapping[]{}, new HashMap<String, Object>(), new Configuration()));
+    StringWriter writer = new StringWriter();
+    velocity.evaluate(ctxt, writer, "WARM", "1+1");
+  }
 
-	@Test
-	public void ensureInClauseHasOne() throws Exception {
-		StringWriter w = new StringWriter();
-		ctxt.put("list", Collections.singletonList("?"));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 1);
-		assertEquals(result.split("IN").length -1, 1);
-	}
+  @Test
+  public void ensureInClauseHasOne() throws Exception {
+    StringWriter w = new StringWriter();
+    ctxt.put("list", Collections.singletonList("?"));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 1);
+    assertEquals(result.split("IN").length -1, 1);
+  }
 
-	@Test
-	public void ensureInClauseHasTwo() throws Exception {
-		StringWriter w = new StringWriter();
-		ctxt.put("list", Arrays.asList("?", "?"));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 2);
-	}
+  @Test
+  public void ensureInClauseHasTwo() throws Exception {
+    StringWriter w = new StringWriter();
+    ctxt.put("list", Arrays.asList("?", "?"));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 2);
+  }
 
-	@Test
-	public void ensureInClauseHasOneThousand() throws Exception {
-		StringWriter w = new StringWriter();
-		String[] arr = new String[1000];
-		Arrays.fill(arr, "?");
-		ctxt.put("list", Arrays.asList(arr));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 1000);
-		assertEquals(result.split("OR").length -1, 0);
-	}
+  @Test
+  public void ensureInClauseHasOneThousand() throws Exception {
+    StringWriter w = new StringWriter();
+    String[] arr = new String[1000];
+    Arrays.fill(arr, "?");
+    ctxt.put("list", Arrays.asList(arr));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 1000);
+    assertEquals(result.split("OR").length -1, 0);
+  }
 
-	@Test
-	public void ensureInClauseHasOneThousandAndOne() throws Exception {
-		StringWriter w = new StringWriter();
-		String[] arr = new String[1001];
-		Arrays.fill(arr, "?");
-		ctxt.put("list", Arrays.asList(arr));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 1001);
-		assertEquals(result.split("OR").length -1, 1);
-	}
+  @Test
+  public void ensureInClauseHasOneThousandAndOne() throws Exception {
+    StringWriter w = new StringWriter();
+    String[] arr = new String[1001];
+    Arrays.fill(arr, "?");
+    ctxt.put("list", Arrays.asList(arr));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 1001);
+    assertEquals(result.split("OR").length -1, 1);
+  }
 
-	@Test
-	public void ensureInClauseHasTwoThousand() throws Exception {
-		StringWriter w = new StringWriter();
-		String[] arr = new String[2000];
-		Arrays.fill(arr, "?");
-		ctxt.put("list", Arrays.asList(arr));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 2000);
-		assertEquals(result.split("OR").length -1, 1);
-	}
+  @Test
+  public void ensureInClauseHasTwoThousand() throws Exception {
+    StringWriter w = new StringWriter();
+    String[] arr = new String[2000];
+    Arrays.fill(arr, "?");
+    ctxt.put("list", Arrays.asList(arr));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 2000);
+    assertEquals(result.split("OR").length -1, 1);
+  }
 
-	@Test
-	public void ensureInClauseHasTwoThousandAndOne() throws Exception {
-		StringWriter w = new StringWriter();
-		String[] arr = new String[2001];
-		Arrays.fill(arr, "?");
-		ctxt.put("list", Arrays.asList(arr));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 2001);
-		assertEquals(result.split("OR").length -1, 2);
-	}
+  @Test
+  public void ensureInClauseHasTwoThousandAndOne() throws Exception {
+    StringWriter w = new StringWriter();
+    String[] arr = new String[2001];
+    Arrays.fill(arr, "?");
+    ctxt.put("list", Arrays.asList(arr));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 2001);
+    assertEquals(result.split("OR").length -1, 2);
+  }
 
-	@Test
-	public void ensureInClauseHasThreeThousandAndOne() throws Exception {
-		StringWriter w = new StringWriter();
-		String[] arr = new String[3001];
-		Arrays.fill(arr, "?");
-		ctxt.put("list", Arrays.asList(arr));
-		velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
-		String result = w.toString();
-		assertEquals(result.split("\\?").length -1, 3001);
-		assertEquals(result.split("OR").length -1, 3);
-	}
+  @Test
+  public void ensureInClauseHasThreeThousandAndOne() throws Exception {
+    StringWriter w = new StringWriter();
+    String[] arr = new String[3001];
+    Arrays.fill(arr, "?");
+    ctxt.put("list", Arrays.asList(arr));
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result.split("\\?").length -1, 3001);
+    assertEquals(result.split("OR").length -1, 3);
+  }
 
 }
