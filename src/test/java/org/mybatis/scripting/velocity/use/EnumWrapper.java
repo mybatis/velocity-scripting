@@ -23,6 +23,8 @@ import java.util.HashMap;
  */
 public class EnumWrapper extends HashMap<String, Integer> {
 
+  private static final long serialVersionUID = 1L;
+
   public EnumWrapper(Class<?> e) {
     if (e.isEnum()) {
       Object[] consts = e.getEnumConstants();
