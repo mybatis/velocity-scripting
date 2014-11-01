@@ -42,7 +42,7 @@ import org.apache.velocity.util.introspection.Info;
 public class RepeatDirective extends Directive {
 
   protected static final int MAX_IN_CLAUSE_SIZE = 1000;
-	
+
   /** Immutable fields */
   private String var;
   private String open = "";
@@ -97,7 +97,7 @@ public class RepeatDirective extends Directive {
       return false;
     }
 
-    Iterator i = null;
+    Iterator<?> i = null;
 
     try {
       i = rsvc.getUberspect().getIterator(listObject, uberInfo);
