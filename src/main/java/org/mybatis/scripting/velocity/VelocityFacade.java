@@ -47,7 +47,7 @@ public class VelocityFacade {
 
   static {
 
-	settings = loadPropeties();
+	settings = loadProperties();
     additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());
     engine = new RuntimeInstance();
     engine.init(settings);
@@ -74,7 +74,7 @@ public class VelocityFacade {
     return out.toString();
   }
 
-  private static Properties loadPropeties() {
+  private static Properties loadProperties() {
     final Properties props = new Properties();
     // Defaults
     props.setProperty("resource.loader", "class");
