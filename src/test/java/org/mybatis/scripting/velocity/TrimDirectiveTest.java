@@ -33,6 +33,7 @@ public class TrimDirectiveTest {
     Properties p = new Properties();
     p.setProperty("userdirective", TrimDirective.class.getName());
     velocity = new VelocityEngine();
+    velocity.setProperty("runtime.log", "target/velocity.log");
     velocity.init(p);
     c = new VelocityContext();
     StringWriter w =  new StringWriter();

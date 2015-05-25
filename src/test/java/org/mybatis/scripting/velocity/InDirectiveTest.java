@@ -40,6 +40,7 @@ public class InDirectiveTest {
     Properties p = new Properties();
     p.setProperty("userdirective", InDirective.class.getName());
     velocity = new VelocityEngine();
+    velocity.setProperty("runtime.log", "target/velocity.log");
     velocity.init(p);
     ctxt = new VelocityContext();
     ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY, 
