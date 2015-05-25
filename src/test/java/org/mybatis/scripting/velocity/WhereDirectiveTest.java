@@ -33,6 +33,7 @@ public class WhereDirectiveTest {
     Properties p = new Properties();
     p.setProperty("userdirective", WhereDirective.class.getName());
     velocity = new VelocityEngine();
+    velocity.setProperty("runtime.log", "target/velocity.log");
     velocity.init(p);
     c = new VelocityContext();
     StringWriter w =  new StringWriter();
