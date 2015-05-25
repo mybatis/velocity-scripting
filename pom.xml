@@ -55,8 +55,6 @@
 
   <properties>
     <findbugs.onlyAnalyze>org.mybatis.scripting.velocity.*</findbugs.onlyAnalyze>
-    <javac.src.version>1.6</javac.src.version>
-    <javac.target.version>1.6</javac.target.version>
     <gcu.product>Velocity</gcu.product>
   </properties>
 
@@ -66,7 +64,7 @@
       <artifactId>mybatis</artifactId>
       <version>3.2.8</version>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
       <version>1.7</version>
