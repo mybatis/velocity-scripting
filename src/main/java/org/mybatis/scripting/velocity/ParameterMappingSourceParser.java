@@ -25,7 +25,9 @@ import org.apache.ibatis.builder.ParameterExpression;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.parsing.TokenHandler;
+import org.apache.ibatis.reflection.DefaultReflectorFactory;
 import org.apache.ibatis.reflection.MetaClass;
+import org.apache.ibatis.reflection.ReflectorFactory;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 
@@ -86,7 +88,8 @@ public class ParameterMappingSourceParser {
       } else if (JdbcType.CURSOR.name().equals(jdbcType)) {
         propertyType = java.sql.ResultSet.class;
       } else if (property != null) {
-        MetaClass metaClass = MetaClass.forClass(parameterType);
+        ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
+        MetaClass metaClass = MetaClass.forClass(parameterType, reflectorFactory);
         if (metaClass.hasGetter(property)) {
           propertyType = metaClass.getGetterType(property);
         } else {
