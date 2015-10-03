@@ -9,6 +9,8 @@ MyBatis Velocity Support
 
 Mybatis Velocity Scripting Support.
 
+Version 1.2 requires mybatis 3.3.0
+
 Essentials
 ----------
 
