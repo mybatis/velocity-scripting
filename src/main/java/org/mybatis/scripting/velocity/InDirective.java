@@ -66,7 +66,7 @@ public class InDirective extends RepeatDirective {
       Node child = node.jjtGetChild(i);
       if (i == 1) {
         if (child.getType() == ParserTreeConstants.JJTREFERENCE) {
-          var = ((ASTReference) child).getRootString();
+          this.var = ((ASTReference) child).getRootString();
         }
         else {
           throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
@@ -78,13 +78,15 @@ public class InDirective extends RepeatDirective {
           case 2:
             this.column = value;
             break;
+          default:
+            break;
         }
       }
       else {
         throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
       }
     }
-    uberInfo = new Info(this.getTemplateName(), getLine(), getColumn());
+    this.uberInfo = new Info(this.getTemplateName(), getLine(), getColumn());
   }
 
   @Override
@@ -98,14 +100,14 @@ public class InDirective extends RepeatDirective {
     Iterator<?> iterator = null;
 
     try {
-      iterator = this.rsvc.getUberspect().getIterator(listObject, uberInfo);
+      iterator = this.rsvc.getUberspect().getIterator(listObject, this.uberInfo);
     }
     catch (RuntimeException e) {
       throw e;
     }
     catch (Exception ee) {
-      String msg = "Error getting iterator for #in at " + uberInfo;
-      rsvc.getLog().error(msg, ee);
+      String msg = "Error getting iterator for #in at " + this.uberInfo;
+      this.rsvc.getLog().error(msg, ee);
       throw new VelocityException(msg, ee);
     }
 
@@ -119,7 +121,7 @@ public class InDirective extends RepeatDirective {
     ParameterMappingCollector collector = (ParameterMappingCollector) context.get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
     String savedItemKey = collector.getItemKey();
     collector.setItemKey(this.var);
-    RepeatScope foreach = new RepeatScope(this, context.get(getName()), var);
+    RepeatScope foreach = new RepeatScope(this, context.get(getName()), this.var);
     context.put(getName(), foreach);
 
     NullHolderContext nullHolderContext = null;
@@ -155,10 +157,11 @@ public class InDirective extends RepeatDirective {
         if (stop.isFor(this)) {
           break;
         }
-        else {
-          clean(context, o, collector, savedItemKey);
-          throw stop;
-        }
+        clean(context, o, collector, savedItemKey);
+        // close does not perform any action and this is here 
+        // to avoid eclipse reporting possible leak.
+        buffer.close();
+        throw stop;
       }
       counter++;
 

@@ -63,7 +63,7 @@ public class RepeatDirective extends Directive {
       Node child = node.jjtGetChild(i);
       if (i == 1) {
         if (child.getType() == ParserTreeConstants.JJTREFERENCE) {
-          var = ((ASTReference) child).getRootString();
+          this.var = ((ASTReference) child).getRootString();
         } else {
           throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
         }
@@ -71,20 +71,22 @@ public class RepeatDirective extends Directive {
         String value = (String) ((ASTStringLiteral)child).value(context);
         switch (i) {
           case 2:
-            separator = value;
+            this.separator = value;
             break;
           case 3:
-            open = value;
+            this.open = value;
             break;
           case 4:
-            close = value;
+            this.close = value;
+            break;
+          default:
             break;
         }
       } else {
         throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
       }
     }
-    uberInfo = new Info(this.getTemplateName(), getLine(), getColumn());
+    this.uberInfo = new Info(this.getTemplateName(), getLine(), getColumn());
   }
 
   @Override
@@ -100,12 +102,12 @@ public class RepeatDirective extends Directive {
     Iterator<?> i = null;
 
     try {
-      i = rsvc.getUberspect().getIterator(listObject, uberInfo);
+      i = this.rsvc.getUberspect().getIterator(listObject, this.uberInfo);
     } catch (RuntimeException e) {
       throw e;
     } catch (Exception ee) {
-      String msg = "Error getting iterator for #repeat at " + uberInfo;
-      rsvc.getLog().error(msg, ee);
+      String msg = "Error getting iterator for #repeat at " + this.uberInfo;
+      this.rsvc.getLog().error(msg, ee);
       throw new VelocityException(msg, ee);
     }
 
@@ -115,26 +117,26 @@ public class RepeatDirective extends Directive {
 
     int counter = 0;
     boolean maxNbrLoopsExceeded = false;
-    Object o = context.get(var);
+    Object o = context.get(this.var);
 
     ParameterMappingCollector collector = (ParameterMappingCollector) context.get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
     String savedItemKey = collector.getItemKey();
-    collector.setItemKey(var);
-    RepeatScope foreach = new RepeatScope(this, context.get(getName()), var);
+    collector.setItemKey(this.var);
+    RepeatScope foreach = new RepeatScope(this, context.get(getName()), this.var);
     context.put(getName(), foreach);
 
     NullHolderContext nullHolderContext = null;
     StringWriter buffer = new StringWriter();
     while (!maxNbrLoopsExceeded && i.hasNext()) {
       Object value = i.next();
-      put(context, var, value);
+      put(context, this.var, value);
       foreach.index++;
       foreach.hasNext = i.hasNext();
 
       try {
         if (value == null) {
           if (nullHolderContext == null) {
-            nullHolderContext = new NullHolderContext(var, context);
+            nullHolderContext = new NullHolderContext(this.var, context);
           }
           node.jjtGetChild(node.jjtGetNumChildren()-1).render(nullHolderContext, buffer);
         } else {
@@ -143,25 +145,27 @@ public class RepeatDirective extends Directive {
       } catch (StopCommand stop) {
         if (stop.isFor(this)) {
           break;
-        } else {
-          clean(context, o, collector, savedItemKey);
-          throw stop;
         }
+        clean(context, o, collector, savedItemKey);
+        // close does not perform any action and this is here 
+        // to avoid eclipse reporting possible leak.
+        buffer.close();
+        throw stop;
       }
 
       counter++;
       maxNbrLoopsExceeded = counter >= MAX_IN_CLAUSE_SIZE;
 
       if (i.hasNext() && !maxNbrLoopsExceeded) {
-        buffer.append(separator);
+        buffer.append(this.separator);
       }
 
     }
     String content = buffer.toString().trim();
     if (!"".equals(content)) {
-      writer.append(open);
+      writer.append(this.open);
       writer.append(content);
-      writer.append(close);
+      writer.append(this.close);
     }
     clean(context, o, collector, savedItemKey);
     return true;
@@ -171,9 +175,9 @@ public class RepeatDirective extends Directive {
   protected void clean(InternalContextAdapter context,
       Object o, ParameterMappingCollector collector, String savedItemKey) {
     if (o != null) {
-      context.put(var, o);
+      context.put(this.var, o);
     } else {
-      context.remove(var);
+      context.remove(this.var);
     }
     collector.setItemKey(savedItemKey);
     postRender(context);
@@ -194,17 +198,17 @@ public class RepeatDirective extends Directive {
     protected boolean hasNext = false;
     protected final String var;
 
-    public RepeatScope(Object owner, Object replaces, String var) {
-      super(owner, replaces);
-      this.var = var;
+    public RepeatScope(Object newOwner, Object replaces, String newVar) {
+      super(newOwner, replaces);
+      this.var = newVar;
     }
 
     public int getIndex() {
-      return index;
+      return this.index;
     }
 
     public int getCount() {
-      return index + 1;
+      return this.index + 1;
     }
 
     public boolean hasNext() {
@@ -212,11 +216,11 @@ public class RepeatDirective extends Directive {
     }
 
     public boolean getHasNext() {
-      return hasNext;
+      return this.hasNext;
     }
 
     public boolean isFirst() {
-      return index < 1;
+      return this.index < 1;
     }
 
     public boolean getFirst() {
@@ -224,7 +228,7 @@ public class RepeatDirective extends Directive {
     }
 
     public boolean isLast() {
-      return !hasNext;
+      return !this.hasNext;
     }
 
     public boolean getLast() {
@@ -232,7 +236,7 @@ public class RepeatDirective extends Directive {
     }
 
     public String getVar() {
-      return var;
+      return this.var;
     }
 
   }
@@ -245,21 +249,21 @@ public class RepeatDirective extends Directive {
     protected NullHolderContext(String key, InternalContextAdapter context) {
       super(context);
       if (key != null) {
-        loopVariableKey = key;
+        this.loopVariableKey = key;
       }
     }
 
     @Override
     public Object get(String key) throws MethodInvocationException {
-      return (active && loopVariableKey.equals(key))
+      return (this.active && this.loopVariableKey.equals(key))
           ? null
           : super.get(key);
     }
 
     @Override
     public Object put(String key, Object value) {
-      if (loopVariableKey.equals(key) && (value == null)) {
-        active = true;
+      if (this.loopVariableKey.equals(key) && (value == null)) {
+        this.active = true;
       }
 
       return super.put(key, value);
@@ -272,8 +276,8 @@ public class RepeatDirective extends Directive {
 
     @Override
     public Object remove(Object key) {
-      if (loopVariableKey.equals(key)) {
-        active = false;
+      if (this.loopVariableKey.equals(key)) {
+        this.active = false;
       }
       return super.remove(key);
     }

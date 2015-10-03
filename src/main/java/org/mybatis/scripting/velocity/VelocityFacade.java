@@ -34,13 +34,13 @@ public class VelocityFacade {
   private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = "additional.context.attributes";
   private static final String EXTERNAL_PROPERTIES = "mybatis-velocity.properties";
   private static final String DIRECTIVES = TrimDirective.class.getName() 
-						    + "," + WhereDirective.class.getName() 
-						    + "," + SetDirective.class.getName() 
-						    + "," + InDirective.class.getName()
-						    + "," + RepeatDirective.class.getName();
-  
+                                   + "," + WhereDirective.class.getName() 
+                                   + "," + SetDirective.class.getName() 
+                                   + "," + InDirective.class.getName()
+                                   + "," + RepeatDirective.class.getName();
+
   private static final RuntimeInstance engine;
-  
+
   /** Contains thread safe objects to be set in the velocity context.*/
   private static final Map<String, Object> additionalCtxAttributes;
   private static final Properties settings;
@@ -79,8 +79,7 @@ public class VelocityFacade {
     // Defaults
     props.setProperty("resource.loader", "class");
     props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-    
-    
+
     try {
       // External properties
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -88,13 +87,13 @@ public class VelocityFacade {
     } catch (Exception ex) {
       // No custom properties
     }
-    
+
     // Append the user defined directives if provided
     String userDirective = StringUtils.nullTrim(props.getProperty("userdirective"));
     if(userDirective == null) {
-    	userDirective = DIRECTIVES;
+      userDirective = DIRECTIVES;
     } else {
-    	userDirective += "," + DIRECTIVES;
+      userDirective += "," + DIRECTIVES;
     }
     props.setProperty("userdirective", userDirective);
     return props;

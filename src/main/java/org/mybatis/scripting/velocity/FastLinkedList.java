@@ -29,26 +29,26 @@ public final class FastLinkedList<E extends Serializable> implements Serializabl
   private Node last = null;
 
   public FastLinkedList() {
-    last = first;
+    this.last = this.first;
   }
 
   public boolean isEmpty() {
-    return first == null;
+    return this.first == null;
   }
 
   public Node start() {
-    return first;
+    return this.first;
   }
 
   public void add(E e) {
     final Node n = new Node(e);
-    if (first == null) {
-      first = n;
-      last = first;
+    if (this.first == null) {
+      this.first = n;
+      this.last = this.first;
     }
     else {
-      last.next = n;
-      last = n;
+      this.last.next = n;
+      this.last = n;
     }
   }
 
@@ -57,12 +57,12 @@ public final class FastLinkedList<E extends Serializable> implements Serializabl
     final E data;
     Node next;
 
-    public Node(E data) {
-      this.data = data;
+    public Node(E newData) {
+      this.data = newData;
     }
 
     public boolean hasNext() {
-      return next != null;
+      return this.next != null;
     }
 
   }

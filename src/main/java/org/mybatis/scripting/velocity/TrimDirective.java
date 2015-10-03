@@ -45,9 +45,7 @@ public class TrimDirective extends Directive {
     if (p == null) {
       return false;
     }
-    else {
-      return render(p, writer);
-    }
+    return render(p, writer);
   }
 
   public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
@@ -108,49 +106,49 @@ public class TrimDirective extends Directive {
     int maxBody = 0;
 
     public String getBody() {
-      return body;
+      return this.body;
     }
 
-    public void setBody(String body) {
-      if (body == null) {
+    public void setBody(String value) {
+      if (value == null) {
         this.body = "";
       }
       else {
-        this.body = body.trim();
+        this.body = value.trim();
       }
-      maxBody = this.body.length();
+      this.maxBody = this.body.length();
     }
 
     public String getPrefix() {
-      return prefix;
+      return this.prefix;
     }
 
-    public void setPrefix(String prefix) {
-      this.prefix = prefix;
+    public void setPrefix(String value) {
+      this.prefix = value;
     }
 
     public FastLinkedList<String> getPrefixOverrides() {
-      return prefixOverrides;
+      return this.prefixOverrides;
     }
 
     public void setPrefixOverrides(String list) {
-      maxPrefixLength = fromStringList(list, '|', prefixOverrides);
+      this.maxPrefixLength = fromStringList(list, '|', this.prefixOverrides);
     }
 
     public FastLinkedList<String> getSuffixOverrides() {
-      return suffixOverrides;
+      return this.suffixOverrides;
     }
 
     public void setSuffixOverrides(String list) {
-      maxSuffixLength = fromStringList(list, '|', suffixOverrides);
+      this.maxSuffixLength = fromStringList(list, '|', this.suffixOverrides);
     }
 
     public String getSuffix() {
-      return suffix;
+      return this.suffix;
     }
 
-    public void setSuffix(String suffix) {
-      this.suffix = suffix;
+    public void setSuffix(String value) {
+      this.suffix = value;
     }
 
   }
@@ -189,7 +187,7 @@ public class TrimDirective extends Directive {
     return params;
   }
 
-  private static int fromStringList(final String list, final char sep, final FastLinkedList<String> fll) {
+  static int fromStringList(final String list, final char sep, final FastLinkedList<String> fll) {
     int max = 0;
     if (list != null) {
       final int n = list.length();

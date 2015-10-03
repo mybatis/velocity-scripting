@@ -42,16 +42,16 @@ public class ParameterMappingSourceParser {
   public ParameterMappingSourceParser(Configuration configuration, String script, Class<?> parameterType) {
     ParameterMappingTokenHandler handler = new ParameterMappingTokenHandler(configuration, parameterType);
     GenericTokenParser parser = new GenericTokenParser("@{", "}", handler);
-    sql = parser.parse(script);
-    parameterMappingSources = handler.getParameterMappingSources();
+    this.sql = parser.parse(script);
+    this.parameterMappingSources = handler.getParameterMappingSources();
   }
 
   public ParameterMapping[] getParameterMappingSources() {
-    return parameterMappingSources;
+    return this.parameterMappingSources;
   }
 
   public String getSql() {
-    return sql;
+    return this.sql;
   }
 
   private static class ParameterMappingTokenHandler extends BaseBuilder implements TokenHandler {
@@ -59,20 +59,20 @@ public class ParameterMappingSourceParser {
     private final List<ParameterMapping> parameterMappings = new ArrayList<ParameterMapping>();
     private final Class<?> parameterType;
 
-    public ParameterMappingTokenHandler(Configuration configuration, Class<?> parameterType) {
-      super(configuration);
-      this.parameterType = parameterType;
+    public ParameterMappingTokenHandler(Configuration newConfiguration, Class<?> newParameterType) {
+      super(newConfiguration);
+      this.parameterType = newParameterType;
     }
 
     public ParameterMapping[] getParameterMappingSources() {
-      return parameterMappings.toArray(new ParameterMapping[parameterMappings.size()]);
+      return this.parameterMappings.toArray(new ParameterMapping[this.parameterMappings.size()]);
     }
 
     @Override
     public String handleToken(String content) {
-      int index = parameterMappings.size();
+      int index = this.parameterMappings.size();
       ParameterMapping pm = buildParameterMapping(content);
-      parameterMappings.add(pm);
+      this.parameterMappings.add(pm);
       return new StringBuilder()
           .append('$').append(SQLScriptSource.MAPPING_COLLECTOR_KEY)
           .append(".g(").append(index).append(")").toString();
@@ -83,13 +83,13 @@ public class ParameterMappingSourceParser {
       String property = propertiesMap.get("property");
       String jdbcType = propertiesMap.get("jdbcType");
       Class<?> propertyType;
-      if (typeHandlerRegistry.hasTypeHandler(parameterType)) {
-        propertyType = parameterType;
+      if (this.typeHandlerRegistry.hasTypeHandler(this.parameterType)) {
+        propertyType = this.parameterType;
       } else if (JdbcType.CURSOR.name().equals(jdbcType)) {
         propertyType = java.sql.ResultSet.class;
       } else if (property != null) {
         ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
-        MetaClass metaClass = MetaClass.forClass(parameterType, reflectorFactory);
+        MetaClass metaClass = MetaClass.forClass(this.parameterType, reflectorFactory);
         if (metaClass.hasGetter(property)) {
           propertyType = metaClass.getGetterType(property);
         } else {
@@ -98,7 +98,7 @@ public class ParameterMappingSourceParser {
       } else {
         propertyType = Object.class;
       }
-      ParameterMapping.Builder builder = new ParameterMapping.Builder(configuration, property, propertyType);
+      ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, property, propertyType);
       if (jdbcType != null) {
         builder.jdbcType(resolveJdbcType(jdbcType));
       }
