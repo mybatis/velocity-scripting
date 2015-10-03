@@ -24,32 +24,32 @@ public class Name {
   public Name() {
   }
 
-  public Name(int id) {
-    this.id = id;
+  public Name(int value) {
+    this.id = value;
   }
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setFirstName(String value) {
+    this.firstName = value;
   }
 
   public String getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setLastName(String value) {
+    this.lastName = value;
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setId(int value) {
+    this.id = value;
   }
 
 

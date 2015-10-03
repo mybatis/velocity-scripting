@@ -78,6 +78,8 @@ public class InDirective extends RepeatDirective {
           case 2:
             this.column = value;
             break;
+          default:
+            break;
         }
       }
       else {
@@ -155,10 +157,11 @@ public class InDirective extends RepeatDirective {
         if (stop.isFor(this)) {
           break;
         }
-        else {
-          clean(context, o, collector, savedItemKey);
-          throw stop;
-        }
+        clean(context, o, collector, savedItemKey);
+        // close does not perform any action and this is here 
+        // to avoid eclipse reporting possible leak.
+        buffer.close();
+        throw stop;
       }
       counter++;
 

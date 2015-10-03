@@ -31,14 +31,14 @@ public class ParameterMappingCollector {
   private int uid = 0;
   private String itemKey;
 
-  public ParameterMappingCollector(ParameterMapping[] parameterMappingSources, Map<String, Object> context, Configuration configuration) {
-    this.parameterMappingSources = parameterMappingSources;
-    this.context = context;
-    this.configuration = configuration;
+  public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map<String, Object> newContext, Configuration newConfiguration) {
+    this.parameterMappingSources = newParameterMappingSources;
+    this.context = newContext;
+    this.configuration = newConfiguration;
   }
 
-  public void setItemKey(String itemKey) {
-    this.itemKey = itemKey;
+  public void setItemKey(String value) {
+    this.itemKey = value;
   }
 
   public String getItemKey() {
@@ -91,10 +91,13 @@ public class ParameterMappingCollector {
     return i;
   }
 
-  private static class PropertyInfo {
+  static class PropertyInfo {
     boolean isIterable = false;
     String root = "";
     String path = "";
+    public PropertyInfo() {
+        // Prevent synthetic access
+    }
   }
 
 }

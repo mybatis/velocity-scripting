@@ -57,8 +57,8 @@ public final class FastLinkedList<E extends Serializable> implements Serializabl
     final E data;
     Node next;
 
-    public Node(E data) {
-      this.data = data;
+    public Node(E newData) {
+      this.data = newData;
     }
 
     public boolean hasNext() {

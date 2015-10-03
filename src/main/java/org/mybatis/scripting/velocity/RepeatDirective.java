@@ -79,6 +79,8 @@ public class RepeatDirective extends Directive {
           case 4:
             this.close = value;
             break;
+          default:
+            break;
         }
       } else {
         throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
@@ -143,10 +145,12 @@ public class RepeatDirective extends Directive {
       } catch (StopCommand stop) {
         if (stop.isFor(this)) {
           break;
-        } else {
-          clean(context, o, collector, savedItemKey);
-          throw stop;
         }
+        clean(context, o, collector, savedItemKey);
+        // close does not perform any action and this is here 
+        // to avoid eclipse reporting possible leak.
+        buffer.close();
+        throw stop;
       }
 
       counter++;
@@ -194,9 +198,9 @@ public class RepeatDirective extends Directive {
     protected boolean hasNext = false;
     protected final String var;
 
-    public RepeatScope(Object owner, Object replaces, String var) {
-      super(owner, replaces);
-      this.var = var;
+    public RepeatScope(Object newOwner, Object replaces, String newVar) {
+      super(newOwner, replaces);
+      this.var = newVar;
     }
 
     public int getIndex() {

@@ -33,18 +33,12 @@ public class Driver implements LanguageDriver {
 
   @Override
   public SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterTypeClass) {
-    if (parameterTypeClass == null) {
-      parameterTypeClass = Object.class;
-    }
-    return new SQLScriptSource(configuration, script.getNode().getTextContent(), parameterTypeClass);
+    return new SQLScriptSource(configuration, script.getNode().getTextContent(), parameterTypeClass == null ? Object.class : parameterTypeClass);
   }
 
   @Override
   public SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterTypeClass) {
-    if (parameterTypeClass == null) {
-      parameterTypeClass = Object.class;
-    }
-    return new SQLScriptSource(configuration, script, parameterTypeClass);
+    return new SQLScriptSource(configuration, script, parameterTypeClass == null ? Object.class : parameterTypeClass);
   }
 
 }

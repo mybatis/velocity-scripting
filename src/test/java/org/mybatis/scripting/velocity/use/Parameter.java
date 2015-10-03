@@ -21,9 +21,9 @@ public class Parameter {
 
   private final String name;
 
-  public Parameter(boolean includeLastName, String name) {
-    this.includeLastName = includeLastName;
-    this.name = name;
+  public Parameter(boolean newIncludeLastName, String newName) {
+    this.includeLastName = newIncludeLastName;
+    this.name = newName;
   }
 
   public boolean isIncludeLastName() {

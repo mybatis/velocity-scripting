@@ -35,12 +35,11 @@ public class SQLScriptSource implements SqlSource {
   private final Object compiledScript;
   private final Configuration configuration;
 
-  public SQLScriptSource(Configuration configuration, String script, Class<?> parameterTypeClass) {
-    this.configuration = configuration;
-    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(configuration, script, parameterTypeClass);
+  public SQLScriptSource(Configuration newConfiguration, String script, Class<?> parameterTypeClass) {
+    this.configuration = newConfiguration;
+    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(newConfiguration, script, parameterTypeClass);
     this.parameterMappingSources = mappingParser.getParameterMappingSources();
-    script = mappingParser.getSql();
-    this.compiledScript = VelocityFacade.compile(script, "velocity-template-" + (++templateIndex));
+    this.compiledScript = VelocityFacade.compile(mappingParser.getSql(), "velocity-template-" + (++templateIndex));
   }
 
   @Override

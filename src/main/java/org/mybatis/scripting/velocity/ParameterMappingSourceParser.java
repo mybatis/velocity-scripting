@@ -59,9 +59,9 @@ public class ParameterMappingSourceParser {
     private final List<ParameterMapping> parameterMappings = new ArrayList<ParameterMapping>();
     private final Class<?> parameterType;
 
-    public ParameterMappingTokenHandler(Configuration configuration, Class<?> parameterType) {
-      super(configuration);
-      this.parameterType = parameterType;
+    public ParameterMappingTokenHandler(Configuration newConfiguration, Class<?> newParameterType) {
+      super(newConfiguration);
+      this.parameterType = newParameterType;
     }
 
     public ParameterMapping[] getParameterMappingSources() {
