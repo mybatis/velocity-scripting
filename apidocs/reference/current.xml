@@ -48,7 +48,7 @@
 >
 <parameter name="configuration" type="org.apache.ibatis.session.Configuration">
 </parameter>
-<parameter name="script" type="java.lang.String">
+<parameter name="script" type="org.apache.ibatis.parsing.XNode">
 </parameter>
 <parameter name="parameterTypeClass" type="java.lang.Class&lt;?&gt;">
 </parameter>
@@ -65,7 +65,7 @@
 >
 <parameter name="configuration" type="org.apache.ibatis.session.Configuration">
 </parameter>
-<parameter name="script" type="org.apache.ibatis.parsing.XNode">
+<parameter name="script" type="java.lang.String">
 </parameter>
 <parameter name="parameterTypeClass" type="java.lang.Class&lt;?&gt;">
 </parameter>
@@ -140,7 +140,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="data" type="E">
+<parameter name="newData" type="E">
 </parameter>
 </constructor>
 <method name="hasNext"
@@ -187,11 +187,11 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="parameterMappingSources" type="org.apache.ibatis.mapping.ParameterMapping[]">
+<parameter name="newParameterMappingSources" type="org.apache.ibatis.mapping.ParameterMapping[]">
 </parameter>
-<parameter name="context" type="java.util.Map&lt;java.lang.String, java.lang.Object&gt;">
+<parameter name="newContext" type="java.util.Map&lt;java.lang.String, java.lang.Object&gt;">
 </parameter>
-<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+<parameter name="newConfiguration" type="org.apache.ibatis.session.Configuration">
 </parameter>
 </constructor>
 <method name="g"
@@ -239,7 +239,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="itemKey" type="java.lang.String">
+<parameter name="value" type="java.lang.String">
 </parameter>
 </method>
 </class>
@@ -445,11 +445,11 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="owner" type="java.lang.Object">
+<parameter name="newOwner" type="java.lang.Object">
 </parameter>
 <parameter name="replaces" type="java.lang.Object">
 </parameter>
-<parameter name="var" type="java.lang.String">
+<parameter name="newVar" type="java.lang.String">
 </parameter>
 </constructor>
 <method name="getCount"
@@ -599,7 +599,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="configuration" type="org.apache.ibatis.session.Configuration">
+<parameter name="newConfiguration" type="org.apache.ibatis.session.Configuration">
 </parameter>
 <parameter name="script" type="java.lang.String">
 </parameter>
@@ -872,7 +872,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="body" type="java.lang.String">
+<parameter name="value" type="java.lang.String">
 </parameter>
 </method>
 <method name="setPrefix"
@@ -885,7 +885,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="prefix" type="java.lang.String">
+<parameter name="value" type="java.lang.String">
 </parameter>
 </method>
 <method name="setPrefixOverrides"
@@ -911,7 +911,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="suffix" type="java.lang.String">
+<parameter name="value" type="java.lang.String">
 </parameter>
 </method>
 <method name="setSuffixOverrides"

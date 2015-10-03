@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TrimDirective.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">TrimDirective.java</span></div><h1>TrimDirective.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2012-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package org.mybatis.scripting.velocity;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Locale;
+import org.apache.velocity.context.InternalContextAdapter;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.directive.Directive;
+import org.apache.velocity.runtime.parser.node.ASTBlock;
+import org.apache.velocity.runtime.parser.node.Node;
+
+<span class="fc" id="L30">public class TrimDirective extends Directive {</span>
+
+  @Override
+  public String getName() {
+<span class="fc" id="L34">    return &quot;trim&quot;;</span>
+  }
+
+  @Override
+  public final int getType() {
+<span class="fc" id="L39">    return BLOCK;</span>
+  }
+
+  @Override
+  public final boolean render(InternalContextAdapter ica, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+<span class="fc" id="L44">    Params p = getParams(ica, node);</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (p == null) {</span>
+<span class="nc" id="L46">      return false;</span>
+    }
+<span class="fc" id="L48">    return render(p, writer);</span>
+  }
+
+  public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+<span class="fc" id="L52">    int leftIndex = 0;</span>
+<span class="fc" id="L53">    int rightIndex = params.maxBody;</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    if (rightIndex == 0) {</span>
+<span class="fc" id="L55">      return false;</span>
+    }
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    if (!params.prefixOverrides.isEmpty()) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">      final String LEFT = params.body.substring(0, params.maxPrefixLength &lt; params.maxBody ? params.maxPrefixLength : params.maxBody).toUpperCase(Locale.ENGLISH);</span>
+<span class="fc" id="L59">      FastLinkedList&lt;String&gt;.Node n = params.prefixOverrides.start();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">      while (n != null) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (LEFT.startsWith(n.data)) {</span>
+<span class="fc" id="L62">          leftIndex = n.data.length();</span>
+<span class="fc" id="L63">          break;</span>
+        }
+<span class="fc" id="L65">        n = n.next;</span>
+      }
+    }
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    if (!params.suffixOverrides.isEmpty()) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">      final String RIGHT = params.body.substring(rightIndex &gt; params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0).toUpperCase(Locale.ENGLISH);</span>
+<span class="fc" id="L70">      FastLinkedList&lt;String&gt;.Node n = params.suffixOverrides.start();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">      while (n != null) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (RIGHT.endsWith(n.data)) {</span>
+<span class="fc" id="L73">          rightIndex = rightIndex - n.data.length();</span>
+<span class="fc" id="L74">          break;</span>
+        }
+<span class="fc" id="L76">        n = n.next;</span>
+      }
+    }
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    if (rightIndex &gt; leftIndex) {</span>
+<span class="fc" id="L80">      String content = params.body.substring(leftIndex, rightIndex).trim();</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">      if (!&quot;&quot;.equals(content)) {</span>
+<span class="fc" id="L82">        writer.append(params.prefix).append(' ');</span>
+<span class="fc" id="L83">        writer.append(params.body, leftIndex, rightIndex).append(' ');</span>
+<span class="fc" id="L84">        writer.append(params.suffix);</span>
+      }
+    }
+<span class="fc" id="L87">    return true;</span>
+  }
+
+<span class="fc" id="L90">  protected static final class Params {</span>
+
+<span class="fc" id="L92">    String prefix = &quot;&quot;;</span>
+
+<span class="fc" id="L94">    String suffix = &quot;&quot;;</span>
+
+<span class="fc" id="L96">    FastLinkedList&lt;String&gt; prefixOverrides = new FastLinkedList&lt;String&gt;();</span>
+
+<span class="fc" id="L98">    FastLinkedList&lt;String&gt; suffixOverrides = new FastLinkedList&lt;String&gt;();</span>
+
+<span class="fc" id="L100">    String body = &quot;&quot;;</span>
+
+<span class="fc" id="L102">    int maxPrefixLength = 0;</span>
+
+<span class="fc" id="L104">    int maxSuffixLength = 0;</span>
+
+<span class="fc" id="L106">    int maxBody = 0;</span>
+
+    public String getBody() {
+<span class="nc" id="L109">      return this.body;</span>
+    }
+
+    public void setBody(String value) {
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">      if (value == null) {</span>
+<span class="nc" id="L114">        this.body = &quot;&quot;;</span>
+      }
+      else {
+<span class="fc" id="L117">        this.body = value.trim();</span>
+      }
+<span class="fc" id="L119">      this.maxBody = this.body.length();</span>
+<span class="fc" id="L120">    }</span>
+
+    public String getPrefix() {
+<span class="nc" id="L123">      return this.prefix;</span>
+    }
+
+    public void setPrefix(String value) {
+<span class="fc" id="L127">      this.prefix = value;</span>
+<span class="fc" id="L128">    }</span>
+
+    public FastLinkedList&lt;String&gt; getPrefixOverrides() {
+<span class="nc" id="L131">      return this.prefixOverrides;</span>
+    }
+
+    public void setPrefixOverrides(String list) {
+<span class="fc" id="L135">      this.maxPrefixLength = fromStringList(list, '|', this.prefixOverrides);</span>
+<span class="fc" id="L136">    }</span>
+
+    public FastLinkedList&lt;String&gt; getSuffixOverrides() {
+<span class="nc" id="L139">      return this.suffixOverrides;</span>
+    }
+
+    public void setSuffixOverrides(String list) {
+<span class="fc" id="L143">      this.maxSuffixLength = fromStringList(list, '|', this.suffixOverrides);</span>
+<span class="fc" id="L144">    }</span>
+
+    public String getSuffix() {
+<span class="nc" id="L147">      return this.suffix;</span>
+    }
+
+    public void setSuffix(String value) {
+<span class="fc" id="L151">      this.suffix = value;</span>
+<span class="fc" id="L152">    }</span>
+
+  }
+
+  protected Params getParams(final InternalContextAdapter context, final Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+<span class="fc" id="L157">    final Params params = new Params();</span>
+<span class="fc" id="L158">    final int nodes = node.jjtGetNumChildren();</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">    for (int i = 0; i &lt; nodes; i++) {</span>
+<span class="fc" id="L160">      Node child = node.jjtGetChild(i);</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">      if (child != null) {</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        if (!(child instanceof ASTBlock)) {</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">          if (i == 0) {</span>
+<span class="fc" id="L164">            params.setPrefix(String.valueOf(child.value(context)));</span>
+          }
+<span class="fc bfc" id="L166" title="All 2 branches covered.">          else if (i == 1) {</span>
+<span class="fc" id="L167">            params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
+          }
+<span class="fc bfc" id="L169" title="All 2 branches covered.">          else if (i == 2) {</span>
+<span class="fc" id="L170">            params.setSuffix(String.valueOf(child.value(context)));</span>
+          }
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">          else if (i == 3) {</span>
+<span class="fc" id="L173">            params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
+          }
+          else {
+            break;
+          }
+        }
+        else {
+<span class="fc" id="L180">          StringWriter blockContent = new StringWriter();</span>
+<span class="fc" id="L181">          child.render(context, blockContent);</span>
+<span class="fc" id="L182">          params.setBody(blockContent.toString().trim());</span>
+<span class="fc" id="L183">          break;</span>
+        }
+      }
+    }
+<span class="fc" id="L187">    return params;</span>
+  }
+
+  static int fromStringList(final String list, final char sep, final FastLinkedList&lt;String&gt; fll) {
+<span class="fc" id="L191">    int max = 0;</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">    if (list != null) {</span>
+<span class="fc" id="L193">      final int n = list.length();</span>
+<span class="fc" id="L194">      int i = 0;</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">      while (i &lt; n) {</span>
+<span class="fc" id="L196">        int r = list.indexOf(sep, i);</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (i &lt; r) {</span>
+<span class="fc" id="L198">          fll.add(list.substring(i, r));</span>
+<span class="fc" id="L199">          int len = r - i;</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">          if (len &gt; max) {</span>
+<span class="fc" id="L201">            max = len;</span>
+          }
+<span class="fc" id="L203">          i = r + 1;</span>
+        }
+        else {
+          break;
+        }
+<span class="fc" id="L208">      }</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">      if (i &lt; n) {</span>
+<span class="fc" id="L210">        fll.add(list.substring(i));</span>
+<span class="fc" id="L211">        int len = n - i;</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (len &gt; max) {</span>
+<span class="fc" id="L213">          max = len;</span>
+        }
+      }
+    }
+<span class="fc" id="L217">    return max;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
