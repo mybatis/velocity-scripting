@@ -42,29 +42,29 @@ public class ParameterMappingCollector {
   }
 
   public String getItemKey() {
-    return itemKey;
+    return this.itemKey;
   }
 
   public String g(int mapping) {
-    ParameterMapping parameterMapping = parameterMappingSources[mapping];
+    ParameterMapping parameterMapping = this.parameterMappingSources[mapping];
     PropertyInfo vi = getPropertyInfo(parameterMapping.getProperty());
     if (vi.isIterable) {
       parameterMapping = itemize(parameterMapping, vi);
-      context.put(vi.root, context.get(itemKey));
+      this.context.put(vi.root, this.context.get(this.itemKey));
     }
-    parameterMappings.add(parameterMapping);
+    this.parameterMappings.add(parameterMapping);
     return "?";
   }
 
   public List<ParameterMapping> getParameterMappings() {
-    return parameterMappings;
+    return this.parameterMappings;
   }
 
   private ParameterMapping itemize(ParameterMapping source, PropertyInfo var) {
-    StringBuilder sb = new StringBuilder().append("_RPTITEM_").append(uid++);
+    StringBuilder sb = new StringBuilder().append("_RPTITEM_").append(this.uid++);
     var.root = sb.toString();
     String propertyName = sb.append(var.path).toString();
-    ParameterMapping.Builder builder = new ParameterMapping.Builder(configuration, propertyName, source.getJavaType());
+    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName, source.getJavaType());
     builder
         .expression(source.getExpression())
         .jdbcType(source.getJdbcType())
@@ -87,7 +87,7 @@ public class ParameterMappingCollector {
         i.path = name.substring(p);
       }
     }
-    i.isIterable = itemKey != null && itemKey.equals(i.root);
+    i.isIterable = this.itemKey != null && this.itemKey.equals(i.root);
     return i;
   }
 

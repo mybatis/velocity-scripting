@@ -27,11 +27,11 @@ public class Parameter {
   }
 
   public boolean isIncludeLastName() {
-    return includeLastName;
+    return this.includeLastName;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
 }

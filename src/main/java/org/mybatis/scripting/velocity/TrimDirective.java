@@ -108,7 +108,7 @@ public class TrimDirective extends Directive {
     int maxBody = 0;
 
     public String getBody() {
-      return body;
+      return this.body;
     }
 
     public void setBody(String body) {
@@ -118,11 +118,11 @@ public class TrimDirective extends Directive {
       else {
         this.body = body.trim();
       }
-      maxBody = this.body.length();
+      this.maxBody = this.body.length();
     }
 
     public String getPrefix() {
-      return prefix;
+      return this.prefix;
     }
 
     public void setPrefix(String prefix) {
@@ -130,23 +130,23 @@ public class TrimDirective extends Directive {
     }
 
     public FastLinkedList<String> getPrefixOverrides() {
-      return prefixOverrides;
+      return this.prefixOverrides;
     }
 
     public void setPrefixOverrides(String list) {
-      maxPrefixLength = fromStringList(list, '|', prefixOverrides);
+      this.maxPrefixLength = fromStringList(list, '|', this.prefixOverrides);
     }
 
     public FastLinkedList<String> getSuffixOverrides() {
-      return suffixOverrides;
+      return this.suffixOverrides;
     }
 
     public void setSuffixOverrides(String list) {
-      maxSuffixLength = fromStringList(list, '|', suffixOverrides);
+      this.maxSuffixLength = fromStringList(list, '|', this.suffixOverrides);
     }
 
     public String getSuffix() {
-      return suffix;
+      return this.suffix;
     }
 
     public void setSuffix(String suffix) {

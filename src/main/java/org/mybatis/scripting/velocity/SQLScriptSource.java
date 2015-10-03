@@ -38,24 +38,24 @@ public class SQLScriptSource implements SqlSource {
   public SQLScriptSource(Configuration configuration, String script, Class<?> parameterTypeClass) {
     this.configuration = configuration;
     ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(configuration, script, parameterTypeClass);
-    parameterMappingSources = mappingParser.getParameterMappingSources();
+    this.parameterMappingSources = mappingParser.getParameterMappingSources();
     script = mappingParser.getSql();
-    compiledScript = VelocityFacade.compile(script, "velocity-template-" + (++templateIndex));
+    this.compiledScript = VelocityFacade.compile(script, "velocity-template-" + (++templateIndex));
   }
 
   @Override
   public BoundSql getBoundSql(Object parameterObject) {
 
     final Map<String, Object> context = new HashMap<String, Object>();
-    final ParameterMappingCollector pmc = new ParameterMappingCollector(parameterMappingSources, context, configuration);
+    final ParameterMappingCollector pmc = new ParameterMappingCollector(this.parameterMappingSources, context, this.configuration);
 
-    context.put(DATABASE_ID_KEY, configuration.getDatabaseId());
+    context.put(DATABASE_ID_KEY, this.configuration.getDatabaseId());
     context.put(PARAMETER_OBJECT_KEY, parameterObject);
     context.put(MAPPING_COLLECTOR_KEY, pmc);
-    context.put(VARIABLES_KEY, configuration.getVariables());
+    context.put(VARIABLES_KEY, this.configuration.getVariables());
 
-    final String sql = VelocityFacade.apply(compiledScript, context);
-    BoundSql boundSql = new BoundSql(configuration, sql, pmc.getParameterMappings(), parameterObject);
+    final String sql = VelocityFacade.apply(this.compiledScript, context);
+    BoundSql boundSql = new BoundSql(this.configuration, sql, pmc.getParameterMappings(), parameterObject);
     for (Map.Entry<String, Object> entry : context.entrySet()) {
       boundSql.setAdditionalParameter(entry.getKey(), entry.getValue());
     }
