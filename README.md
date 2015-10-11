@@ -3,7 +3,7 @@ MyBatis Velocity Support
 
 [![Build Status](https://travis-ci.org/mybatis/velocity-scripting.svg?branch=master)](https://travis-ci.org/mybatis/velocity-scripting)
 [![Coverage Status](https://coveralls.io/repos/mybatis/velocity-scripting/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/velocity-scripting?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/560f3b3b5a262f001a000a20/badge.svg?style=flat)](https://www.versioneye.com/user/projects/560f3b3b5a262f001a000a20)
+[![Dependency Status](https://www.versioneye.com/user/projects/5619b768a193340f32000648/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5619b768a193340f32000648)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.scripting/mybatis-velocity/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.scripting/mybatis-velocity)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
