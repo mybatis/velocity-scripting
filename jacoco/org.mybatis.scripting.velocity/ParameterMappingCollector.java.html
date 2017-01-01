@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ParameterMappingCollector.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">ParameterMappingCollector.java</span></div><h1>ParameterMappingCollector.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMappingCollector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">ParameterMappingCollector.java</span></div><h1>ParameterMappingCollector.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2012-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -66,13 +66,13 @@ public class ParameterMappingCollector {
 <span class="fc" id="L66">    String propertyName = sb.append(var.path).toString();</span>
 <span class="fc" id="L67">    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName, source.getJavaType());</span>
 <span class="fc" id="L68">    builder</span>
-        .expression(source.getExpression())
-        .jdbcType(source.getJdbcType())
-        .jdbcTypeName(source.getJdbcTypeName())
-        .mode(source.getMode())
-        .numericScale(source.getNumericScale())
-        .resultMapId(source.getResultMapId())
-        .typeHandler(source.getTypeHandler());
+<span class="fc" id="L69">        .expression(source.getExpression())</span>
+<span class="fc" id="L70">        .jdbcType(source.getJdbcType())</span>
+<span class="fc" id="L71">        .jdbcTypeName(source.getJdbcTypeName())</span>
+<span class="fc" id="L72">        .mode(source.getMode())</span>
+<span class="fc" id="L73">        .numericScale(source.getNumericScale())</span>
+<span class="fc" id="L74">        .resultMapId(source.getResultMapId())</span>
+<span class="fc" id="L75">        .typeHandler(source.getTypeHandler());</span>
 <span class="fc" id="L76">    return builder.build();</span>
   }
 
@@ -101,4 +101,4 @@ public class ParameterMappingCollector {
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
