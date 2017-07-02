@@ -182,6 +182,16 @@ public class InDirective extends RepeatDirective {
       writer.append(this.open);
       writer.append(content);
       writer.append(this.close);
+    }else{
+      writer.append(this.open);
+      writer.append(this.open);
+      writer.append(this.column);
+      writer.append(" NOT IN ");
+      writer.append(this.open);
+      writer.append(" NULL ");
+      writer.append(this.close);
+      writer.append(this.close);
+      writer.append(this.close);
     }
     clean(context, o, collector, savedItemKey);
     return true;

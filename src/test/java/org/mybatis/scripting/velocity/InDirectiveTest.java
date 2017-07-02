@@ -48,6 +48,15 @@ public class InDirectiveTest {
     StringWriter writer = new StringWriter();
     velocity.evaluate(ctxt, writer, "WARM", "1+1");
   }
+  
+  @Test
+  public void ensureInClauseHasEmpty() throws Exception {
+    StringWriter w = new StringWriter();
+    ctxt.put("list", Collections.emptyList());
+    velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
+    String result = w.toString();
+    assertEquals(result, "((id NOT IN ( NULL )))");
+  }
 
   @Test
   public void ensureInClauseHasOne() throws Exception {
