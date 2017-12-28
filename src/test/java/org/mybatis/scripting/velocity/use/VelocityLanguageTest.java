@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -188,7 +188,7 @@ public class VelocityLanguageTest {
     try {
 
       int[] ids = {2,4,5};
-      Map<String, int[]> param = new HashMap<String, int[]>();
+      Map<String, int[]> param = new HashMap<>();
       param.put("ids", ids);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIteration", param);
       assertEquals(3, answer.size());
@@ -207,7 +207,7 @@ public class VelocityLanguageTest {
     try {
 
       int[] ids = {};
-      Map<String, int[]> param = new HashMap<String, int[]>();
+      Map<String, int[]> param = new HashMap<>();
       param.put("ids", ids);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIteration", param);
       assertEquals(5, answer.size());
@@ -223,7 +223,7 @@ public class VelocityLanguageTest {
     try {
 
       int[] ids = {};
-      Map<String, int[]> param = new HashMap<String, int[]>();
+      Map<String, int[]> param = new HashMap<>();
       param.put("ids", ids);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithTrim", param);
       assertEquals(5, answer.size());
@@ -238,11 +238,11 @@ public class VelocityLanguageTest {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
 
-      Map<Integer, String> ids = new HashMap<Integer, String>();
+      Map<Integer, String> ids = new HashMap<>();
       ids.put(2, "Wilma");
       ids.put(4, "Barney");
       ids.put(5, "Betty");
-      Map<String, Map<Integer, String>> param = new HashMap<String, Map<Integer, String>>();
+      Map<String, Map<Integer, String>> param = new HashMap<>();
       param.put("ids", ids);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationOverMap", param);
       assertEquals(3, answer.size());
@@ -261,7 +261,7 @@ public class VelocityLanguageTest {
     try {
 
       Name[] names = {new Name(2), new Name(4), new Name(5)};
-      Map<String, Name[]> param = new HashMap<String, Name[]>();
+      Map<String, Name[]> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationComplex", param);
       assertEquals(3, answer.size());
@@ -279,12 +279,12 @@ public class VelocityLanguageTest {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
 
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
       for (int i = 0; i < 1001; i++) {
     names.add(new Name(i));
   }
       
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationComplex", param);
       assertEquals(5, answer.size());
@@ -313,7 +313,7 @@ public class VelocityLanguageTest {
   public void testSelectWithCustomUserDirective() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithCustomUserDirective", param);
       assertEquals(5, answer.size());
     } finally {
@@ -325,12 +325,12 @@ public class VelocityLanguageTest {
   public void testDynamicSelectWithInDirectiveForOneThousandPlusOne() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
       for (int i = 0; i < 1001; i++) {
         names.add(new Name(i + 1));
       }
 
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession
           .selectList(
@@ -346,12 +346,12 @@ public class VelocityLanguageTest {
   public void testDynamicSelectWithInDirectiveForOneThousand() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
       for (int i = 0; i < 1000; i++) {
         names.add(new Name(i + 1));
       }
 
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession
           .selectList(
@@ -367,12 +367,12 @@ public class VelocityLanguageTest {
   public void testDynamicSelectWithInDirectiveForOneThousandMinusOne() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
       for (int i = 0; i < 999; i++) {
         names.add(new Name(i + 1));
       }
 
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession
           .selectList(
@@ -388,12 +388,12 @@ public class VelocityLanguageTest {
   public void testDynamicSelectWithInDirectiveForOneItem() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
-      List<Name> names = new ArrayList<Name>();
+      List<Name> names = new ArrayList<>();
       for (int i = 0; i < 1; i++) {
         names.add(new Name(i + 1));
       }
 
-      Map<String, List<Name>> param = new HashMap<String, List<Name>>();
+      Map<String, List<Name>> param = new HashMap<>();
       param.put("names", names);
       List<Name> answer = sqlSession
           .selectList(

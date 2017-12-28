@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -93,9 +93,9 @@ public class TrimDirective extends Directive {
 
     String suffix = "";
 
-    FastLinkedList<String> prefixOverrides = new FastLinkedList<String>();
+    FastLinkedList<String> prefixOverrides = new FastLinkedList<>();
 
-    FastLinkedList<String> suffixOverrides = new FastLinkedList<String>();
+    FastLinkedList<String> suffixOverrides = new FastLinkedList<>();
 
     String body = "";
 

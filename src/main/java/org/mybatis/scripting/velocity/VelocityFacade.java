@@ -100,7 +100,7 @@ public class VelocityFacade {
   }
 
   private static Map<String, Object> loadAdditionalCtxAttributes() {
-    Map<String, Object> attributes = new HashMap<String, Object>();
+    Map<String, Object> attributes = new HashMap<>();
     String additionalContextAttributes = settings.getProperty(ADDITIONAL_CTX_ATTRIBUTES_KEY);
     if (additionalContextAttributes == null) {
       return attributes;
