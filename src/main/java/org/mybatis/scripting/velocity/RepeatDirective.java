@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,19 +21,16 @@ import java.io.Writer;
 import java.util.Iterator;
 import org.apache.velocity.context.ChainedInternalContextAdapter;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.exception.TemplateInitException;
 import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.directive.Scope;
 import org.apache.velocity.runtime.directive.StopCommand;
-import org.apache.velocity.runtime.parser.ParserTreeConstants;
 import org.apache.velocity.runtime.parser.node.ASTReference;
 import org.apache.velocity.runtime.parser.node.ASTStringLiteral;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.apache.velocity.runtime.parser.node.ParserTreeConstants;
 import org.apache.velocity.util.introspection.Info;
 
 /**
@@ -56,7 +53,7 @@ public class RepeatDirective extends Directive {
   }
 
   @Override
-  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) throws TemplateInitException {
+  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) {
     super.init(rs, context, node);
     final int n = node.jjtGetNumChildren() - 1;
     for (int i = 1; i < n; i++) {
@@ -91,7 +88,7 @@ public class RepeatDirective extends Directive {
 
   @Override
   public boolean render(InternalContextAdapter context, Writer writer, Node node)
-      throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+      throws IOException {
 
     Object listObject = node.jjtGetChild(0).value(context);
 
@@ -254,7 +251,7 @@ public class RepeatDirective extends Directive {
     }
 
     @Override
-    public Object get(String key) throws MethodInvocationException {
+    public Object get(String key) {
       return (this.active && this.loopVariableKey.equals(key))
           ? null
           : super.get(key);
@@ -270,12 +267,7 @@ public class RepeatDirective extends Directive {
     }
 
     @Override
-    public Object localPut(final String key, final Object value) {
-      return put(key, value);
-    }
-
-    @Override
-    public Object remove(Object key) {
+    public Object remove(String key) {
       if (this.loopVariableKey.equals(key)) {
         this.active = false;
       }

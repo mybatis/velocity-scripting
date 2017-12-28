@@ -21,17 +21,14 @@ import java.io.Writer;
 import java.util.Iterator;
 
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.exception.TemplateInitException;
 import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.directive.StopCommand;
-import org.apache.velocity.runtime.parser.ParserTreeConstants;
 import org.apache.velocity.runtime.parser.node.ASTReference;
 import org.apache.velocity.runtime.parser.node.ASTStringLiteral;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.apache.velocity.runtime.parser.node.ParserTreeConstants;
 import org.apache.velocity.util.introspection.Info;
 
 /**
@@ -59,7 +56,7 @@ public class InDirective extends RepeatDirective {
   }
 
   @Override
-  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) throws TemplateInitException {
+  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) {
     super.init(rs, context, node);
     final int n = node.jjtGetNumChildren() - 1;
     for (int i = 1; i < n; i++) {
@@ -74,12 +71,8 @@ public class InDirective extends RepeatDirective {
       }
       else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
         String value = (String) ((ASTStringLiteral) child).value(context);
-        switch (i) {
-          case 2:
-            this.column = value;
-            break;
-          default:
-            break;
+        if (i == 2) {
+          this.column = value;
         }
       }
       else {
@@ -90,8 +83,7 @@ public class InDirective extends RepeatDirective {
   }
 
   @Override
-  public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException, ResourceNotFoundException,
-    ParseErrorException, MethodInvocationException {
+  public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException {
     Object listObject = node.jjtGetChild(0).value(context);
     if (listObject == null) {
       return false;

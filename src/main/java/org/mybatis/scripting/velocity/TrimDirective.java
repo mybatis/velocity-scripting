@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,9 +20,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.ASTBlock;
 import org.apache.velocity.runtime.parser.node.Node;
@@ -40,7 +37,7 @@ public class TrimDirective extends Directive {
   }
 
   @Override
-  public final boolean render(InternalContextAdapter ica, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+  public final boolean render(InternalContextAdapter ica, Writer writer, Node node) throws IOException { 
     Params p = getParams(ica, node);
     if (p == null) {
       return false;
@@ -48,7 +45,7 @@ public class TrimDirective extends Directive {
     return render(p, writer);
   }
 
-  public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+  public boolean render(final Params params, final Writer writer) throws IOException {
     int leftIndex = 0;
     int rightIndex = params.maxBody;
     if (rightIndex == 0) {
@@ -93,9 +90,9 @@ public class TrimDirective extends Directive {
 
     String suffix = "";
 
-    FastLinkedList<String> prefixOverrides = new FastLinkedList<String>();
+    FastLinkedList<String> prefixOverrides = new FastLinkedList<>();
 
-    FastLinkedList<String> suffixOverrides = new FastLinkedList<String>();
+    FastLinkedList<String> suffixOverrides = new FastLinkedList<>();
 
     String body = "";
 
@@ -153,7 +150,7 @@ public class TrimDirective extends Directive {
 
   }
 
-  protected Params getParams(final InternalContextAdapter context, final Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+  protected Params getParams(final InternalContextAdapter context, final Node node) throws IOException {
     final Params params = new Params();
     final int nodes = node.jjtGetNumChildren();
     for (int i = 0; i < nodes; i++) {
