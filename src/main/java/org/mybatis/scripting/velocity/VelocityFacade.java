@@ -53,6 +53,10 @@ public class VelocityFacade {
     engine.init(settings);
   }
 
+  private VelocityFacade() {
+    // Prevent instantiation
+  }
+
   public static Object compile(String script, String name) {
     try {
       StringReader reader = new StringReader(script);
