@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,9 +18,6 @@ package org.mybatis.scripting.velocity;
 import java.io.IOException;
 import java.io.StringWriter;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.parser.node.ASTBlock;
 import org.apache.velocity.runtime.parser.node.Node;
 
@@ -32,7 +29,7 @@ public class WhereDirective extends TrimDirective {
   }
 
   @Override
-  protected Params getParams(InternalContextAdapter context, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+  protected Params getParams(InternalContextAdapter context, Node node) throws IOException {
     final Params params = new Params();
     params.setPrefix("WHERE");
     params.setPrefixOverrides("AND |OR |AND\n|OR\n|AND\r|OR\r");

@@ -21,9 +21,6 @@ import java.io.Writer;
 import java.util.Iterator;
 import org.apache.velocity.context.ChainedInternalContextAdapter;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.exception.TemplateInitException;
 import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.runtime.RuntimeServices;
@@ -56,7 +53,7 @@ public class RepeatDirective extends Directive {
   }
 
   @Override
-  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) throws TemplateInitException {
+  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) {
     super.init(rs, context, node);
     final int n = node.jjtGetNumChildren() - 1;
     for (int i = 1; i < n; i++) {
@@ -91,7 +88,7 @@ public class RepeatDirective extends Directive {
 
   @Override
   public boolean render(InternalContextAdapter context, Writer writer, Node node)
-      throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+      throws IOException {
 
     Object listObject = node.jjtGetChild(0).value(context);
 
@@ -254,7 +251,7 @@ public class RepeatDirective extends Directive {
     }
 
     @Override
-    public Object get(String key) throws MethodInvocationException {
+    public Object get(String key) {
       return (this.active && this.loopVariableKey.equals(key))
           ? null
           : super.get(key);
