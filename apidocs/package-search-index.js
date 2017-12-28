@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"org.mybatis.scripting.velocity"}]

@@ -2,7 +2,7 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 MyBatis Velocity,org.mybatis.scripting.velocity,SetDirective,39,5,4,0,11,2,3,2,1,2
 MyBatis Velocity,org.mybatis.scripting.velocity,WhereDirective,2,42,2,2,1,12,2,3,0,3
 MyBatis Velocity,org.mybatis.scripting.velocity,ParameterMappingSourceParser,0,31,0,0,0,8,0,3,0,3
-MyBatis Velocity,org.mybatis.scripting.velocity,InDirective,91,272,13,23,19,66,11,12,0,5
+MyBatis Velocity,org.mybatis.scripting.velocity,InDirective,91,316,12,24,19,75,10,13,0,5
 MyBatis Velocity,org.mybatis.scripting.velocity,SQLScriptSource,0,110,0,2,0,19,0,4,0,3
 MyBatis Velocity,org.mybatis.scripting.velocity,Driver,11,23,2,2,1,3,2,4,1,3
 MyBatis Velocity,org.mybatis.scripting.velocity,RepeatDirective,98,260,11,25,20,69,9,18,0,8
@@ -11,7 +11,7 @@ MyBatis Velocity,org.mybatis.scripting.velocity,ParameterMappingCollector,0,169,
 MyBatis Velocity,org.mybatis.scripting.velocity,RepeatDirective.RepeatScope,38,14,4,0,9,5,11,1,9,1
 MyBatis Velocity,org.mybatis.scripting.velocity,FastLinkedList.Node,7,9,2,0,1,3,2,1,1,1
 MyBatis Velocity,org.mybatis.scripting.velocity,FastLinkedList,0,48,0,4,0,14,0,6,0,4
-MyBatis Velocity,org.mybatis.scripting.velocity,RepeatDirective.NullHolderContext,61,0,12,0,15,0,11,0,5,0
+MyBatis Velocity,org.mybatis.scripting.velocity,RepeatDirective.NullHolderContext,61,0,12,0,16,0,11,0,5,0
 MyBatis Velocity,org.mybatis.scripting.velocity,ParameterMappingSourceParser.ParameterMappingTokenHandler,101,185,14,18,18,44,13,8,0,5
 MyBatis Velocity,org.mybatis.scripting.velocity,TrimDirective.Params,19,67,1,1,6,21,6,6,5,6
 MyBatis Velocity,org.mybatis.scripting.velocity,ParameterMappingCollector.PropertyInfo,0,12,0,0,0,5,0,1,0,1

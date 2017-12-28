@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>MyBatis Velocity - Checkstyle report</title>
+    <link>http://www.mybatis.org/scripting/velocity</link>
+    <description>MyBatis Velocity - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2012 - 2017 MyBatis.org</copyright>
+    <item>
+      <title>File: 15,
+             Errors: 0,
+             Warnings: 64,
+             Infos: 0
+      </title>
+            <link>http://www.mybatis.org/scripting/velocity/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.SetDirective.java">org/mybatis/scripting/velocity/SetDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.ParameterMappingSourceParser.java">org/mybatis/scripting/velocity/ParameterMappingSourceParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.SQLScriptSource.java">org/mybatis/scripting/velocity/SQLScriptSource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.WhereDirective.java">org/mybatis/scripting/velocity/WhereDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.ParameterMappingCollector.java">org/mybatis/scripting/velocity/ParameterMappingCollector.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.TrimDirective.java">org/mybatis/scripting/velocity/TrimDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#.mvn.wrapper.maven-wrapper.properties">.mvn/wrapper/maven-wrapper.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#src.test.resources.mybatis-velocity.properties">src/test/resources/mybatis-velocity.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.RepeatDirective.java">org/mybatis/scripting/velocity/RepeatDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.Driver.java">org/mybatis/scripting/velocity/Driver.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.FastLinkedList.java">org/mybatis/scripting/velocity/FastLinkedList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.InDirective.java">org/mybatis/scripting/velocity/InDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.VelocityFacade.java">org/mybatis/scripting/velocity/VelocityFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.test-classes.mybatis-velocity.properties">target/test-classes/mybatis-velocity.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
