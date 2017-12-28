@@ -71,12 +71,8 @@ public class InDirective extends RepeatDirective {
       }
       else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
         String value = (String) ((ASTStringLiteral) child).value(context);
-        switch (i) {
-          case 2:
-            this.column = value;
-            break;
-          default:
-            break;
+        if (i == 2) {
+          this.column = value;
         }
       }
       else {
