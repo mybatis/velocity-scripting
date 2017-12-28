@@ -24,9 +24,9 @@ public final class FastLinkedList<E extends Serializable> implements Serializabl
 
   private static final long serialVersionUID = 1L;
 
-  private Node first = null;
+  private Node first;
 
-  private Node last = null;
+  private Node last;
 
   public FastLinkedList() {
     this.last = this.first;
