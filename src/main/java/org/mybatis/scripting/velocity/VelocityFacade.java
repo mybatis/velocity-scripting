@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.runtime.RuntimeInstance;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
-import org.apache.velocity.util.StringUtils;
 
 public class VelocityFacade {
 
@@ -56,10 +56,11 @@ public class VelocityFacade {
   public static Object compile(String script, String name) {
     try {
       StringReader reader = new StringReader(script);
-      SimpleNode node = engine.parse(reader, name);
       Template template = new Template();
+      SimpleNode node = engine.parse(reader, template);
       template.setRuntimeServices(engine);
       template.setData(node);
+      template.setName(name);
       template.initDocument();
       return template;
     } catch (Exception ex) {
@@ -89,7 +90,7 @@ public class VelocityFacade {
     }
 
     // Append the user defined directives if provided
-    String userDirective = StringUtils.nullTrim(props.getProperty("userdirective"));
+    String userDirective = StringUtils.trim(props.getProperty("userdirective"));
     if(userDirective == null) {
       userDirective = DIRECTIVES;
     } else {
