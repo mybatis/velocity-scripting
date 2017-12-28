@@ -55,7 +55,7 @@ public class InDirectiveTest {
     ctxt.put("list", Collections.emptyList());
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result, "((id NOT IN ( NULL )))");
+    assertEquals("((id NOT IN ( NULL )))", result);
   }
 
   @Test
@@ -64,8 +64,8 @@ public class InDirectiveTest {
     ctxt.put("list", Collections.singletonList("?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 1);
-    assertEquals(result.split("IN").length -1, 1);
+    assertEquals(1, result.split("\\?").length -1);
+    assertEquals(1, result.split("IN").length -1);
   }
 
   @Test
@@ -74,7 +74,7 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList("?", "?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 2);
+    assertEquals(2, result.split("\\?").length -1);
   }
 
   @Test
@@ -85,8 +85,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 1000);
-    assertEquals(result.split("OR").length -1, 0);
+    assertEquals(1000, result.split("\\?").length -1);
+    assertEquals(0, result.split("OR").length -1);
   }
 
   @Test
@@ -97,8 +97,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 1001);
-    assertEquals(result.split("OR").length -1, 1);
+    assertEquals(1001, result.split("\\?").length -1);
+    assertEquals(1, result.split("OR").length -1);
   }
 
   @Test
@@ -109,8 +109,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 2000);
-    assertEquals(result.split("OR").length -1, 1);
+    assertEquals(2000, result.split("\\?").length -1);
+    assertEquals(1, result.split("OR").length -1);
   }
 
   @Test
@@ -121,8 +121,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 2001);
-    assertEquals(result.split("OR").length -1, 2);
+    assertEquals(2001, result.split("\\?").length -1);
+    assertEquals(2, result.split("OR").length -1);
   }
 
   @Test
@@ -133,8 +133,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(result.split("\\?").length -1, 3001);
-    assertEquals(result.split("OR").length -1, 3);
+    assertEquals(3001, result.split("\\?").length -1);
+    assertEquals(3, result.split("OR").length -1);
   }
 
 }
