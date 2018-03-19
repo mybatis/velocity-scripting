@@ -298,7 +298,7 @@ public class MyDirective extends Directive {
 }
 
 //mybatis-velocity.properties
-userdirective=com.myproject.directives.MyDirective,com.myproject.directives.SpecialDirective;
+userdirective=com.myproject.directives.MyDirective,com.myproject.directives.SpecialDirective
 
 // mapper xml file
 SELECT *
