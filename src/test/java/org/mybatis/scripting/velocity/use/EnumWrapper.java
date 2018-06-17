@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -24,13 +24,12 @@ public class EnumWrapper extends HashMap<String, Integer> {
   public EnumWrapper(Class<?> e) {
     if (e.isEnum()) {
       Object[] consts = e.getEnumConstants();
-      for (int i = 0; i<consts.length; i++) {
+      for (int i = 0; i < consts.length; i++) {
         put(consts[i].toString(), i);
       }
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Supplied argument is not an enum class");
     }
   }
-  
+
 }

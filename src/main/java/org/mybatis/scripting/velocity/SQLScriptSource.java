@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -37,7 +37,8 @@ public class SQLScriptSource implements SqlSource {
 
   public SQLScriptSource(Configuration newConfiguration, String script, Class<?> parameterTypeClass) {
     this.configuration = newConfiguration;
-    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(newConfiguration, script, parameterTypeClass);
+    ParameterMappingSourceParser mappingParser = new ParameterMappingSourceParser(newConfiguration, script,
+        parameterTypeClass);
     this.parameterMappingSources = mappingParser.getParameterMappingSources();
     this.compiledScript = VelocityFacade.compile(mappingParser.getSql(), "velocity-template-" + (++templateIndex));
   }
@@ -46,7 +47,8 @@ public class SQLScriptSource implements SqlSource {
   public BoundSql getBoundSql(Object parameterObject) {
 
     final Map<String, Object> context = new HashMap<>();
-    final ParameterMappingCollector pmc = new ParameterMappingCollector(this.parameterMappingSources, context, this.configuration);
+    final ParameterMappingCollector pmc = new ParameterMappingCollector(this.parameterMappingSources, context,
+        this.configuration);
 
     context.put(DATABASE_ID_KEY, this.configuration.getDatabaseId());
     context.put(PARAMETER_OBJECT_KEY, parameterObject);

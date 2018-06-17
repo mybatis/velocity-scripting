@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ public class RepeatDirective extends Directive {
           throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
         }
       } else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
-        String value = (String) ((ASTStringLiteral)child).value(context);
+        String value = (String) ((ASTStringLiteral) child).value(context);
         switch (i) {
           case 2:
             this.separator = value;
@@ -87,8 +87,7 @@ public class RepeatDirective extends Directive {
   }
 
   @Override
-  public boolean render(InternalContextAdapter context, Writer writer, Node node)
-      throws IOException {
+  public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException {
 
     Object listObject = node.jjtGetChild(0).value(context);
 
@@ -116,7 +115,8 @@ public class RepeatDirective extends Directive {
     boolean maxNbrLoopsExceeded = false;
     Object o = context.get(this.var);
 
-    ParameterMappingCollector collector = (ParameterMappingCollector) context.get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
+    ParameterMappingCollector collector = (ParameterMappingCollector) context
+        .get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
     String savedItemKey = collector.getItemKey();
     collector.setItemKey(this.var);
     RepeatScope foreach = new RepeatScope(this, context.get(getName()), this.var);
@@ -135,9 +135,9 @@ public class RepeatDirective extends Directive {
           if (nullHolderContext == null) {
             nullHolderContext = new NullHolderContext(this.var, context);
           }
-          node.jjtGetChild(node.jjtGetNumChildren()-1).render(nullHolderContext, buffer);
+          node.jjtGetChild(node.jjtGetNumChildren() - 1).render(nullHolderContext, buffer);
         } else {
-          node.jjtGetChild(node.jjtGetNumChildren()-1).render(context, buffer);
+          node.jjtGetChild(node.jjtGetNumChildren() - 1).render(context, buffer);
         }
       } catch (StopCommand stop) {
         if (stop.isFor(this)) {
@@ -169,8 +169,8 @@ public class RepeatDirective extends Directive {
 
   }
 
-  protected void clean(InternalContextAdapter context,
-      Object o, ParameterMappingCollector collector, String savedItemKey) {
+  protected void clean(InternalContextAdapter context, Object o, ParameterMappingCollector collector,
+      String savedItemKey) {
     if (o != null) {
       context.put(this.var, o);
     } else {
@@ -252,9 +252,7 @@ public class RepeatDirective extends Directive {
 
     @Override
     public Object get(String key) {
-      return (this.active && this.loopVariableKey.equals(key))
-          ? null
-          : super.get(key);
+      return (this.active && this.loopVariableKey.equals(key)) ? null : super.get(key);
     }
 
     @Override

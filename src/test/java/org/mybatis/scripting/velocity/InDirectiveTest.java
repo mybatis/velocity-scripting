@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -43,12 +43,12 @@ public class InDirectiveTest {
     velocity.setProperty("runtime.log", "target/velocity.log");
     velocity.init(p);
     ctxt = new VelocityContext();
-    ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY, 
-        new ParameterMappingCollector(new ParameterMapping[]{}, new HashMap<String, Object>(), new Configuration()));
+    ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY,
+        new ParameterMappingCollector(new ParameterMapping[] {}, new HashMap<String, Object>(), new Configuration()));
     StringWriter writer = new StringWriter();
     velocity.evaluate(ctxt, writer, "WARM", "1+1");
   }
-  
+
   @Test
   public void ensureInClauseHasEmpty() throws Exception {
     StringWriter w = new StringWriter();
@@ -64,8 +64,8 @@ public class InDirectiveTest {
     ctxt.put("list", Collections.singletonList("?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(1, result.split("\\?").length -1);
-    assertEquals(1, result.split("IN").length -1);
+    assertEquals(1, result.split("\\?").length - 1);
+    assertEquals(1, result.split("IN").length - 1);
   }
 
   @Test
@@ -74,7 +74,7 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList("?", "?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(2, result.split("\\?").length -1);
+    assertEquals(2, result.split("\\?").length - 1);
   }
 
   @Test
@@ -85,8 +85,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(1000, result.split("\\?").length -1);
-    assertEquals(0, result.split("OR").length -1);
+    assertEquals(1000, result.split("\\?").length - 1);
+    assertEquals(0, result.split("OR").length - 1);
   }
 
   @Test
@@ -97,8 +97,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(1001, result.split("\\?").length -1);
-    assertEquals(1, result.split("OR").length -1);
+    assertEquals(1001, result.split("\\?").length - 1);
+    assertEquals(1, result.split("OR").length - 1);
   }
 
   @Test
@@ -109,8 +109,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(2000, result.split("\\?").length -1);
-    assertEquals(1, result.split("OR").length -1);
+    assertEquals(2000, result.split("\\?").length - 1);
+    assertEquals(1, result.split("OR").length - 1);
   }
 
   @Test
@@ -121,8 +121,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(2001, result.split("\\?").length -1);
-    assertEquals(2, result.split("OR").length -1);
+    assertEquals(2001, result.split("\\?").length - 1);
+    assertEquals(2, result.split("OR").length - 1);
   }
 
   @Test
@@ -133,8 +133,8 @@ public class InDirectiveTest {
     ctxt.put("list", Arrays.asList(arr));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
-    assertEquals(3001, result.split("\\?").length -1);
-    assertEquals(3, result.split("OR").length -1);
+    assertEquals(3001, result.split("\\?").length - 1);
+    assertEquals(3, result.split("OR").length - 1);
   }
 
 }
