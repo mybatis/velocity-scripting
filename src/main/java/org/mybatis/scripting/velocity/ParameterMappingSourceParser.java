@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -73,9 +73,8 @@ public class ParameterMappingSourceParser {
       int index = this.parameterMappings.size();
       ParameterMapping pm = buildParameterMapping(content);
       this.parameterMappings.add(pm);
-      return new StringBuilder()
-          .append('$').append(SQLScriptSource.MAPPING_COLLECTOR_KEY)
-          .append(".g(").append(index).append(")").toString();
+      return new StringBuilder().append('$').append(SQLScriptSource.MAPPING_COLLECTOR_KEY).append(".g(").append(index)
+          .append(")").toString();
     }
 
     private ParameterMapping buildParameterMapping(String content) {
@@ -127,8 +126,8 @@ public class ParameterMappingSourceParser {
         } else if ("expression".equals(name)) {
           throw new BuilderException("Expression based parameters are not supported yet");
         } else {
-          throw new BuilderException("An invalid property '" + name + "' was found in mapping @{"
-              + content + "}.  Valid properties are " + VALID_PROPERTIES);
+          throw new BuilderException("An invalid property '" + name + "' was found in mapping @{" + content
+              + "}.  Valid properties are " + VALID_PROPERTIES);
         }
       }
       if (typeHandlerAlias != null) {
@@ -143,7 +142,8 @@ public class ParameterMappingSourceParser {
       } catch (BuilderException ex) {
         throw ex;
       } catch (Exception ex) {
-        throw new BuilderException("Parsing error was found in mapping @{" + content + "}.  Check syntax #{property|(expression), var1=value1, var2=value2, ...} ", ex);
+        throw new BuilderException("Parsing error was found in mapping @{" + content
+            + "}.  Check syntax #{property|(expression), var1=value1, var2=value2, ...} ", ex);
       }
     }
 

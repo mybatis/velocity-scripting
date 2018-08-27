@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -33,11 +33,8 @@ public class VelocityFacade {
 
   private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = "additional.context.attributes";
   private static final String EXTERNAL_PROPERTIES = "mybatis-velocity.properties";
-  private static final String DIRECTIVES = TrimDirective.class.getName() 
-                                   + "," + WhereDirective.class.getName() 
-                                   + "," + SetDirective.class.getName() 
-                                   + "," + InDirective.class.getName()
-                                   + "," + RepeatDirective.class.getName();
+  private static final String DIRECTIVES = TrimDirective.class.getName() + "," + WhereDirective.class.getName() + ","
+      + SetDirective.class.getName() + "," + InDirective.class.getName() + "," + RepeatDirective.class.getName();
 
   private static final RuntimeInstance engine;
 
@@ -47,7 +44,7 @@ public class VelocityFacade {
 
   static {
 
-	settings = loadProperties();
+    settings = loadProperties();
     additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());
     engine = new RuntimeInstance();
     engine.init(settings);
@@ -83,7 +80,8 @@ public class VelocityFacade {
     final Properties props = new Properties();
     // Defaults
     props.setProperty("resource.loader", "class");
-    props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+    props.setProperty("class.resource.loader.class",
+        "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
     try {
       // External properties
@@ -95,7 +93,7 @@ public class VelocityFacade {
 
     // Append the user defined directives if provided
     String userDirective = StringUtils.trim(props.getProperty("userdirective"));
-    if(userDirective == null) {
+    if (userDirective == null) {
       userDirective = DIRECTIVES;
     } else {
       userDirective += "," + DIRECTIVES;
@@ -118,7 +116,7 @@ public class VelocityFacade {
         attributes.put(entry[0].trim(), Class.forName(entry[1].trim()).newInstance());
       }
     } catch (Exception ex) {
-       throw new BuilderException("Error parsing velocity property '" + ADDITIONAL_CTX_ATTRIBUTES_KEY + "'", ex);
+      throw new BuilderException("Error parsing velocity property '" + ADDITIONAL_CTX_ATTRIBUTES_KEY + "'", ex);
     }
     return attributes;
   }

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -31,7 +31,8 @@ public class ParameterMappingCollector {
   private int uid = 0;
   private String itemKey;
 
-  public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map<String, Object> newContext, Configuration newConfiguration) {
+  public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map<String, Object> newContext,
+      Configuration newConfiguration) {
     this.parameterMappingSources = newParameterMappingSources;
     this.context = newContext;
     this.configuration = newConfiguration;
@@ -64,14 +65,10 @@ public class ParameterMappingCollector {
     StringBuilder sb = new StringBuilder().append("_RPTITEM_").append(this.uid++);
     var.root = sb.toString();
     String propertyName = sb.append(var.path).toString();
-    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName, source.getJavaType());
-    builder
-        .expression(source.getExpression())
-        .jdbcType(source.getJdbcType())
-        .jdbcTypeName(source.getJdbcTypeName())
-        .mode(source.getMode())
-        .numericScale(source.getNumericScale())
-        .resultMapId(source.getResultMapId())
+    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName,
+        source.getJavaType());
+    builder.expression(source.getExpression()).jdbcType(source.getJdbcType()).jdbcTypeName(source.getJdbcTypeName())
+        .mode(source.getMode()).numericScale(source.getNumericScale()).resultMapId(source.getResultMapId())
         .typeHandler(source.getTypeHandler());
     return builder.build();
   }
@@ -95,8 +92,9 @@ public class ParameterMappingCollector {
     boolean isIterable = false;
     String root = "";
     String path = "";
+
     public PropertyInfo() {
-        // Prevent synthetic access
+      // Prevent synthetic access
     }
   }
 

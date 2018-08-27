@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -64,18 +64,15 @@ public class InDirective extends RepeatDirective {
       if (i == 1) {
         if (child.getType() == ParserTreeConstants.JJTREFERENCE) {
           this.var = ((ASTReference) child).getRootString();
-        }
-        else {
+        } else {
           throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
         }
-      }
-      else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
+      } else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
         String value = (String) ((ASTStringLiteral) child).value(context);
         if (i == 2) {
           this.column = value;
         }
-      }
-      else {
+      } else {
         throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
       }
     }
@@ -93,11 +90,9 @@ public class InDirective extends RepeatDirective {
 
     try {
       iterator = this.rsvc.getUberspect().getIterator(listObject, this.uberInfo);
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       throw e;
-    }
-    catch (Exception ee) {
+    } catch (Exception ee) {
       String msg = "Error getting iterator for #in at " + this.uberInfo;
       this.rsvc.getLog().error(msg, ee);
       throw new VelocityException(msg, ee);
@@ -110,7 +105,8 @@ public class InDirective extends RepeatDirective {
     int counter = 0;
     Object o = context.get(this.var);
 
-    ParameterMappingCollector collector = (ParameterMappingCollector) context.get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
+    ParameterMappingCollector collector = (ParameterMappingCollector) context
+        .get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
     String savedItemKey = collector.getItemKey();
     collector.setItemKey(this.var);
     RepeatScope foreach = new RepeatScope(this, context.get(getName()), this.var);
@@ -140,12 +136,10 @@ public class InDirective extends RepeatDirective {
             nullHolderContext = new NullHolderContext(this.var, context);
           }
           node.jjtGetChild(node.jjtGetNumChildren() - 1).render(nullHolderContext, buffer);
-        }
-        else {
+        } else {
           node.jjtGetChild(node.jjtGetNumChildren() - 1).render(context, buffer);
         }
-      }
-      catch (StopCommand stop) {
+      } catch (StopCommand stop) {
         if (stop.isFor(this)) {
           break;
         }
@@ -163,8 +157,7 @@ public class InDirective extends RepeatDirective {
         if (iterator.hasNext()) {
           buffer.append(" OR ");
         }
-      }
-      else if (iterator.hasNext()) {
+      } else if (iterator.hasNext()) {
         buffer.append(this.separator);
       }
 
@@ -174,7 +167,7 @@ public class InDirective extends RepeatDirective {
       writer.append(this.open);
       writer.append(content);
       writer.append(this.close);
-    }else{
+    } else {
       writer.append(this.open);
       writer.append(this.open);
       writer.append(this.column);
