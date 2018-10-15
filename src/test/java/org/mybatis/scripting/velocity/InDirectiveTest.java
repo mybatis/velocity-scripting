@@ -15,7 +15,7 @@
  */
 package org.mybatis.scripting.velocity;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -27,15 +27,15 @@ import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.Configuration;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class InDirectiveTest {
 
   static VelocityContext ctxt;
   static VelocityEngine velocity;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpClass() throws Exception {
     Properties p = new Properties();
     p.setProperty("userdirective", InDirective.class.getName());

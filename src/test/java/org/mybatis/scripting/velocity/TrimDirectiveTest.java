@@ -19,16 +19,16 @@ import java.io.StringWriter;
 import java.util.Properties;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class TrimDirectiveTest {
 
   static VelocityContext c;
   static VelocityEngine velocity;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpClass() throws Exception {
     Properties p = new Properties();
     p.setProperty("userdirective", TrimDirective.class.getName());
