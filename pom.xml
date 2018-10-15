@@ -73,6 +73,9 @@
     <signature.group>org.codehaus.mojo.signature</signature.group>
     <signature.artifact>java17</signature.artifact>
     <signature.version>1.0</signature.version>
+
+    <!-- Remove once updated to next mybatis-parent -->
+    <surefire.version>2.22.1</surefire.version>
   </properties>
 
   <dependencies>
