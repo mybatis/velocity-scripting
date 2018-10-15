@@ -27,10 +27,10 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Just a test case. Not a real Velocity implementation.
@@ -48,7 +48,7 @@ public class VelocityLanguageTest {
     FIVE
   }
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws Exception {
     Connection conn = null;
 
