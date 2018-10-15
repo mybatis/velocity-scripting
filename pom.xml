@@ -126,6 +126,17 @@
         </configuration>
       </plugin>
     </plugins>
+
+    <!-- Remove once updated to next mybatis-parent -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
 </project>
