@@ -75,7 +75,7 @@
     <signature.version>1.0</signature.version>
 
     <!-- Remove once updated to next mybatis-parent -->
-    <surefire.version>2.22.1</surefire.version>
+    <surefire.version>3.0.0-M1</surefire.version>
   </properties>
 
   <dependencies>
