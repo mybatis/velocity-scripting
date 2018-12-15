@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrimDirective.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">TrimDirective.java</span></div><h1>TrimDirective.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -20,201 +20,195 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.ASTBlock;
 import org.apache.velocity.runtime.parser.node.Node;
 
-<span class="fc" id="L30">public class TrimDirective extends Directive {</span>
+<span class="nc" id="L27">public class TrimDirective extends Directive {</span>
 
   @Override
   public String getName() {
-<span class="fc" id="L34">    return &quot;trim&quot;;</span>
+<span class="nc" id="L31">    return &quot;trim&quot;;</span>
   }
 
   @Override
   public final int getType() {
-<span class="fc" id="L39">    return BLOCK;</span>
+<span class="nc" id="L36">    return BLOCK;</span>
   }
 
   @Override
-  public final boolean render(InternalContextAdapter ica, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<span class="fc" id="L44">    Params p = getParams(ica, node);</span>
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (p == null) {</span>
-<span class="nc" id="L46">      return false;</span>
+  public final boolean render(InternalContextAdapter ica, Writer writer, Node node) throws IOException {
+<span class="nc" id="L41">    Params p = getParams(ica, node);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    if (p == null) {</span>
+<span class="nc" id="L43">      return false;</span>
     }
-<span class="fc" id="L48">    return render(p, writer);</span>
+<span class="nc" id="L45">    return render(p, writer);</span>
   }
 
-  public boolean render(final Params params, final Writer writer) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<span class="fc" id="L52">    int leftIndex = 0;</span>
-<span class="fc" id="L53">    int rightIndex = params.maxBody;</span>
-<span class="fc bfc" id="L54" title="All 2 branches covered.">    if (rightIndex == 0) {</span>
-<span class="fc" id="L55">      return false;</span>
+  public boolean render(final Params params, final Writer writer) throws IOException {
+<span class="nc" id="L49">    int leftIndex = 0;</span>
+<span class="nc" id="L50">    int rightIndex = params.maxBody;</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">    if (rightIndex == 0) {</span>
+<span class="nc" id="L52">      return false;</span>
     }
-<span class="fc bfc" id="L57" title="All 2 branches covered.">    if (!params.prefixOverrides.isEmpty()) {</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">      final String LEFT = params.body.substring(0, params.maxPrefixLength &lt; params.maxBody ? params.maxPrefixLength : params.maxBody).toUpperCase(Locale.ENGLISH);</span>
-<span class="fc" id="L59">      FastLinkedList&lt;String&gt;.Node n = params.prefixOverrides.start();</span>
-<span class="fc bfc" id="L60" title="All 2 branches covered.">      while (n != null) {</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (LEFT.startsWith(n.data)) {</span>
-<span class="fc" id="L62">          leftIndex = n.data.length();</span>
-<span class="fc" id="L63">          break;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (!params.prefixOverrides.isEmpty()) {</span>
+<span class="nc" id="L55">      final String LEFT = params.body</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">          .substring(0, params.maxPrefixLength &lt; params.maxBody ? params.maxPrefixLength : params.maxBody)</span>
+<span class="nc" id="L57">          .toUpperCase(Locale.ENGLISH);</span>
+<span class="nc" id="L58">      FastLinkedList&lt;String&gt;.Node n = params.prefixOverrides.start();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">      while (n != null) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (LEFT.startsWith(n.data)) {</span>
+<span class="nc" id="L61">          leftIndex = n.data.length();</span>
+<span class="nc" id="L62">          break;</span>
         }
-<span class="fc" id="L65">        n = n.next;</span>
+<span class="nc" id="L64">        n = n.next;</span>
       }
     }
-<span class="fc bfc" id="L68" title="All 2 branches covered.">    if (!params.suffixOverrides.isEmpty()) {</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">      final String RIGHT = params.body.substring(rightIndex &gt; params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0).toUpperCase(Locale.ENGLISH);</span>
-<span class="fc" id="L70">      FastLinkedList&lt;String&gt;.Node n = params.suffixOverrides.start();</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">      while (n != null) {</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (RIGHT.endsWith(n.data)) {</span>
-<span class="fc" id="L73">          rightIndex = rightIndex - n.data.length();</span>
-<span class="fc" id="L74">          break;</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (!params.suffixOverrides.isEmpty()) {</span>
+<span class="nc" id="L68">      final String RIGHT = params.body</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">          .substring(rightIndex &gt; params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0)</span>
+<span class="nc" id="L70">          .toUpperCase(Locale.ENGLISH);</span>
+<span class="nc" id="L71">      FastLinkedList&lt;String&gt;.Node n = params.suffixOverrides.start();</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">      while (n != null) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (RIGHT.endsWith(n.data)) {</span>
+<span class="nc" id="L74">          rightIndex = rightIndex - n.data.length();</span>
+<span class="nc" id="L75">          break;</span>
         }
-<span class="fc" id="L76">        n = n.next;</span>
+<span class="nc" id="L77">        n = n.next;</span>
       }
     }
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    if (rightIndex &gt; leftIndex) {</span>
-<span class="fc" id="L80">      String content = params.body.substring(leftIndex, rightIndex).trim();</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">      if (!&quot;&quot;.equals(content)) {</span>
-<span class="fc" id="L82">        writer.append(params.prefix).append(' ');</span>
-<span class="fc" id="L83">        writer.append(params.body, leftIndex, rightIndex).append(' ');</span>
-<span class="fc" id="L84">        writer.append(params.suffix);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">    if (rightIndex &gt; leftIndex) {</span>
+<span class="nc" id="L81">      String content = params.body.substring(leftIndex, rightIndex).trim();</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">      if (!&quot;&quot;.equals(content)) {</span>
+<span class="nc" id="L83">        writer.append(params.prefix).append(' ');</span>
+<span class="nc" id="L84">        writer.append(params.body, leftIndex, rightIndex).append(' ');</span>
+<span class="nc" id="L85">        writer.append(params.suffix);</span>
       }
     }
-<span class="fc" id="L87">    return true;</span>
+<span class="nc" id="L88">    return true;</span>
   }
 
-<span class="fc" id="L90">  protected static final class Params {</span>
+<span class="nc" id="L91">  protected static final class Params {</span>
 
-<span class="fc" id="L92">    String prefix = &quot;&quot;;</span>
+<span class="nc" id="L93">    String prefix = &quot;&quot;;</span>
 
-<span class="fc" id="L94">    String suffix = &quot;&quot;;</span>
+<span class="nc" id="L95">    String suffix = &quot;&quot;;</span>
 
-<span class="fc" id="L96">    FastLinkedList&lt;String&gt; prefixOverrides = new FastLinkedList&lt;String&gt;();</span>
+<span class="nc" id="L97">    FastLinkedList&lt;String&gt; prefixOverrides = new FastLinkedList&lt;&gt;();</span>
 
-<span class="fc" id="L98">    FastLinkedList&lt;String&gt; suffixOverrides = new FastLinkedList&lt;String&gt;();</span>
+<span class="nc" id="L99">    FastLinkedList&lt;String&gt; suffixOverrides = new FastLinkedList&lt;&gt;();</span>
 
-<span class="fc" id="L100">    String body = &quot;&quot;;</span>
+<span class="nc" id="L101">    String body = &quot;&quot;;</span>
 
-<span class="fc" id="L102">    int maxPrefixLength = 0;</span>
+<span class="nc" id="L103">    int maxPrefixLength = 0;</span>
 
-<span class="fc" id="L104">    int maxSuffixLength = 0;</span>
+<span class="nc" id="L105">    int maxSuffixLength = 0;</span>
 
-<span class="fc" id="L106">    int maxBody = 0;</span>
+<span class="nc" id="L107">    int maxBody = 0;</span>
 
     public String getBody() {
-<span class="nc" id="L109">      return this.body;</span>
+<span class="nc" id="L110">      return this.body;</span>
     }
 
     public void setBody(String value) {
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">      if (value == null) {</span>
-<span class="nc" id="L114">        this.body = &quot;&quot;;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">      if (value == null) {</span>
+<span class="nc" id="L115">        this.body = &quot;&quot;;</span>
+<span class="nc" id="L116">      } else {</span>
+<span class="nc" id="L117">        this.body = value.trim();</span>
       }
-      else {
-<span class="fc" id="L117">        this.body = value.trim();</span>
-      }
-<span class="fc" id="L119">      this.maxBody = this.body.length();</span>
-<span class="fc" id="L120">    }</span>
+<span class="nc" id="L119">      this.maxBody = this.body.length();</span>
+<span class="nc" id="L120">    }</span>
 
     public String getPrefix() {
 <span class="nc" id="L123">      return this.prefix;</span>
     }
 
     public void setPrefix(String value) {
-<span class="fc" id="L127">      this.prefix = value;</span>
-<span class="fc" id="L128">    }</span>
+<span class="nc" id="L127">      this.prefix = value;</span>
+<span class="nc" id="L128">    }</span>
 
     public FastLinkedList&lt;String&gt; getPrefixOverrides() {
 <span class="nc" id="L131">      return this.prefixOverrides;</span>
     }
 
     public void setPrefixOverrides(String list) {
-<span class="fc" id="L135">      this.maxPrefixLength = fromStringList(list, '|', this.prefixOverrides);</span>
-<span class="fc" id="L136">    }</span>
+<span class="nc" id="L135">      this.maxPrefixLength = fromStringList(list, '|', this.prefixOverrides);</span>
+<span class="nc" id="L136">    }</span>
 
     public FastLinkedList&lt;String&gt; getSuffixOverrides() {
 <span class="nc" id="L139">      return this.suffixOverrides;</span>
     }
 
     public void setSuffixOverrides(String list) {
-<span class="fc" id="L143">      this.maxSuffixLength = fromStringList(list, '|', this.suffixOverrides);</span>
-<span class="fc" id="L144">    }</span>
+<span class="nc" id="L143">      this.maxSuffixLength = fromStringList(list, '|', this.suffixOverrides);</span>
+<span class="nc" id="L144">    }</span>
 
     public String getSuffix() {
 <span class="nc" id="L147">      return this.suffix;</span>
     }
 
     public void setSuffix(String value) {
-<span class="fc" id="L151">      this.suffix = value;</span>
-<span class="fc" id="L152">    }</span>
+<span class="nc" id="L151">      this.suffix = value;</span>
+<span class="nc" id="L152">    }</span>
 
   }
 
-  protected Params getParams(final InternalContextAdapter context, final Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<span class="fc" id="L157">    final Params params = new Params();</span>
-<span class="fc" id="L158">    final int nodes = node.jjtGetNumChildren();</span>
-<span class="pc bpc" id="L159" title="1 of 2 branches missed.">    for (int i = 0; i &lt; nodes; i++) {</span>
-<span class="fc" id="L160">      Node child = node.jjtGetChild(i);</span>
-<span class="pc bpc" id="L161" title="1 of 2 branches missed.">      if (child != null) {</span>
-<span class="fc bfc" id="L162" title="All 2 branches covered.">        if (!(child instanceof ASTBlock)) {</span>
-<span class="fc bfc" id="L163" title="All 2 branches covered.">          if (i == 0) {</span>
-<span class="fc" id="L164">            params.setPrefix(String.valueOf(child.value(context)));</span>
-          }
-<span class="fc bfc" id="L166" title="All 2 branches covered.">          else if (i == 1) {</span>
-<span class="fc" id="L167">            params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
-          }
-<span class="fc bfc" id="L169" title="All 2 branches covered.">          else if (i == 2) {</span>
-<span class="fc" id="L170">            params.setSuffix(String.valueOf(child.value(context)));</span>
-          }
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">          else if (i == 3) {</span>
-<span class="fc" id="L173">            params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
-          }
-          else {
+  protected Params getParams(final InternalContextAdapter context, final Node node) throws IOException {
+<span class="nc" id="L157">    final Params params = new Params();</span>
+<span class="nc" id="L158">    final int nodes = node.jjtGetNumChildren();</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">    for (int i = 0; i &lt; nodes; i++) {</span>
+<span class="nc" id="L160">      Node child = node.jjtGetChild(i);</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">      if (child != null) {</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (!(child instanceof ASTBlock)) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">          if (i == 0) {</span>
+<span class="nc" id="L164">            params.setPrefix(String.valueOf(child.value(context)));</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">          } else if (i == 1) {</span>
+<span class="nc" id="L166">            params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">          } else if (i == 2) {</span>
+<span class="nc" id="L168">            params.setSuffix(String.valueOf(child.value(context)));</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">          } else if (i == 3) {</span>
+<span class="nc" id="L170">            params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));</span>
+          } else {
             break;
           }
-        }
-        else {
-<span class="fc" id="L180">          StringWriter blockContent = new StringWriter();</span>
-<span class="fc" id="L181">          child.render(context, blockContent);</span>
-<span class="fc" id="L182">          params.setBody(blockContent.toString().trim());</span>
-<span class="fc" id="L183">          break;</span>
+<span class="nc" id="L174">        } else {</span>
+<span class="nc" id="L175">          StringWriter blockContent = new StringWriter();</span>
+<span class="nc" id="L176">          child.render(context, blockContent);</span>
+<span class="nc" id="L177">          params.setBody(blockContent.toString().trim());</span>
+<span class="nc" id="L178">          break;</span>
         }
       }
     }
-<span class="fc" id="L187">    return params;</span>
+<span class="nc" id="L182">    return params;</span>
   }
 
   static int fromStringList(final String list, final char sep, final FastLinkedList&lt;String&gt; fll) {
-<span class="fc" id="L191">    int max = 0;</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">    if (list != null) {</span>
-<span class="fc" id="L193">      final int n = list.length();</span>
-<span class="fc" id="L194">      int i = 0;</span>
-<span class="fc bfc" id="L195" title="All 2 branches covered.">      while (i &lt; n) {</span>
-<span class="fc" id="L196">        int r = list.indexOf(sep, i);</span>
-<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (i &lt; r) {</span>
-<span class="fc" id="L198">          fll.add(list.substring(i, r));</span>
-<span class="fc" id="L199">          int len = r - i;</span>
-<span class="fc bfc" id="L200" title="All 2 branches covered.">          if (len &gt; max) {</span>
-<span class="fc" id="L201">            max = len;</span>
+<span class="nc" id="L186">    int max = 0;</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">    if (list != null) {</span>
+<span class="nc" id="L188">      final int n = list.length();</span>
+<span class="nc" id="L189">      int i = 0;</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">      while (i &lt; n) {</span>
+<span class="nc" id="L191">        int r = list.indexOf(sep, i);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (i &lt; r) {</span>
+<span class="nc" id="L193">          fll.add(list.substring(i, r));</span>
+<span class="nc" id="L194">          int len = r - i;</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">          if (len &gt; max) {</span>
+<span class="nc" id="L196">            max = len;</span>
           }
-<span class="fc" id="L203">          i = r + 1;</span>
-        }
-        else {
+<span class="nc" id="L198">          i = r + 1;</span>
+        } else {
           break;
         }
-<span class="fc" id="L208">      }</span>
-<span class="fc bfc" id="L209" title="All 2 branches covered.">      if (i &lt; n) {</span>
-<span class="fc" id="L210">        fll.add(list.substring(i));</span>
-<span class="fc" id="L211">        int len = n - i;</span>
-<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (len &gt; max) {</span>
-<span class="fc" id="L213">          max = len;</span>
+      }
+<span class="nc bnc" id="L203" title="All 2 branches missed.">      if (i &lt; n) {</span>
+<span class="nc" id="L204">        fll.add(list.substring(i));</span>
+<span class="nc" id="L205">        int len = n - i;</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">        if (len &gt; max) {</span>
+<span class="nc" id="L207">          max = len;</span>
         }
       }
     }
-<span class="fc" id="L217">    return max;</span>
+<span class="nc" id="L211">    return max;</span>
   }
 
 }

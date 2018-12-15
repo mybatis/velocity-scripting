@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../apidocs/org/mybatis/scripting/velocity/TrimDirective.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2012-2016 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2012-2018 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
@@ -28,100 +28,100 @@
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.io.Writer;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.Locale;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.context.InternalContextAdapter;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.exception.MethodInvocationException;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.exception.ParseErrorException;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.exception.ResourceNotFoundException;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.directive.Directive;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.parser.node.ASTBlock;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.parser.node.Node;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">TrimDirective</a> <strong class="jxr_keyword">extends</strong> Directive {
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    @Override
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">public</strong> String getName() {
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">return</strong> <span class="jxr_string">"trim"</span>;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>    }
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>    @Override
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> getType() {
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">return</strong> BLOCK;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>    }
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>    @Override
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> render(InternalContextAdapter ica, Writer writer, <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) <strong class="jxr_keyword">throws</strong> IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> p = getParams(ica, node);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">if</strong> (p == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>        <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">return</strong> render(p, writer);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>    }
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> render(<strong class="jxr_keyword">final</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> params, <strong class="jxr_keyword">final</strong> Writer writer) <strong class="jxr_keyword">throws</strong> IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">int</strong> leftIndex = 0;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">int</strong> rightIndex = params.maxBody;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">if</strong> (rightIndex == 0) {
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>        <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      }
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">if</strong> (!params.prefixOverrides.isEmpty()) {
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>        <strong class="jxr_keyword">final</strong> String LEFT = params.body.substring(0, params.maxPrefixLength &lt; params.maxBody ? params.maxPrefixLength : params.maxBody).toUpperCase(Locale.ENGLISH);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>        FastLinkedList&lt;String&gt;.Node n = params.prefixOverrides.start();
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>        <strong class="jxr_keyword">while</strong> (n != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">if</strong> (LEFT.startsWith(n.data)) {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>            leftIndex = n.data.length();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>            <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          }
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          n = n.next;
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>        }
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">if</strong> (!params.suffixOverrides.isEmpty()) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>        <strong class="jxr_keyword">final</strong> String RIGHT = params.body.substring(rightIndex &gt; params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0).toUpperCase(Locale.ENGLISH);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>        FastLinkedList&lt;String&gt;.Node n = params.suffixOverrides.start();
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>        <strong class="jxr_keyword">while</strong> (n != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">if</strong> (RIGHT.endsWith(n.data)) {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>            rightIndex = rightIndex - n.data.length();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>            <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          n = n.next;
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>        }
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">if</strong> (rightIndex &gt; leftIndex) {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>        String content = params.body.substring(leftIndex, rightIndex).trim();
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>        <strong class="jxr_keyword">if</strong> (!<span class="jxr_string">""</span>.equals(content)) {
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>          writer.append(params.prefix).append(' ');
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          writer.append(params.body, leftIndex, rightIndex).append(' ');
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          writer.append(params.suffix);
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>        }
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>    }
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> {
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      String prefix = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      String suffix = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      FastLinkedList&lt;String&gt; prefixOverrides = <strong class="jxr_keyword">new</strong> FastLinkedList&lt;String&gt;();
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      FastLinkedList&lt;String&gt; suffixOverrides = <strong class="jxr_keyword">new</strong> FastLinkedList&lt;String&gt;();
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>  
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>     String body = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">int</strong> maxPrefixLength = 0;
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> 
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">int</strong> maxSuffixLength = 0;
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">int</strong> maxBody = 0;
-<a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> String getBody() {
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.body;
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     }
-<a class="jxr_linenumber" name="L111" href="#L111">111</a> 
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBody(String value) {
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>       <strong class="jxr_keyword">if</strong> (value == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">this</strong>.body = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>       }
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>       <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.directive.Directive;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.parser.node.ASTBlock;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.apache.velocity.runtime.parser.node.Node;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">TrimDirective</a> <strong class="jxr_keyword">extends</strong> Directive {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>    @Override
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>    <strong class="jxr_keyword">public</strong> String getName() {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">return</strong> <span class="jxr_string">"trim"</span>;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>    }
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>    @Override
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> getType() {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">return</strong> BLOCK;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    @Override
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> render(InternalContextAdapter ica, Writer writer, <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> p = getParams(ica, node);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">if</strong> (p == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>        <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">return</strong> render(p, writer);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>    }
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> render(<strong class="jxr_keyword">final</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> params, <strong class="jxr_keyword">final</strong> Writer writer) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">int</strong> leftIndex = 0;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">int</strong> rightIndex = params.maxBody;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">if</strong> (rightIndex == 0) {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>        <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">if</strong> (!params.prefixOverrides.isEmpty()) {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>        <strong class="jxr_keyword">final</strong> String LEFT = params.body
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>            .substring(0, params.maxPrefixLength &lt; params.maxBody ? params.maxPrefixLength : params.maxBody)
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>            .toUpperCase(Locale.ENGLISH);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>        FastLinkedList&lt;String&gt;.Node n = params.prefixOverrides.start();
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>        <strong class="jxr_keyword">while</strong> (n != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">if</strong> (LEFT.startsWith(n.data)) {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>            leftIndex = n.data.length();
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>            <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          n = n.next;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>        }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">if</strong> (!params.suffixOverrides.isEmpty()) {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>        <strong class="jxr_keyword">final</strong> String RIGHT = params.body
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>            .substring(rightIndex &gt; params.maxSuffixLength ? rightIndex - params.maxSuffixLength : 0)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>            .toUpperCase(Locale.ENGLISH);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>        FastLinkedList&lt;String&gt;.Node n = params.suffixOverrides.start();
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>        <strong class="jxr_keyword">while</strong> (n != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> (RIGHT.endsWith(n.data)) {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>            rightIndex = rightIndex - n.data.length();
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>            <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          n = n.next;
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>        }
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">if</strong> (rightIndex &gt; leftIndex) {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>        String content = params.body.substring(leftIndex, rightIndex).trim();
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>        <strong class="jxr_keyword">if</strong> (!<span class="jxr_string">""</span>.equals(content)) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          writer.append(params.prefix).append(' ');
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          writer.append(params.body, leftIndex, rightIndex).append(' ');
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          writer.append(params.suffix);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>        }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>    }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> {
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      String prefix = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      String suffix = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      FastLinkedList&lt;String&gt; prefixOverrides = <strong class="jxr_keyword">new</strong> FastLinkedList&lt;&gt;();
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      FastLinkedList&lt;String&gt; suffixOverrides = <strong class="jxr_keyword">new</strong> FastLinkedList&lt;&gt;();
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> 
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     String body = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">int</strong> maxPrefixLength = 0;
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> 
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">int</strong> maxSuffixLength = 0;
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> 
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">int</strong> maxBody = 0;
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> 
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">public</strong> String getBody() {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.body;
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     }
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> 
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBody(String value) {
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>       <strong class="jxr_keyword">if</strong> (value == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">this</strong>.body = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>       } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">this</strong>.body = value.trim();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>       }
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>       <strong class="jxr_keyword">this</strong>.maxBody = <strong class="jxr_keyword">this</strong>.body.length();
@@ -161,7 +161,7 @@
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> 
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>   }
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>   <strong class="jxr_keyword">protected</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> getParams(<strong class="jxr_keyword">final</strong> InternalContextAdapter context, <strong class="jxr_keyword">final</strong> <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) <strong class="jxr_keyword">throws</strong> IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>   <strong class="jxr_keyword">protected</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> getParams(<strong class="jxr_keyword">final</strong> InternalContextAdapter context, <strong class="jxr_keyword">final</strong> <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">final</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a> params = <strong class="jxr_keyword">new</strong> <a href="../../../../org/mybatis/scripting/velocity/TrimDirective.html">Params</a>();
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> nodes = node.jjtGetNumChildren();
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; nodes; i++) {
@@ -170,64 +170,58 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">if</strong> (!(child instanceof ASTBlock)) {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>           <strong class="jxr_keyword">if</strong> (i == 0) {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             params.setPrefix(String.valueOf(child.value(context)));
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>           }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>           <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 1) {
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>             params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>           }
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>           <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 2) {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>             params.setSuffix(String.valueOf(child.value(context)));
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>           }
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>           <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 3) {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>             params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>           }
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>           <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>           }
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         }
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>           StringWriter blockContent = <strong class="jxr_keyword">new</strong> StringWriter();
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>           child.render(context, blockContent);
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>           params.setBody(blockContent.toString().trim());
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>       }
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>     }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">return</strong> params;
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>   }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> fromStringList(<strong class="jxr_keyword">final</strong> String list, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong> sep, <strong class="jxr_keyword">final</strong> FastLinkedList&lt;String&gt; fll) {
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">int</strong> max = 0;
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">if</strong> (list != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>       <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> n = list.length();
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>       <strong class="jxr_keyword">int</strong> i = 0;
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>       <strong class="jxr_keyword">while</strong> (i &lt; n) {
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">int</strong> r = list.indexOf(sep, i);
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">if</strong> (i &lt; r) {
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>           fll.add(list.substring(i, r));
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>           <strong class="jxr_keyword">int</strong> len = r - i;
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>           <strong class="jxr_keyword">if</strong> (len &gt; max) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             max = len;
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>           }
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>           i = r + 1;
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         }
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         }
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>       }
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>       <strong class="jxr_keyword">if</strong> (i &lt; n) {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         fll.add(list.substring(i));
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">int</strong> len = n - i;
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">if</strong> (len &gt; max) {
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>           max = len;
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>         }
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>       }
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>     }
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">return</strong> max;
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>   }
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> 
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> }
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 1) {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>             params.setPrefixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 2) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             params.setSuffix(String.valueOf(child.value(context)));
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (i == 3) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>             params.setSuffixOverrides(String.valueOf(child.value(context)).toUpperCase(Locale.ENGLISH));
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>           } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>           }
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>           StringWriter blockContent = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>           child.render(context, blockContent);
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>           params.setBody(blockContent.toString().trim());
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         }
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>       }
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     }
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">return</strong> params;
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>   }
+<a class="jxr_linenumber" name="L184" href="#L184">184</a> 
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>   <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> fromStringList(<strong class="jxr_keyword">final</strong> String list, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong> sep, <strong class="jxr_keyword">final</strong> FastLinkedList&lt;String&gt; fll) {
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>     <strong class="jxr_keyword">int</strong> max = 0;
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>     <strong class="jxr_keyword">if</strong> (list != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>       <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> n = list.length();
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>       <strong class="jxr_keyword">int</strong> i = 0;
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>       <strong class="jxr_keyword">while</strong> (i &lt; n) {
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">int</strong> r = list.indexOf(sep, i);
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">if</strong> (i &lt; r) {
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>           fll.add(list.substring(i, r));
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>           <strong class="jxr_keyword">int</strong> len = r - i;
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>           <strong class="jxr_keyword">if</strong> (len &gt; max) {
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>             max = len;
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>           }
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>           i = r + 1;
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         }
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>       }
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>       <strong class="jxr_keyword">if</strong> (i &lt; n) {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         fll.add(list.substring(i));
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         <strong class="jxr_keyword">int</strong> len = n - i;
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         <strong class="jxr_keyword">if</strong> (len &gt; max) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>           max = len;
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>       }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>     }
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>     <strong class="jxr_keyword">return</strong> max;
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>   }
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2012&#x2013;2017 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2012&#x2013;2018 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

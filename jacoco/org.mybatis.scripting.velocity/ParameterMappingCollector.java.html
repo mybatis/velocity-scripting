@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMappingCollector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">ParameterMappingCollector.java</span></div><h1>ParameterMappingCollector.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -24,80 +24,78 @@ import org.apache.ibatis.session.Configuration;
 public class ParameterMappingCollector {
 
   private final ParameterMapping[] parameterMappingSources;
-<span class="fc" id="L27">  private final List&lt;ParameterMapping&gt; parameterMappings = new ArrayList&lt;ParameterMapping&gt;();</span>
+<span class="nc" id="L27">  private final List&lt;ParameterMapping&gt; parameterMappings = new ArrayList&lt;&gt;();</span>
   private final Map&lt;String, Object&gt; context;
   private final Configuration configuration;
 
-<span class="fc" id="L31">  private int uid = 0;</span>
+<span class="nc" id="L31">  private int uid = 0;</span>
   private String itemKey;
 
-<span class="fc" id="L34">  public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map&lt;String, Object&gt; newContext, Configuration newConfiguration) {</span>
-<span class="fc" id="L35">    this.parameterMappingSources = newParameterMappingSources;</span>
-<span class="fc" id="L36">    this.context = newContext;</span>
-<span class="fc" id="L37">    this.configuration = newConfiguration;</span>
-<span class="fc" id="L38">  }</span>
+<span class="nc" id="L34">  public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map&lt;String, Object&gt; newContext,</span>
+      Configuration newConfiguration) {
+<span class="nc" id="L36">    this.parameterMappingSources = newParameterMappingSources;</span>
+<span class="nc" id="L37">    this.context = newContext;</span>
+<span class="nc" id="L38">    this.configuration = newConfiguration;</span>
+<span class="nc" id="L39">  }</span>
 
   public void setItemKey(String value) {
-<span class="fc" id="L41">    this.itemKey = value;</span>
-<span class="fc" id="L42">  }</span>
+<span class="nc" id="L42">    this.itemKey = value;</span>
+<span class="nc" id="L43">  }</span>
 
   public String getItemKey() {
-<span class="fc" id="L45">    return this.itemKey;</span>
+<span class="nc" id="L46">    return this.itemKey;</span>
   }
 
   public String g(int mapping) {
-<span class="fc" id="L49">    ParameterMapping parameterMapping = this.parameterMappingSources[mapping];</span>
-<span class="fc" id="L50">    PropertyInfo vi = getPropertyInfo(parameterMapping.getProperty());</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">    if (vi.isIterable) {</span>
-<span class="fc" id="L52">      parameterMapping = itemize(parameterMapping, vi);</span>
-<span class="fc" id="L53">      this.context.put(vi.root, this.context.get(this.itemKey));</span>
+<span class="nc" id="L50">    ParameterMapping parameterMapping = this.parameterMappingSources[mapping];</span>
+<span class="nc" id="L51">    PropertyInfo vi = getPropertyInfo(parameterMapping.getProperty());</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if (vi.isIterable) {</span>
+<span class="nc" id="L53">      parameterMapping = itemize(parameterMapping, vi);</span>
+<span class="nc" id="L54">      this.context.put(vi.root, this.context.get(this.itemKey));</span>
     }
-<span class="fc" id="L55">    this.parameterMappings.add(parameterMapping);</span>
-<span class="fc" id="L56">    return &quot;?&quot;;</span>
+<span class="nc" id="L56">    this.parameterMappings.add(parameterMapping);</span>
+<span class="nc" id="L57">    return &quot;?&quot;;</span>
   }
 
   public List&lt;ParameterMapping&gt; getParameterMappings() {
-<span class="fc" id="L60">    return this.parameterMappings;</span>
+<span class="nc" id="L61">    return this.parameterMappings;</span>
   }
 
   private ParameterMapping itemize(ParameterMapping source, PropertyInfo var) {
-<span class="fc" id="L64">    StringBuilder sb = new StringBuilder().append(&quot;_RPTITEM_&quot;).append(this.uid++);</span>
-<span class="fc" id="L65">    var.root = sb.toString();</span>
-<span class="fc" id="L66">    String propertyName = sb.append(var.path).toString();</span>
-<span class="fc" id="L67">    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName, source.getJavaType());</span>
-<span class="fc" id="L68">    builder</span>
-<span class="fc" id="L69">        .expression(source.getExpression())</span>
-<span class="fc" id="L70">        .jdbcType(source.getJdbcType())</span>
-<span class="fc" id="L71">        .jdbcTypeName(source.getJdbcTypeName())</span>
-<span class="fc" id="L72">        .mode(source.getMode())</span>
-<span class="fc" id="L73">        .numericScale(source.getNumericScale())</span>
-<span class="fc" id="L74">        .resultMapId(source.getResultMapId())</span>
-<span class="fc" id="L75">        .typeHandler(source.getTypeHandler());</span>
-<span class="fc" id="L76">    return builder.build();</span>
+<span class="nc" id="L65">    StringBuilder sb = new StringBuilder().append(&quot;_RPTITEM_&quot;).append(this.uid++);</span>
+<span class="nc" id="L66">    var.root = sb.toString();</span>
+<span class="nc" id="L67">    String propertyName = sb.append(var.path).toString();</span>
+<span class="nc" id="L68">    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName,</span>
+<span class="nc" id="L69">        source.getJavaType());</span>
+<span class="nc" id="L70">    builder.expression(source.getExpression()).jdbcType(source.getJdbcType()).jdbcTypeName(source.getJdbcTypeName())</span>
+<span class="nc" id="L71">        .mode(source.getMode()).numericScale(source.getNumericScale()).resultMapId(source.getResultMapId())</span>
+<span class="nc" id="L72">        .typeHandler(source.getTypeHandler());</span>
+<span class="nc" id="L73">    return builder.build();</span>
   }
 
   private PropertyInfo getPropertyInfo(String name) {
-<span class="fc" id="L80">    PropertyInfo i = new PropertyInfo();</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">    if (name != null) {</span>
-<span class="fc" id="L82">      int p = name.indexOf('.');</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (p == -1) {</span>
-<span class="fc" id="L84">        i.root = name;</span>
-      } else {
-<span class="fc" id="L86">        i.root = name.substring(0, p);</span>
-<span class="fc" id="L87">        i.path = name.substring(p);</span>
+<span class="nc" id="L77">    PropertyInfo i = new PropertyInfo();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L79">      int p = name.indexOf('.');</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">      if (p == -1) {</span>
+<span class="nc" id="L81">        i.root = name;</span>
+<span class="nc" id="L82">      } else {</span>
+<span class="nc" id="L83">        i.root = name.substring(0, p);</span>
+<span class="nc" id="L84">        i.path = name.substring(p);</span>
       }
     }
-<span class="pc bpc" id="L90" title="1 of 4 branches missed.">    i.isIterable = this.itemKey != null &amp;&amp; this.itemKey.equals(i.root);</span>
-<span class="fc" id="L91">    return i;</span>
+<span class="nc bnc" id="L87" title="All 4 branches missed.">    i.isIterable = this.itemKey != null &amp;&amp; this.itemKey.equals(i.root);</span>
+<span class="nc" id="L88">    return i;</span>
   }
 
   static class PropertyInfo {
-<span class="fc" id="L95">    boolean isIterable = false;</span>
-<span class="fc" id="L96">    String root = &quot;&quot;;</span>
-<span class="fc" id="L97">    String path = &quot;&quot;;</span>
-<span class="fc" id="L98">    public PropertyInfo() {</span>
-        // Prevent synthetic access
-<span class="fc" id="L100">    }</span>
+<span class="nc" id="L92">    boolean isIterable = false;</span>
+<span class="nc" id="L93">    String root = &quot;&quot;;</span>
+<span class="nc" id="L94">    String path = &quot;&quot;;</span>
+
+<span class="nc" id="L96">    public PropertyInfo() {</span>
+      // Prevent synthetic access
+<span class="nc" id="L98">    }</span>
   }
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FastLinkedList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">FastLinkedList.java</span></div><h1>FastLinkedList.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -24,45 +24,44 @@ public final class FastLinkedList&lt;E extends Serializable&gt; implements Seria
 
   private static final long serialVersionUID = 1L;
 
-<span class="fc" id="L27">  private Node first = null;</span>
+  private Node first;
 
-<span class="fc" id="L29">  private Node last = null;</span>
+  private Node last;
 
-<span class="fc" id="L31">  public FastLinkedList() {</span>
-<span class="fc" id="L32">    this.last = this.first;</span>
-<span class="fc" id="L33">  }</span>
+<span class="nc" id="L31">  public FastLinkedList() {</span>
+<span class="nc" id="L32">    this.last = this.first;</span>
+<span class="nc" id="L33">  }</span>
 
   public boolean isEmpty() {
-<span class="fc bfc" id="L36" title="All 2 branches covered.">    return this.first == null;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    return this.first == null;</span>
   }
 
   public Node start() {
-<span class="fc" id="L40">    return this.first;</span>
+<span class="nc" id="L40">    return this.first;</span>
   }
 
   public void add(E e) {
-<span class="fc" id="L44">    final Node n = new Node(e);</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">    if (this.first == null) {</span>
-<span class="fc" id="L46">      this.first = n;</span>
-<span class="fc" id="L47">      this.last = this.first;</span>
+<span class="nc" id="L44">    final Node n = new Node(e);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">    if (this.first == null) {</span>
+<span class="nc" id="L46">      this.first = n;</span>
+<span class="nc" id="L47">      this.last = this.first;</span>
+<span class="nc" id="L48">    } else {</span>
+<span class="nc" id="L49">      this.last.next = n;</span>
+<span class="nc" id="L50">      this.last = n;</span>
     }
-    else {
-<span class="fc" id="L50">      this.last.next = n;</span>
-<span class="fc" id="L51">      this.last = n;</span>
-    }
-<span class="fc" id="L53">  }</span>
+<span class="nc" id="L52">  }</span>
 
   public final class Node {
 
     final E data;
     Node next;
 
-<span class="fc" id="L60">    public Node(E newData) {</span>
-<span class="fc" id="L61">      this.data = newData;</span>
-<span class="fc" id="L62">    }</span>
+<span class="nc" id="L59">    public Node(E newData) {</span>
+<span class="nc" id="L60">      this.data = newData;</span>
+<span class="nc" id="L61">    }</span>
 
     public boolean hasNext() {
-<span class="nc bnc" id="L65" title="All 2 branches missed.">      return this.next != null;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">      return this.next != null;</span>
     }
 
   }

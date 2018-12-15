@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WhereDirective.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">WhereDirective.java</span></div><h1>WhereDirective.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -18,34 +18,31 @@ package org.mybatis.scripting.velocity;
 import java.io.IOException;
 import java.io.StringWriter;
 import org.apache.velocity.context.InternalContextAdapter;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.parser.node.ASTBlock;
 import org.apache.velocity.runtime.parser.node.Node;
 
-<span class="fc" id="L27">public class WhereDirective extends TrimDirective {</span>
+<span class="nc" id="L24">public class WhereDirective extends TrimDirective {</span>
 
   @Override
   public String getName() {
-<span class="fc" id="L31">    return &quot;where&quot;;</span>
+<span class="nc" id="L28">    return &quot;where&quot;;</span>
   }
 
   @Override
-  protected Params getParams(InternalContextAdapter context, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-<span class="fc" id="L36">    final Params params = new Params();</span>
-<span class="fc" id="L37">    params.setPrefix(&quot;WHERE&quot;);</span>
-<span class="fc" id="L38">    params.setPrefixOverrides(&quot;AND |OR |AND\n|OR\n|AND\r|OR\r&quot;);</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">    if (node.jjtGetNumChildren() == 1) {</span>
-<span class="fc" id="L40">      final Node child = node.jjtGetChild(0);</span>
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">      if (child instanceof ASTBlock) {</span>
-<span class="fc" id="L42">        StringWriter blockContent = new StringWriter();</span>
-<span class="fc" id="L43">        child.render(context, blockContent);</span>
-<span class="fc" id="L44">        params.setBody(blockContent.toString().trim());</span>
-<span class="fc" id="L45">        return params;</span>
+  protected Params getParams(InternalContextAdapter context, Node node) throws IOException {
+<span class="nc" id="L33">    final Params params = new Params();</span>
+<span class="nc" id="L34">    params.setPrefix(&quot;WHERE&quot;);</span>
+<span class="nc" id="L35">    params.setPrefixOverrides(&quot;AND |OR |AND\n|OR\n|AND\r|OR\r&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    if (node.jjtGetNumChildren() == 1) {</span>
+<span class="nc" id="L37">      final Node child = node.jjtGetChild(0);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">      if (child instanceof ASTBlock) {</span>
+<span class="nc" id="L39">        StringWriter blockContent = new StringWriter();</span>
+<span class="nc" id="L40">        child.render(context, blockContent);</span>
+<span class="nc" id="L41">        params.setBody(blockContent.toString().trim());</span>
+<span class="nc" id="L42">        return params;</span>
       }
     }
-<span class="nc" id="L48">    return null;</span>
+<span class="nc" id="L45">    return null;</span>
   }
 
 }
