@@ -38,7 +38,7 @@ public class VelocityFacade {
 
   private static final RuntimeInstance engine;
 
-  /** Contains thread safe objects to be set in the velocity context.*/
+  /** Contains thread safe objects to be set in the velocity context. */
   private static final Map<String, Object> additionalCtxAttributes;
   private static final Properties settings;
 

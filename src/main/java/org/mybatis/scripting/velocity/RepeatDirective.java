@@ -144,7 +144,7 @@ public class RepeatDirective extends Directive {
           break;
         }
         clean(context, o, collector, savedItemKey);
-        // close does not perform any action and this is here 
+        // close does not perform any action and this is here
         // to avoid eclipse reporting possible leak.
         buffer.close();
         throw stop;
