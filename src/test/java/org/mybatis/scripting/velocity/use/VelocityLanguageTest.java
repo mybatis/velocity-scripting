@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -29,8 +29,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mybatis.scripting.velocity.VelocityFacade;
 
 /**
  * Just a test case. Not a real Velocity implementation.
@@ -73,6 +76,11 @@ public class VelocityLanguageTest {
         conn.close();
       }
     }
+  }
+
+  @AfterAll
+  static void cleanup() {
+    VelocityFacade.destroy();
   }
 
   @Test
@@ -401,6 +409,18 @@ public class VelocityLanguageTest {
     } finally {
       sqlSession.close();
     }
+  }
+
+  @Test
+  void testAdditionalContextAttributes() {
+    Object template = VelocityFacade.compile("SELECT * FROM users WHERE id = ${id}", "test");
+    Map<String, Object> context = new HashMap<>();
+    context.put("id", 123);
+    String sql = VelocityFacade.apply(template, context);
+    assertEquals(3, context.size());
+    assertEquals(TrailingWildCardFormatter.class, context.get("trailingWildCardFormatter").getClass());
+    assertEquals(EnumBinder.class, context.get("enumBinder").getClass());
+    assertEquals("SELECT * FROM users WHERE id = 123", sql);
   }
 
 }
