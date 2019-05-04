@@ -31,7 +31,7 @@ echo "Current commit detected: ${commit_message}"
 # 4. Notify Coveralls.
 # 5. Deploy site
 
-if [ $TRAVIS_REPO_SLUG == "mybatis/velocity-scripting" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
+if [ $TRAVIS_REPO_SLUG == "mybatis/velocity-scripting" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "2.0.x" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
 
   if [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
     # Deploy to sonatype
