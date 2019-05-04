@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,41 +17,59 @@ package org.mybatis.scripting.velocity;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.builder.BuilderException;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.scripting.ScriptingException;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeInstance;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 
 public class VelocityFacade {
 
-  private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = "additional.context.attributes";
-  private static final String EXTERNAL_PROPERTIES = "mybatis-velocity.properties";
-  private static final String DIRECTIVES = TrimDirective.class.getName() + "," + WhereDirective.class.getName() + ","
-      + SetDirective.class.getName() + "," + InDirective.class.getName() + "," + RepeatDirective.class.getName();
-
-  private static final RuntimeInstance engine;
-
-  /** Contains thread safe objects to be set in the velocity context. */
-  private static final Map<String, Object> additionalCtxAttributes;
-  private static final Properties settings;
-
-  static {
-
-    settings = loadProperties();
-    additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());
-    engine = new RuntimeInstance();
-    engine.init(settings);
-  }
+  private static final RuntimeInstance engine = new RuntimeInstance();
+  private static final Map<String, Object> additionalCtxAttributes = new HashMap<>();
 
   private VelocityFacade() {
     // Prevent instantiation
+  }
+
+  /**
+   * Initialize a template engine.
+   *
+   * @param driverConfig
+   *          a language driver configuration
+   * @since 2.1.0
+   */
+  public static void initialize(VelocityLanguageDriverConfig driverConfig) {
+    Properties properties = new Properties();
+    driverConfig.getVelocitySettings().forEach(properties::setProperty);
+    properties.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, driverConfig.generateCustomDirectivesString());
+    engine.init(properties);
+    additionalCtxAttributes.putAll(driverConfig.getAdditionalContextAttributes().entrySet().stream()
+        .collect(Collectors.toMap(Map.Entry::getKey, v -> {
+          try {
+            return Resources.classForName(v.getValue()).getConstructor().newInstance();
+          } catch (Exception e) {
+            throw new ScriptingException("Cannot load additional context attribute class.", e);
+          }
+        })));
+  }
+
+  /**
+   * Destroy a template engine.
+   *
+   * @since 2.1.0
+   */
+  public static void destroy() {
+    engine.reset();
+    additionalCtxAttributes.clear();
   }
 
   public static Object compile(String script, String name) {
@@ -76,48 +94,4 @@ public class VelocityFacade {
     return out.toString();
   }
 
-  private static Properties loadProperties() {
-    final Properties props = new Properties();
-    // Defaults
-    props.setProperty("resource.loader", "class");
-    props.setProperty("class.resource.loader.class",
-        "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-
-    try {
-      // External properties
-      ClassLoader cl = Thread.currentThread().getContextClassLoader();
-      props.load(cl.getResourceAsStream(EXTERNAL_PROPERTIES));
-    } catch (Exception ex) {
-      // No custom properties
-    }
-
-    // Append the user defined directives if provided
-    String userDirective = StringUtils.trim(props.getProperty("userdirective"));
-    if (userDirective == null) {
-      userDirective = DIRECTIVES;
-    } else {
-      userDirective += "," + DIRECTIVES;
-    }
-    props.setProperty("userdirective", userDirective);
-    return props;
-  }
-
-  private static Map<String, Object> loadAdditionalCtxAttributes() {
-    Map<String, Object> attributes = new HashMap<>();
-    String additionalContextAttributes = settings.getProperty(ADDITIONAL_CTX_ATTRIBUTES_KEY);
-    if (additionalContextAttributes == null) {
-      return attributes;
-    }
-
-    try {
-      String[] entries = additionalContextAttributes.split(",");
-      for (String str : entries) {
-        String[] entry = str.trim().split(":");
-        attributes.put(entry[0].trim(), Class.forName(entry[1].trim()).newInstance());
-      }
-    } catch (Exception ex) {
-      throw new BuilderException("Error parsing velocity property '" + ADDITIONAL_CTX_ATTRIBUTES_KEY + "'", ex);
-    }
-    return attributes;
-  }
 }

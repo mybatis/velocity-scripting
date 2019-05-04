@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.Configuration;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,7 @@ public class InDirectiveTest {
   @BeforeAll
   public static void setUpClass() throws Exception {
     Properties p = new Properties();
-    p.setProperty("userdirective", InDirective.class.getName());
+    p.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, InDirective.class.getName());
     velocity = new VelocityEngine();
     velocity.setProperty("runtime.log", "target/velocity.log");
     velocity.init(p);

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,6 +25,24 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.Configuration;
 
 public class Driver implements LanguageDriver {
+
+  /**
+   * Default constructor.
+   */
+  public Driver() {
+    this(VelocityLanguageDriverConfig.newInstance());
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param driverConfig
+   *          a language driver configuration
+   * @since 2.1.0
+   */
+  public Driver(VelocityLanguageDriverConfig driverConfig) {
+    VelocityFacade.initialize(driverConfig);
+  }
 
   @Override
   public ParameterHandler createParameterHandler(MappedStatement mappedStatement, Object parameterObject,
