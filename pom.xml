@@ -63,6 +63,7 @@
     <findbugs.onlyAnalyze>org.mybatis.scripting.velocity.*</findbugs.onlyAnalyze>
     <gcu.product>Velocity</gcu.product>
     <module.name>org.mybatis.scripting.velocity</module.name>
+    <clirr.comparisonVersion>2.0</clirr.comparisonVersion>
   </properties>
 
   <dependencies>
