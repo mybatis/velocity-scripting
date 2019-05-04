@@ -25,13 +25,13 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class TrimDirectiveTest {
+class TrimDirectiveTest {
 
-  static VelocityContext c;
-  static VelocityEngine velocity;
+  private static VelocityContext c;
+  private static VelocityEngine velocity;
 
   @BeforeAll
-  public static void setUpClass() throws Exception {
+  static void setUpClass() {
     Properties p = new Properties();
     p.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, TrimDirective.class.getName());
     velocity = new VelocityEngine();
@@ -43,7 +43,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest1() throws Exception {
+  void simpleTest1() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim()SIMPLE WITHOUT PREFIX#end");
     String result = w.toString();
@@ -51,7 +51,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest2() throws Exception {
+  void simpleTest2() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim() SIMPLE WITHOUT PREFIX     #end");
     String result = w.toString();
@@ -59,7 +59,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest3() throws Exception {
+  void simpleTest3() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('WHERE') SIMPLE WITH PREFIX     #end");
     String result = w.toString();
@@ -67,7 +67,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest4() throws Exception {
+  void simpleTest4() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('WHERE', 'simple') SIMPLE WITH PREFIX     #end");
     String result = w.toString();
@@ -75,7 +75,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest5() throws Exception {
+  void simpleTest5() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('WHERE', '', '', 'prefix') SIMPLE WITH PREFIX     #end");
     String result = w.toString();
@@ -83,7 +83,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest6() throws Exception {
+  void simpleTest6() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('WHERE', 'simple', '', 'prefix') SIMPLE WITH PREFIX     #end");
     String result = w.toString();
@@ -91,7 +91,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest7() throws Exception {
+  void simpleTest7() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('WHERE', 'x', '', 'y') SIMPLE WITH PREFIX     #end");
     String result = w.toString();
@@ -99,7 +99,7 @@ public class TrimDirectiveTest {
   }
 
   @Test
-  public void simpleTest8() throws Exception {
+  void simpleTest8() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#trim('pre', 'x|y', 'pos', 'w|z') y---z #end");
     String result = w.toString();

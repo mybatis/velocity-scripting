@@ -53,7 +53,9 @@ class VelocityLanguageDriverConfigTest {
   void newInstanceWithEmptyPropertiesFile() {
     System.setProperty("mybatis-velocity.config.file", "mybatis-velocity-empty.properties");
     VelocityLanguageDriverConfig config = VelocityLanguageDriverConfig.newInstance();
-    Assertions.assertEquals(0, config.getUserdirective().length);
+    @SuppressWarnings("deprecation")
+    String[] userDirectives = config.getUserdirective();
+    Assertions.assertEquals(0, userDirectives.length);
     Assertions.assertEquals(0, config.getAdditionalContextAttributes().size());
     Assertions.assertEquals(2, config.getVelocitySettings().size());
     Assertions.assertEquals("class", config.getVelocitySettings().get("resource.loaders"));
@@ -68,7 +70,9 @@ class VelocityLanguageDriverConfigTest {
   void newInstanceWithPropertiesFileNotFound() {
     System.setProperty("mybatis-velocity.config.file", "mybatis-velocity-notfound.properties");
     VelocityLanguageDriverConfig config = VelocityLanguageDriverConfig.newInstance();
-    Assertions.assertEquals(0, config.getUserdirective().length);
+    @SuppressWarnings("deprecation")
+    String[] userDirectives = config.getUserdirective();
+    Assertions.assertEquals(0, userDirectives.length);
     Assertions.assertEquals(0, config.getAdditionalContextAttributes().size());
     Assertions.assertEquals(2, config.getVelocitySettings().size());
     Assertions.assertEquals("class", config.getVelocitySettings().get("resource.loaders"));
@@ -83,7 +87,9 @@ class VelocityLanguageDriverConfigTest {
   void newInstanceWithCustomPropertiesFile() {
     System.setProperty("mybatis-velocity.config.file", "mybatis-velocity-custom.properties");
     VelocityLanguageDriverConfig config = VelocityLanguageDriverConfig.newInstance();
-    Assertions.assertEquals(0, config.getUserdirective().length);
+    @SuppressWarnings("deprecation")
+    String[] userDirectives = config.getUserdirective();
+    Assertions.assertEquals(0, userDirectives.length);
     Assertions.assertEquals(4, config.getAdditionalContextAttributes().size());
     Assertions.assertEquals("org.mybatis.scripting.velocity.use.TrailingWildCardFormatter",
         config.getAdditionalContextAttributes().get("trailingWildCardFormatter"));
@@ -117,7 +123,9 @@ class VelocityLanguageDriverConfigTest {
     properties.setProperty("directive.foreach.max_loops", "30");
     properties.setProperty("runtime.log.name", "org.apache.velocity");
     VelocityLanguageDriverConfig config = VelocityLanguageDriverConfig.newInstance(properties);
-    Assertions.assertEquals(0, config.getUserdirective().length);
+    @SuppressWarnings("deprecation")
+    String[] userDirectives = config.getUserdirective();
+    Assertions.assertEquals(0, userDirectives.length);
     Assertions.assertEquals(4, config.getAdditionalContextAttributes().size());
     Assertions.assertEquals("org.mybatis.scripting.velocity.use.TrailingWildCardFormatter",
         config.getAdditionalContextAttributes().get("trailingWildCardFormatter"));
@@ -143,7 +151,9 @@ class VelocityLanguageDriverConfigTest {
   void newInstanceWithLegacyPropertiesFile() {
     System.setProperty("mybatis-velocity.config.file", "mybatis-velocity-legacy.properties");
     VelocityLanguageDriverConfig config = VelocityLanguageDriverConfig.newInstance();
-    Assertions.assertEquals(1, config.getUserdirective().length);
+    @SuppressWarnings("deprecation")
+    String[] userDirectives = config.getUserdirective();
+    Assertions.assertEquals(1, userDirectives.length);
     Assertions.assertEquals(2, config.getAdditionalContextAttributes().size());
     Assertions.assertEquals("org.mybatis.scripting.velocity.use.TrailingWildCardFormatter",
         config.getAdditionalContextAttributes().get("trailingWildCardFormatter"));

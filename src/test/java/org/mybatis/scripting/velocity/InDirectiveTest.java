@@ -31,13 +31,13 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class InDirectiveTest {
+class InDirectiveTest {
 
-  static VelocityContext ctxt;
-  static VelocityEngine velocity;
+  private static VelocityContext ctxt;
+  private static VelocityEngine velocity;
 
   @BeforeAll
-  public static void setUpClass() throws Exception {
+  static void setUpClass() {
     Properties p = new Properties();
     p.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, InDirective.class.getName());
     velocity = new VelocityEngine();
@@ -45,13 +45,13 @@ public class InDirectiveTest {
     velocity.init(p);
     ctxt = new VelocityContext();
     ctxt.put(SQLScriptSource.MAPPING_COLLECTOR_KEY,
-        new ParameterMappingCollector(new ParameterMapping[] {}, new HashMap<String, Object>(), new Configuration()));
+        new ParameterMappingCollector(new ParameterMapping[] {}, new HashMap<>(), new Configuration()));
     StringWriter writer = new StringWriter();
     velocity.evaluate(ctxt, writer, "WARM", "1+1");
   }
 
   @Test
-  public void ensureInClauseHasEmpty() throws Exception {
+  void ensureInClauseHasEmpty() {
     StringWriter w = new StringWriter();
     ctxt.put("list", Collections.emptyList());
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
@@ -60,7 +60,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasOne() throws Exception {
+  void ensureInClauseHasOne() {
     StringWriter w = new StringWriter();
     ctxt.put("list", Collections.singletonList("?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
@@ -70,7 +70,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasTwo() throws Exception {
+  void ensureInClauseHasTwo() {
     StringWriter w = new StringWriter();
     ctxt.put("list", Arrays.asList("?", "?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
@@ -79,7 +79,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasOneThousand() throws Exception {
+  void ensureInClauseHasOneThousand() {
     StringWriter w = new StringWriter();
     String[] arr = new String[1000];
     Arrays.fill(arr, "?");
@@ -91,7 +91,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasOneThousandAndOne() throws Exception {
+  void ensureInClauseHasOneThousandAndOne() {
     StringWriter w = new StringWriter();
     String[] arr = new String[1001];
     Arrays.fill(arr, "?");
@@ -103,7 +103,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasTwoThousand() throws Exception {
+  void ensureInClauseHasTwoThousand() {
     StringWriter w = new StringWriter();
     String[] arr = new String[2000];
     Arrays.fill(arr, "?");
@@ -115,7 +115,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasTwoThousandAndOne() throws Exception {
+  void ensureInClauseHasTwoThousandAndOne() {
     StringWriter w = new StringWriter();
     String[] arr = new String[2001];
     Arrays.fill(arr, "?");
@@ -127,7 +127,7 @@ public class InDirectiveTest {
   }
 
   @Test
-  public void ensureInClauseHasThreeThousandAndOne() throws Exception {
+  void ensureInClauseHasThreeThousandAndOne() {
     StringWriter w = new StringWriter();
     String[] arr = new String[3001];
     Arrays.fill(arr, "?");

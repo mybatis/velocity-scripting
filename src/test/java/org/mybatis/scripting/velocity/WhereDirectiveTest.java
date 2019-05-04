@@ -25,13 +25,13 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class WhereDirectiveTest {
+class WhereDirectiveTest {
 
-  static VelocityContext c;
-  static VelocityEngine velocity;
+  private static VelocityContext c;
+  private static VelocityEngine velocity;
 
   @BeforeAll
-  public static void setUpClass() throws Exception {
+  static void setUpClass() {
     Properties p = new Properties();
     p.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, WhereDirective.class.getName());
     velocity = new VelocityEngine();
@@ -43,7 +43,7 @@ public class WhereDirectiveTest {
   }
 
   @Test
-  public void simpleTest1() throws Exception {
+  void simpleTest1() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#where()XXXX#end");
     String result = w.toString();
@@ -51,7 +51,7 @@ public class WhereDirectiveTest {
   }
 
   @Test
-  public void simpleTest2() throws Exception {
+  void simpleTest2() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#where() a and b #end");
     String result = w.toString();
@@ -59,7 +59,7 @@ public class WhereDirectiveTest {
   }
 
   @Test
-  public void simpleTest3() throws Exception {
+  void simpleTest3() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#where() and a and b#end");
     String result = w.toString();
@@ -67,7 +67,7 @@ public class WhereDirectiveTest {
   }
 
   @Test
-  public void simpleTest4() throws Exception {
+  void simpleTest4() {
     StringWriter w = new StringWriter();
     velocity.evaluate(c, w, "TEST", "#where() or a and b#end");
     String result = w.toString();
