@@ -32,23 +32,23 @@
       </p>
       <p>
         If you are not familiar with apache velocity, you can learn it from its documentation site:
-        <ul>
-          <li>
-            <a href="http://velocity.apache.org/engine/releases/velocity-1.7/vtl-reference-guide.html">Velocity Template Language (VTL) Reference</a>
-          </li>
-        </ul>
       </p>
+      <ul>
+        <li>
+          <a href="http://velocity.apache.org/engine/releases/velocity-1.7/vtl-reference-guide.html">Velocity Template Language (VTL) Reference</a>
+        </li>
+      </ul>
     </section>
     <section name="Install">
       <ol>
         <li>
           <p>Put the mybatis-velocity-&lt;version&gt;.jar in your classpath.</p>
           <p>If you are using maven, just add a dependency to:
-            <ul>
-              <li>GroupId: org.mybatis.scripting</li>
-              <li>ArtifactId: mybatis-velocity</li>
-            </ul>
           </p>
+          <ul>
+            <li>GroupId: org.mybatis.scripting</li>
+            <li>ArtifactId: mybatis-velocity</li>
+          </ul>
           <p></p>
         </li>
         <li>
@@ -90,10 +90,10 @@
       </p>
       <p>
         Note:
-        <ul>
-          <li>#{...} syntax is replaced by @{...} syntax to avoid collisions with VTL</li>
-        </ul>
       </p>
+      <ul>
+        <li>#{...} syntax is replaced by @{...} syntax to avoid collisions with VTL</li>
+      </ul>
     </section>
     <section name="Custom directives">
       <subsection name="trim">
@@ -152,11 +152,11 @@
         <h5>#repeat( collection  var  separator  open  close ) body #end</h5>
         <p>
           Same as #foreach, but with special features:
-          <ul>
-            <li>Support for iterative parameter bindings via @{...} syntax</li>
-            <li>Automatic separator and open/close string management</li>
-          </ul>
         </p>
+        <ul>
+          <li>Support for iterative parameter bindings via @{...} syntax</li>
+          <li>Automatic separator and open/close string management</li>
+        </ul>
         <table>
           <thead>
             <tr>
