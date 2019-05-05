@@ -35,25 +35,106 @@
       </p>
       <ul>
         <li>
-          <a href="http://velocity.apache.org/engine/releases/velocity-1.7/vtl-reference-guide.html">Velocity Template Language (VTL) Reference</a>
+          <a href="https://velocity.apache.org/engine/2.1/vtl-reference.html">Velocity Template Language (VTL) Reference</a>
         </li>
       </ul>
     </section>
+
+    <section name="Requirments">
+      <ul>
+        <li>Java : Java 8+</li>
+        <li>MyBatis : 3.5+</li>
+        <li>Velocity : 2.1+</li>
+      </ul>
+    </section>
+
     <section name="Install">
-      <ol>
-        <li>
-          <p>Put the mybatis-velocity-&lt;version&gt;.jar in your classpath.</p>
-          <p>If you are using maven, just add a dependency to:
-          </p>
-          <ul>
-            <li>GroupId: org.mybatis.scripting</li>
-            <li>ArtifactId: mybatis-velocity</li>
-          </ul>
-          <p></p>
-        </li>
-        <li>
-          <p>Register the language driver alias in your mybatis configuration file:</p>
-          <source><![CDATA[
+      <p>
+        If you are using maven, you can add this:
+      </p>
+      <source><![CDATA[
+<dependency>
+    <groupId>org.mybatis.scripting</groupId>
+    <artifactId>mybatis-velocity</artifactId>
+    <version>2.1.0</version>
+</dependency>
+]]></source>
+
+      <p>If you are using gradle, you can use this snippet:</p>
+
+      <source><![CDATA[
+dependencies {
+    compile("org.mybatis.scripting:mybatis-velocity:2.1.0")
+}]]></source>
+
+    </section>
+
+    <section name="Configuration">
+      <subsection name="Common">
+        <p>
+          By default, the <code>mybatis-velocity.properties</code> file create in your classpath.
+        </p>
+        <ul>
+          <li>
+            You can specify user defined custom directives to use on the Velocity template engine using the Velocity standard property(<code>runtime.custom_directives</code>).
+            For details see the <a href="#User_Defined_Directives">"User Defined Directives"</a>.
+            <source><![CDATA[
+velocitySettings.runtime.custom_directives = com.example.directives.MyDirective
+# or
+runtime.custom_directives = com.example.directives.MyDirective
+]]></source>
+
+            The <code>userdirective</code> property supported for keeping backward compatibility with old versions(2.0 or under).
+            <source><![CDATA[
+userdirective = com.example.directives.MyDirective
+]]></source>
+          </li>
+          <li>
+            You can specify user defined additional context attribute values that passed to template engine.
+            For details see the <a href="#Additional_Context_Attributes">"Additional Context Attributes"</a>.
+            <source><![CDATA[
+# additionalContextAttributes.{name} = {value}
+# 'additional-context-attributes' (kebab-case) can be used too
+additionalContextAttributes.likeEscape = com.example.helpers.LikeEscape
+additionalContextAttributes.masterCacheFacade = com.example.helpers.MasterCacheFacade
+]]></source>
+
+            The <code>additional.context.attributes</code> property supported for keeping backward compatibility with old versions(2.0 or under).
+            <source><![CDATA[
+# Value format: {name}:{value}(,...)
+additional.context.attributes = likeEscape:com.example.helpers.LikeEscape,masterCacheFacade:com.example.helpers.MasterCacheFacade
+]]></source>
+          </li>
+          <li>
+            You can configure the Velocity configuration as follow:
+            About available setting name, please refer to <a href="https://velocity.apache.org/engine/2.1/configuration.html">the reference documentation of Velocity</a>.
+            <source><![CDATA[
+# velocitySettings.{name} = {value}
+# 'velocity-settings' (kebab-case) can be used too
+velocitySettings.resource.default_encoding = Windows-31J
+]]></source>
+
+            The <code>{name} = {value}</code> format(without prefixed 'velocitySettings') supported for keeping backward compatibility with old versions(2.0 or under).
+            <source><![CDATA[
+# This setting is same with 'velocitySettings.resource.default_encoding'
+resource.default_encoding = Windows-31J
+]]></source>
+          </li>
+          <li>
+            Since 2.1.0, you can use an any properties file or encoding as follow:
+            <source><![CDATA[
+$ java -Dmybatis-velocity.config.file=mybatis-velocity_production.properties -Dmybatis-velocity.config.encoding=Windows-31J ...
+]]></source>
+          </li>
+        </ul>
+
+      </subsection>
+      <subsection name="Scripting Language Driver">
+        <p>
+          You may need to do next steps:</p>
+        <ul>
+          <li>Register the language driver alias in your mybatis configuration file:
+            <source><![CDATA[
 <configuration>
   ...
   <typeAliases>
@@ -61,21 +142,21 @@
   </typeAliases>
   ...
 </configuration>]]></source>
-        </li>
-        <li>
-          <p>Optional: Set the velocity as your default scripting language:</p>
-          <source><![CDATA[
+          </li>
+          <li>Set the velocity as your default scripting language:
+            <source><![CDATA[
 <configuration>
   ...
   <settings>
-    <setting name="defaultScriptingLanguage" value="velocity"/>
+      <setting name="defaultScriptingLanguage" value="velocity"/>
   </settings>
   ...
 </configuration>]]></source>
-        </li>
-      </ol>
-
+          </li>
+        </ul>
+      </subsection>
     </section>
+
     <section name="Usage">
       <p>Just write your dynamic queries and use velocity:</p>
       <p>Example:
@@ -92,7 +173,7 @@
         Note:
       </p>
       <ul>
-        <li>#{...} syntax is replaced by @{...} syntax to avoid collisions with VTL</li>
+        <li><code>#{...}</code> syntax is replaced by <code>@{...}</code> syntax to avoid collisions with VTL</li>
       </ul>
     </section>
     <section name="Custom directives">
@@ -274,7 +355,7 @@ FROM City
       </p>
         <ul>
           <li>
-             Create a property file named  mybatis-velocity.properties and put in on the classpath.
+            Create a property file named <code>mybatis-velocity.properties</code> and put in on the classpath.
           </li>
           <li>
              Create your own velocity directive.
@@ -283,7 +364,7 @@ FROM City
              Add the directive to the property file.
           </li>
          <li>
-             Use the directive in the mapper xml file.
+             Use the directive in the sql template.
             <br/>
           </li>
         </ul>
@@ -291,27 +372,77 @@ FROM City
 
         <source><![CDATA[
 // User defined directive
-package com.myproject.directives;
+package com.example.directives;
 
 public class MyDirective extends Directive {
-  
+  // ...
 }
+]]></source>
 
-//mybatis-velocity.properties
-userdirective=com.myproject.directives.MyDirective,com.myproject.directives.SpecialDirective
+      <source><![CDATA[
+# mybatis-velocity.properties
+userdirective=com.example.directives.MyDirective,com.example.directives.SpecialDirective
+]]></source>
 
-// mapper xml file
+      <source><![CDATA[
+<!-- sql template -->
 SELECT *
 FROM City
   #myDirective()
     ......
   #end
-        ]]></source>
+]]></source>
 
     </section>
+
+    <section name="Additional Context Attributes">
+      <p>
+        The mybatis-velocity allows you to pass any attribute(instantiate using specified FQCN) to the Velocity template engine.
+      </p>
+      <ul>
+        <li>
+          Create a property file named <code>mybatis-velocity.properties</code> and put in on the classpath.
+        </li>
+        <li>
+          Create any <b>thread safe</b> class.
+        </li>
+        <li>
+          Add the class to the property file.
+        </li>
+        <li>
+          Use object that instantiated by mybatis-velocity in your sql template.
+        </li>
+      </ul>
+      <p>Example:</p>
+
+      <source><![CDATA[
+// User defined directive
+package com.example.helpers;
+
+public class LikeEscape {
+  public String escape(String val) {
+    // ...
+    return escapedVal;
+  }
+}
+]]></source>
+
+      <source><![CDATA[
+# mybatis-velocity.properties
+additionalContextAttributes.likeEscape = com.example.helpers.LikeEscape
+]]></source>
+
+      <source><![CDATA[
+<!-- sql template -->
+#set( $pattern = $likeEscape.escape($_parameter.name) + "%" )
+SELECT * FROM User
+  WHERE name LIKE @{pattern, javaType=string}
+]]></source>
+    </section>
+
     <section name="MyBatis specific syntax">
       <subsection name="Parameter Bindings">
-        <p>@{ property, attr1=val1, attr2=val2, ... }</p>
+        <p><code>@{ property, attr1=val1, attr2=val2, ... }</code></p>
         <p>Where attrs must be any of: javaType, jdbcType, mode, numericScale, resultMap, typeHandler, jdbcTypeName</p>
       </subsection>
     </section>
