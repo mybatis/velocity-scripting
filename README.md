@@ -13,8 +13,8 @@ Mybatis Velocity Scripting Support.
 Requirements
 ----------
 
-* master(under active development) : Version 2.1.0-SNAPSHOT requires MyBatis 3.5+, Velocity 2.1 and Java 8+
-* 2.0.x(latest released line) : Version 2.0 requires MyBatis 3.4+, Velocity 2.0 and Java 7+
+* master(2.1.x) : MyBatis 3.5+, Velocity 2.1 and Java 8+
+* 2.0.x : MyBatis 3.4+, Velocity 2.0 and Java 7+
 
 Essentials
 ----------
