@@ -61,7 +61,7 @@ public class VelocityLanguageDriverConfig {
   private static final String[] BUILT_IN_DIRECTIVES = { TrimDirective.class.getName(), WhereDirective.class.getName(),
       SetDirective.class.getName(), InDirective.class.getName(), RepeatDirective.class.getName() };
 
-  private static Map<Class<?>, Function<String, Object>> TYPE_CONVERTERS;
+  private static final Map<Class<?>, Function<String, Object>> TYPE_CONVERTERS;
   static {
     Map<Class<?>, Function<String, Object>> converters = new HashMap<>();
     converters.put(String.class, String::trim);
