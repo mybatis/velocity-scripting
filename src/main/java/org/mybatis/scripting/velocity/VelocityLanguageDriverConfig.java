@@ -36,6 +36,8 @@ import java.util.stream.Stream;
 
 import org.apache.commons.text.WordUtils;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.reflection.DefaultReflectorFactory;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
@@ -70,6 +72,8 @@ public class VelocityLanguageDriverConfig {
     converters.put(Object.class, v -> v);
     TYPE_CONVERTERS = Collections.unmodifiableMap(converters);
   }
+
+  private static final Log log = LogFactory.getLog(VelocityLanguageDriverConfig.class);
 
   /**
    * The Velocity settings.
@@ -123,6 +127,8 @@ public class VelocityLanguageDriverConfig {
    */
   @Deprecated
   public void setUserdirective(String... userDirectives) {
+    log.warn(
+        "The 'userdirective' has been deprecated since 2.1.0. Please use the 'velocity-settings.runtime.custom_directives' or 'runtime.custom_directives'.");
     this.userDirectives = userDirectives;
   }
 
@@ -270,6 +276,9 @@ public class VelocityLanguageDriverConfig {
   private static void enableLegacyAdditionalContextAttributes(Properties properties) {
     String additionalContextAttributes = properties.getProperty(PROPERTY_KEY_ADDITIONAL_CONTEXT_ATTRIBUTE);
     if (Objects.nonNull(additionalContextAttributes)) {
+      log.warn(String.format(
+          "The '%s' has been deprecated since 2.1.0. Please use the 'additionalContextAttributes.{name}={value}'.",
+          PROPERTY_KEY_ADDITIONAL_CONTEXT_ATTRIBUTE));
       Stream.of(additionalContextAttributes.split(",")).forEach(pair -> {
         String[] keyValue = pair.split(":");
         if (keyValue.length != 2) {
