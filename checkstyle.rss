@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/scripting/velocity</link>
     <description>MyBatis Velocity - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2012 - 2018 MyBatis.org</copyright>
+    <copyright>&#169;2012 - 2019 MyBatis.org</copyright>
     <item>
-      <title>File: 18,
+      <title>File: 21,
              Errors: 0,
-             Warnings: 16,
+             Warnings: 20,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/scripting/velocity/checkstyle.html</link>
@@ -46,7 +46,63 @@ under the License.
           <tbody>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.VelocityLanguageDriverConfig.java">org/mybatis/scripting/velocity/VelocityLanguageDriverConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#src.test.resources.mybatis-velocity-empty.properties">src/test/resources/mybatis-velocity-empty.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.VelocityLanguageDriver.java">org/mybatis/scripting/velocity/VelocityLanguageDriver.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.SetDirective.java">org/mybatis/scripting/velocity/SetDirective.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#src.test.resources.log4j.properties">src/test/resources/log4j.properties</a>
                 </td>
                 <td>
                   0
@@ -102,6 +158,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.formatter-maven-cache.properties">target/formatter-maven-cache.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#org.mybatis.scripting.velocity.ParameterMappingCollector.java">org/mybatis/scripting/velocity/ParameterMappingCollector.java</a>
                 </td>
                 <td>
@@ -109,6 +179,20 @@ under the License.
                 </td>
                 <td>
                   3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#src.test.resources.mybatis-velocity-legacy.properties">src/test/resources/mybatis-velocity-legacy.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -192,35 +276,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.classes.META-INF.maven.org.mybatis.scripting.mybatis-velocity.pom.properties">target/classes/META-INF/maven/org.mybatis.scripting/mybatis-velocity/pom.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
@@ -256,7 +312,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.maven-java-formatter-cache.properties">target/maven-java-formatter-cache.properties</a>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#src.test.resources.mybatis-velocity-custom.properties">src/test/resources/mybatis-velocity-custom.properties</a>
                 </td>
                 <td>
                   0
@@ -277,20 +333,6 @@ under the License.
                 </td>
                 <td>
                   2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.test-classes.mybatis-velocity.properties">target/test-classes/mybatis-velocity.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
                 <td>
                   0

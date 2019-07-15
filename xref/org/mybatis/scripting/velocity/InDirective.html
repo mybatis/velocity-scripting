@@ -13,7 +13,7 @@
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * #in($collection $item COLUMN).</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/mybatis/scripting/velocity/InDirective.html">InDirective</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html">RepeatDirective</a> {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="InDirective" href="../../../../org/mybatis/scripting/velocity/InDirective.html#InDirective">InDirective</a> <strong class="jxr_keyword">extends</strong> <a name="RepeatDirective" href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html#RepeatDirective">RepeatDirective</a> {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   * Immutable fields</em>
@@ -64,11 +64,11 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>    }
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>    @Override
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> init(RuntimeServices rs, InternalContextAdapter context, <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> init(RuntimeServices rs, InternalContextAdapter context, Node node) {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">super</strong>.init(rs, context, node);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> n = node.jjtGetNumChildren() - 1;
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>        <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> child = node.jjtGetChild(i);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>        Node child = node.jjtGetChild(i);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">if</strong> (i == 1) {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">if</strong> (child.getType() == ParserTreeConstants.JJTREFERENCE) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>            <strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong> = ((ASTReference) child).getRootString();
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>    }
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>    @Override
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> render(InternalContextAdapter context, Writer writer, <a href="../../../../org/mybatis/scripting/velocity/FastLinkedList.html">Node</a> node) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> render(InternalContextAdapter context, Writer writer, Node node) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      Object listObject = node.jjtGetChild(0).value(context);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">if</strong> (listObject == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>        <strong class="jxr_keyword">return</strong> false;
@@ -113,14 +113,14 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">int</strong> counter = 0;
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     Object o = context.get(<strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <a href="../../../../org/mybatis/scripting/velocity/ParameterMappingCollector.html">ParameterMappingCollector</a> collector = (ParameterMappingCollector) context
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <a name="ParameterMappingCollector" hre<a name="ParameterMappingCollector" href="../../../../org/mybatis/scripting/velocity/ParameterMappingCollector.html#ParameterMappingCollector">ParameterMappingCollector</a>s/scripting/velocity/ParameterMappingCollector.html#ParameterMappingCollector">ParameterMappingCollector</a> collector = (<a name="ParameterMappingCollector" href="../../../../org/mybatis/scripting/velocity/ParameterMappingCollector.html#ParameterMappingCollector">ParameterMappingCollector</a>) context
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         .get(SQLScriptSource.MAPPING_COLLECTOR_KEY);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>     String savedItemKey = collector.getItemKey();
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     collector.setItemKey(<strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>);
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <a href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html">RepeatScope</a> foreach = <strong class="jxr_keyword">new</strong> <a href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html">RepeatScope</a>(<strong class="jxr_keyword">this</strong>, context.get(getName()), <strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     RepeatScope foreach = <strong class="jxr_keyword">new</strong> RepeatScope(<strong class="jxr_keyword">this</strong>, context.get(getName()), <strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     context.put(getName(), foreach);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <a href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html">NullHolderContext</a> nullHolderContext = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     NullHolderContext nullHolderContext = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     Object value = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     StringWriter buffer = <strong class="jxr_keyword">new</strong> StringWriter();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
@@ -141,7 +141,7 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">if</strong> (value == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>           <strong class="jxr_keyword">if</strong> (nullHolderContext == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>             nullHolderContext = <strong class="jxr_keyword">new</strong> <a href="../../../../org/mybatis/scripting/velocity/RepeatDirective.html">NullHolderContext</a>(<strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>, context);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>             nullHolderContext = <strong class="jxr_keyword">new</strong> NullHolderContext(<strong class="jxr_keyword">this</strong>.<strong class="jxr_keyword">var</strong>, context);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>           }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>           node.jjtGetChild(node.jjtGetNumChildren() - 1).render(nullHolderContext, buffer);
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         } <strong class="jxr_keyword">else</strong> {
@@ -152,7 +152,7 @@
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>           <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         }
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         clean(context, o, collector, savedItemKey);
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         <em class="jxr_comment">// close does not perform any action and this is here </em>
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         <em class="jxr_comment">// close does not perform any action and this is here</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <em class="jxr_comment">// to avoid eclipse reporting possible leak.</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         buffer.close();
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">throw</strong> stop;
@@ -198,6 +198,6 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2012&#x2013;2018 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2012&#x2013;2019 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>
