@@ -64,9 +64,6 @@
     <gcu.product>Velocity</gcu.product>
     <module.name>org.mybatis.scripting.velocity</module.name>
     <clirr.comparisonVersion>2.0</clirr.comparisonVersion>
-
-    <!-- Remove after parent 32 (support for jdk 13) -->
-    <jacoco.version>0.8.4</jacoco.version>
   </properties>
 
   <dependencies>
