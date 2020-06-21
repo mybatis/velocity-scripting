@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2019 the original author or authors.
+ *    Copyright 2012-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 package org.mybatis.scripting.velocity;
 
-import java.io.StringWriter;
-import java.util.Properties;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.StringWriter;
+import java.util.Properties;
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

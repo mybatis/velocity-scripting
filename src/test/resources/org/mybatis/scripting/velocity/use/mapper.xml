@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2012-2016 the original author or authors.
+       Copyright 2012-2020 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     FROM names
       #trim("WHERE" "" "" "FOOFOO")
         1=1
-      #end    
+      #end
   </select>
 
   <select id="selectNamesWithIterationOverMap" resultType="org.mybatis.scripting.velocity.use.Name">
@@ -100,7 +100,7 @@
   <select id="selectNamesWithInDirective" resultType="org.mybatis.scripting.velocity.use.Name">
     SELECT *
     FROM names
-       WHERE 
+       WHERE
        #in($_parameter.names $name 'id')
          @{name.id}
        #end
@@ -118,7 +118,7 @@
     #set( $ids = $enumBinder.bind('org.mybatis.scripting.velocity.use.VelocityLanguageTest$IDS') )
     SELECT *
     FROM names
-       WHERE 
+       WHERE
         id IN (@{ids.ONE}, @{ids.TWO}, @{ids.THREE})
   </select>
 
