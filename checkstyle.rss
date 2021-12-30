@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/scripting/velocity</link>
     <description>MyBatis Velocity - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2012 - 2019 MyBatis.org</copyright>
+    <copyright>&#169;2012 - 2021 MyBatis.org</copyright>
     <item>
-      <title>File: 21,
+      <title>File: 22,
              Errors: 0,
-             Warnings: 20,
+             Warnings: 41,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/scripting/velocity/checkstyle.html</link>
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  4
                 </td>
                 <td>
                   0
@@ -94,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -122,7 +122,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  4
                 </td>
                 <td>
                   0
@@ -136,7 +136,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  4
                 </td>
                 <td>
                   0
@@ -150,7 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -178,7 +178,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  5
                 </td>
                 <td>
                   0
@@ -206,7 +206,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  6
                 </td>
                 <td>
                   0
@@ -215,6 +215,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#release.properties">release.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/scripting/velocity/checkstyle.html#target.impsort-maven-cache.properties">target/impsort-maven-cache.properties</a>
                 </td>
                 <td>
                   0
@@ -262,7 +276,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  4
                 </td>
                 <td>
                   0
@@ -290,7 +304,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   0
@@ -304,7 +318,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0
@@ -332,7 +346,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  4
                 </td>
                 <td>
                   0
