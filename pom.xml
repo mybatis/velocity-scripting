@@ -64,7 +64,7 @@
     <gcu.product>Velocity</gcu.product>
     <module.name>org.mybatis.scripting.velocity</module.name>
     <clirr.comparisonVersion>2.0</clirr.comparisonVersion>
-  	<closeTestReports>true</closeTestReports>
+    <closeTestReports>true</closeTestReports>
   </properties>
 
   <dependencies>
@@ -132,6 +132,7 @@
               <configuration>
                 <fork>true</fork>
                 <argLine>${argLine} -Djdk.attach.allowAttachSelf --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+                <disableXmlReport>${closeTestReports}</disableXmlReport>
               </configuration>
             </plugin>
           </plugins>
