@@ -48,8 +48,8 @@
     <url>https://github.com/mybatis/velocity-scripting/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/velocity-scripting</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/mybatis/velocity-scripting/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
