@@ -1,11 +1,11 @@
 /*
- *    Copyright 2012-2021 the original author or authors.
+ *    Copyright 2012-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *       https://www.apache.org/licenses/LICENSE-2.0
  *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
@@ -52,6 +52,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * Configuration class for {@link Driver}.
  *
  * @author Kazuki Shimizu
+ *
  * @since 2.1.0
  */
 public class VelocityLanguageDriverConfig {
@@ -107,6 +108,7 @@ public class VelocityLanguageDriverConfig {
    * Get user define directives.
    *
    * @return user define directives.
+   *
    * @deprecated Recommend to use the 'velocity-settings.runtime.custom_directives' or 'runtime.custom_directives'
    *             because this method defined for keeping backward compatibility (There is possibility that this method
    *             removed at a future version)
@@ -121,6 +123,7 @@ public class VelocityLanguageDriverConfig {
    *
    * @param userDirectives
    *          user define directives
+   *
    * @deprecated Recommend to use the 'velocity-settings.runtime.custom_directives' or 'runtime.custom_directives'
    *             because this method defined for keeping backward compatibility (There is possibility that this method
    *             removed at a future version)
@@ -218,7 +221,9 @@ public class VelocityLanguageDriverConfig {
    *
    * @param customProperties
    *          custom configuration properties
+   *
    * @return a configuration instance
+   *
    * @see #newInstance()
    */
   public static VelocityLanguageDriverConfig newInstance(Properties customProperties) {
@@ -235,7 +240,9 @@ public class VelocityLanguageDriverConfig {
    *
    * @param customizer
    *          baseline customizer
+   *
    * @return a configuration instance
+   *
    * @see #newInstance()
    */
   public static VelocityLanguageDriverConfig newInstance(Consumer<VelocityLanguageDriverConfig> customizer) {
