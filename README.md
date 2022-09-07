@@ -7,7 +7,7 @@ MyBatis Velocity Support
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.scripting/mybatis-velocity.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/scripting/mybatis-velocity/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-![mybatis-velocity](http://mybatis.github.io/images/mybatis-logo.png)
+![mybatis-velocity](https://mybatis.org/images/mybatis-logo.png)
 
 Mybatis Velocity Scripting Support.
 
@@ -20,4 +20,4 @@ Requirements
 Essentials
 ----------
 
-* [See the docs](http://mybatis.github.io/velocity-scripting/)
+* [See the docs](https://mybatis.org/velocity-scripting/)
