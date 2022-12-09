@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VelocityFacade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">VelocityFacade.java</span></div><h1>VelocityFacade.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2012-2018 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VelocityFacade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">VelocityFacade.java</span></div><h1>VelocityFacade.java</h1><pre class="source lang-java linenums">/*
+ *    Copyright 2012-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *       https://www.apache.org/licenses/LICENSE-2.0
  *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -17,108 +17,83 @@ package org.mybatis.scripting.velocity;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.builder.BuilderException;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.scripting.ScriptingException;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeInstance;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 
 public class VelocityFacade {
 
-  private static final String ADDITIONAL_CTX_ATTRIBUTES_KEY = &quot;additional.context.attributes&quot;;
-  private static final String EXTERNAL_PROPERTIES = &quot;mybatis-velocity.properties&quot;;
-<span class="nc" id="L36">  private static final String DIRECTIVES = TrimDirective.class.getName() + &quot;,&quot; + WhereDirective.class.getName() + &quot;,&quot;</span>
-<span class="nc" id="L37">      + SetDirective.class.getName() + &quot;,&quot; + InDirective.class.getName() + &quot;,&quot; + RepeatDirective.class.getName();</span>
+<span class="fc" id="L36">  private static final RuntimeInstance engine = new RuntimeInstance();</span>
+<span class="fc" id="L37">  private static final Map&lt;String, Object&gt; additionalCtxAttributes = new HashMap&lt;&gt;();</span>
 
-  private static final RuntimeInstance engine;
-
-  /** Contains thread safe objects to be set in the velocity context.*/
-  private static final Map&lt;String, Object&gt; additionalCtxAttributes;
-  private static final Properties settings;
-
-  static {
-
-<span class="nc" id="L47">    settings = loadProperties();</span>
-<span class="nc" id="L48">    additionalCtxAttributes = Collections.unmodifiableMap(loadAdditionalCtxAttributes());</span>
-<span class="nc" id="L49">    engine = new RuntimeInstance();</span>
-<span class="nc" id="L50">    engine.init(settings);</span>
-<span class="nc" id="L51">  }</span>
-
-<span class="nc" id="L53">  private VelocityFacade() {</span>
+  private VelocityFacade() {
     // Prevent instantiation
-<span class="nc" id="L55">  }</span>
+  }
+
+  /**
+   * Initialize a template engine.
+   *
+   * @param driverConfig
+   *          a language driver configuration
+   *
+   * @since 2.1.0
+   */
+  public static void initialize(VelocityLanguageDriverConfig driverConfig) {
+<span class="fc" id="L52">    Properties properties = new Properties();</span>
+<span class="fc" id="L53">    driverConfig.getVelocitySettings().forEach(properties::setProperty);</span>
+<span class="fc" id="L54">    properties.setProperty(RuntimeConstants.CUSTOM_DIRECTIVES, driverConfig.generateCustomDirectivesString());</span>
+<span class="fc" id="L55">    engine.init(properties);</span>
+<span class="fc" id="L56">    additionalCtxAttributes.putAll(driverConfig.getAdditionalContextAttributes().entrySet().stream()</span>
+<span class="fc" id="L57">        .collect(Collectors.toMap(Map.Entry::getKey, v -&gt; {</span>
+          try {
+<span class="fc" id="L59">            return Resources.classForName(v.getValue()).getConstructor().newInstance();</span>
+<span class="nc" id="L60">          } catch (Exception e) {</span>
+<span class="nc" id="L61">            throw new ScriptingException(&quot;Cannot load additional context attribute class.&quot;, e);</span>
+          }
+        })));
+<span class="fc" id="L64">  }</span>
+
+  /**
+   * Destroy a template engine.
+   *
+   * @since 2.1.0
+   */
+  public static void destroy() {
+<span class="fc" id="L72">    engine.reset();</span>
+<span class="fc" id="L73">    additionalCtxAttributes.clear();</span>
+<span class="fc" id="L74">  }</span>
 
   public static Object compile(String script, String name) {
     try {
-<span class="nc" id="L59">      StringReader reader = new StringReader(script);</span>
-<span class="nc" id="L60">      Template template = new Template();</span>
-<span class="nc" id="L61">      SimpleNode node = engine.parse(reader, template);</span>
-<span class="nc" id="L62">      template.setRuntimeServices(engine);</span>
-<span class="nc" id="L63">      template.setData(node);</span>
-<span class="nc" id="L64">      template.setName(name);</span>
-<span class="nc" id="L65">      template.initDocument();</span>
-<span class="nc" id="L66">      return template;</span>
-<span class="nc" id="L67">    } catch (Exception ex) {</span>
-<span class="nc" id="L68">      throw new BuilderException(&quot;Error parsing velocity script '&quot; + name + &quot;'&quot;, ex);</span>
+<span class="fc" id="L78">      StringReader reader = new StringReader(script);</span>
+<span class="fc" id="L79">      Template template = new Template();</span>
+<span class="fc" id="L80">      SimpleNode node = engine.parse(reader, template);</span>
+<span class="fc" id="L81">      template.setRuntimeServices(engine);</span>
+<span class="fc" id="L82">      template.setData(node);</span>
+<span class="fc" id="L83">      template.setName(name);</span>
+<span class="fc" id="L84">      template.initDocument();</span>
+<span class="fc" id="L85">      return template;</span>
+<span class="nc" id="L86">    } catch (Exception ex) {</span>
+<span class="nc" id="L87">      throw new BuilderException(&quot;Error parsing velocity script '&quot; + name + &quot;'&quot;, ex);</span>
     }
   }
 
   public static String apply(Object template, Map&lt;String, Object&gt; context) {
-<span class="nc" id="L73">    final StringWriter out = new StringWriter();</span>
-<span class="nc" id="L74">    context.putAll(additionalCtxAttributes);</span>
-<span class="nc" id="L75">    ((Template) template).merge(new VelocityContext(context), out);</span>
-<span class="nc" id="L76">    return out.toString();</span>
+<span class="fc" id="L92">    final StringWriter out = new StringWriter();</span>
+<span class="fc" id="L93">    context.putAll(additionalCtxAttributes);</span>
+<span class="fc" id="L94">    ((Template) template).merge(new VelocityContext(context), out);</span>
+<span class="fc" id="L95">    return out.toString();</span>
   }
 
-  private static Properties loadProperties() {
-<span class="nc" id="L80">    final Properties props = new Properties();</span>
-    // Defaults
-<span class="nc" id="L82">    props.setProperty(&quot;resource.loader&quot;, &quot;class&quot;);</span>
-<span class="nc" id="L83">    props.setProperty(&quot;class.resource.loader.class&quot;,</span>
-<span class="nc" id="L84">        &quot;org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader&quot;);</span>
-
-    try {
-      // External properties
-<span class="nc" id="L88">      ClassLoader cl = Thread.currentThread().getContextClassLoader();</span>
-<span class="nc" id="L89">      props.load(cl.getResourceAsStream(EXTERNAL_PROPERTIES));</span>
-<span class="nc" id="L90">    } catch (Exception ex) {</span>
-      // No custom properties
-    }
-
-    // Append the user defined directives if provided
-<span class="nc" id="L95">    String userDirective = StringUtils.trim(props.getProperty(&quot;userdirective&quot;));</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">    if (userDirective == null) {</span>
-<span class="nc" id="L97">      userDirective = DIRECTIVES;</span>
-<span class="nc" id="L98">    } else {</span>
-<span class="nc" id="L99">      userDirective += &quot;,&quot; + DIRECTIVES;</span>
-    }
-<span class="nc" id="L101">    props.setProperty(&quot;userdirective&quot;, userDirective);</span>
-<span class="nc" id="L102">    return props;</span>
-  }
-
-  private static Map&lt;String, Object&gt; loadAdditionalCtxAttributes() {
-<span class="nc" id="L106">    Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L107">    String additionalContextAttributes = settings.getProperty(ADDITIONAL_CTX_ATTRIBUTES_KEY);</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">    if (additionalContextAttributes == null) {</span>
-<span class="nc" id="L109">      return attributes;</span>
-    }
-
-    try {
-<span class="nc" id="L113">      String[] entries = additionalContextAttributes.split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">      for (String str : entries) {</span>
-<span class="nc" id="L115">        String[] entry = str.trim().split(&quot;:&quot;);</span>
-<span class="nc" id="L116">        attributes.put(entry[0].trim(), Class.forName(entry[1].trim()).newInstance());</span>
-      }
-<span class="nc" id="L118">    } catch (Exception ex) {</span>
-<span class="nc" id="L119">      throw new BuilderException(&quot;Error parsing velocity property '&quot; + ADDITIONAL_CTX_ATTRIBUTES_KEY + &quot;'&quot;, ex);</span>
-    }
-<span class="nc" id="L121">    return attributes;</span>
-  }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
