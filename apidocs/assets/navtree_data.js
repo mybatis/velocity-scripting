@@ -1,7 +1,0 @@
-var NAVTREE_DATA =
-[ [ "org.mybatis.scripting.velocity", "org/mybatis/scripting/velocity/package-summary.html", [ [ "Classes", null, [ [ "Driver", "org/mybatis/scripting/velocity/Driver.html", null, "" ], [ "FastLinkedList", "org/mybatis/scripting/velocity/FastLinkedList.html", null, "" ], [ "FastLinkedList.Node", "org/mybatis/scripting/velocity/FastLinkedList.Node.html", null, "" ], [ "InDirective", "org/mybatis/scripting/velocity/InDirective.html", null, "" ], [ "ParameterMappingCollector", "org/mybatis/scripting/velocity/ParameterMappingCollector.html", null, "" ], [ "ParameterMappingSourceParser", "org/mybatis/scripting/velocity/ParameterMappingSourceParser.html", null, "" ], [ "RepeatDirective", "org/mybatis/scripting/velocity/RepeatDirective.html", null, "" ], [ "RepeatDirective.NullHolderContext", "org/mybatis/scripting/velocity/RepeatDirective.NullHolderContext.html", null, "" ], [ "RepeatDirective.RepeatScope", "org/mybatis/scripting/velocity/RepeatDirective.RepeatScope.html", null, "" ], [ "SetDirective", "org/mybatis/scripting/velocity/SetDirective.html", null, "" ], [ "SQLScriptSource", "org/mybatis/scripting/velocity/SQLScriptSource.html", null, "" ], [ "TrimDirective", "org/mybatis/scripting/velocity/TrimDirective.html", null, "" ], [ "TrimDirective.Params", "org/mybatis/scripting/velocity/TrimDirective.Params.html", null, "" ], [ "VelocityFacade", "org/mybatis/scripting/velocity/VelocityFacade.html", null, "" ], [ "WhereDirective", "org/mybatis/scripting/velocity/WhereDirective.html", null, "" ] ]
-, "" ] ]
-, "" ] ]
-
-;
-
