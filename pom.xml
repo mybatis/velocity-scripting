@@ -60,6 +60,10 @@
   </distributionManagement>
 
   <properties>
+    <!-- Maven compiler options -->
+    <java.version>11</java.version>
+    <java.release.version>11</java.release.version>
+
     <findbugs.onlyAnalyze>org.mybatis.scripting.velocity.*</findbugs.onlyAnalyze>
     <gcu.product>Velocity</gcu.product>
     <module.name>org.mybatis.scripting.velocity</module.name>
