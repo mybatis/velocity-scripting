@@ -7,3 +7,5 @@
 .idea
 *.iml
 .github/keys/
+release.properties
+pom.xml.releaseBackup
