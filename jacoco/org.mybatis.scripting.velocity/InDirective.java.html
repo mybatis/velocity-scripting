@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InDirective.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">InDirective.java</span></div><h1>InDirective.java</h1><pre class="source lang-java linenums">/*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2024 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.apache.velocity.runtime.directive.StopCommand;
 import org.apache.velocity.runtime.parser.node.ASTReference;
 import org.apache.velocity.runtime.parser.node.ASTStringLiteral;
 import org.apache.velocity.runtime.parser.node.Node;
-import org.apache.velocity.runtime.parser.node.ParserTreeConstants;
+import org.apache.velocity.runtime.parser.node.StandardParserTreeConstants;
 import org.apache.velocity.util.introspection.Info;
 
 /**
@@ -61,12 +61,12 @@ import org.apache.velocity.util.introspection.Info;
 <span class="fc bfc" id="L61" title="All 2 branches covered.">    for (int i = 1; i &lt; n; i++) {</span>
 <span class="fc" id="L62">      Node child = node.jjtGetChild(i);</span>
 <span class="fc bfc" id="L63" title="All 2 branches covered.">      if (i == 1) {</span>
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (child.getType() == ParserTreeConstants.JJTREFERENCE) {</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (child.getType() == StandardParserTreeConstants.JJTREFERENCE) {</span>
 <span class="fc" id="L65">          this.var = ((ASTReference) child).getRootString();</span>
         } else {
 <span class="nc" id="L67">          throw new TemplateInitException(&quot;Syntax error&quot;, getTemplateName(), getLine(), getColumn());</span>
         }
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      } else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      } else if (child.getType() == StandardParserTreeConstants.JJTSTRINGLITERAL) {</span>
 <span class="fc" id="L70">        String value = (String) ((ASTStringLiteral) child).value(context);</span>
 <span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (i == 2) {</span>
 <span class="fc" id="L72">          this.column = value;</span>
