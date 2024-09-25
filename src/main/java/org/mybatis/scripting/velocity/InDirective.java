@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2024 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.apache.velocity.runtime.directive.StopCommand;
 import org.apache.velocity.runtime.parser.node.ASTReference;
 import org.apache.velocity.runtime.parser.node.ASTStringLiteral;
 import org.apache.velocity.runtime.parser.node.Node;
-import org.apache.velocity.runtime.parser.node.ParserTreeConstants;
+import org.apache.velocity.runtime.parser.node.StandardParserTreeConstants;
 import org.apache.velocity.util.introspection.Info;
 
 /**
@@ -61,12 +61,12 @@ public class InDirective extends RepeatDirective {
     for (int i = 1; i < n; i++) {
       Node child = node.jjtGetChild(i);
       if (i == 1) {
-        if (child.getType() == ParserTreeConstants.JJTREFERENCE) {
+        if (child.getType() == StandardParserTreeConstants.JJTREFERENCE) {
           this.var = ((ASTReference) child).getRootString();
         } else {
           throw new TemplateInitException("Syntax error", getTemplateName(), getLine(), getColumn());
         }
-      } else if (child.getType() == ParserTreeConstants.JJTSTRINGLITERAL) {
+      } else if (child.getType() == StandardParserTreeConstants.JJTSTRINGLITERAL) {
         String value = (String) ((ASTStringLiteral) child).value(context);
         if (i == 2) {
           this.column = value;
