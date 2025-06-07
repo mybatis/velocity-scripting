@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -270,6 +271,31 @@ class VelocityLanguageTest {
       List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectNamesWithIterationComplex",
           param);
       assertEquals(5, answer.size());
+    }
+  }
+
+  @Test
+  void testSetInsideRepeat() {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      Name[] names = { new Name(2), new Name(5) };
+      Map<String, Object> param = new HashMap<>();
+      param.put("names", names);
+      param.put("nid", 4);
+      List<Name> answer = sqlSession.selectList("org.mybatis.scripting.velocity.use.selectWithSetInsideRepeat", param);
+      assertEquals(2, answer.size());
+      assertEquals(2, answer.get(0).getId());
+      assertEquals(5, answer.get(1).getId());
+    }
+  }
+
+  @Test
+  void testNestedRepeat() {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      List<List<Integer>> ids = Arrays.asList(Arrays.asList(1, 10), Arrays.asList(100, 1000));
+      Map<String, Object> param = new HashMap<>();
+      param.put("ids", ids);
+      Integer answer = sqlSession.selectOne("org.mybatis.scripting.velocity.use.selectNestedRepeat", param);
+      assertEquals(202, answer);
     }
   }
 
