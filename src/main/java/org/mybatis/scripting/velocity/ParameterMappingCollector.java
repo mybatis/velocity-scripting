@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.mapping.ParameterMode;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.property.PropertyTokenizer;
 import org.apache.ibatis.session.Configuration;
 
 public class ParameterMappingCollector {
@@ -28,8 +31,8 @@ public class ParameterMappingCollector {
   private final List<ParameterMapping> parameterMappings = new ArrayList<>();
   private final Map<String, Object> context;
   private final Configuration configuration;
+  private final MetaObject metaParameters;
 
-  private int uid = 0;
   private String itemKey;
 
   public ParameterMappingCollector(ParameterMapping[] newParameterMappingSources, Map<String, Object> newContext,
@@ -37,6 +40,7 @@ public class ParameterMappingCollector {
     this.parameterMappingSources = newParameterMappingSources;
     this.context = newContext;
     this.configuration = newConfiguration;
+    this.metaParameters = configuration.newMetaObject(newContext);
   }
 
   public void setItemKey(String value) {
@@ -49,12 +53,7 @@ public class ParameterMappingCollector {
 
   public String g(int mapping) {
     ParameterMapping parameterMapping = this.parameterMappingSources[mapping];
-    PropertyInfo vi = getPropertyInfo(parameterMapping.getProperty());
-    if (vi.isIterable) {
-      parameterMapping = itemize(parameterMapping, vi);
-      this.context.put(vi.root, this.context.get(this.itemKey));
-    }
-    this.parameterMappings.add(parameterMapping);
+    this.parameterMappings.add(mappingWithValue(parameterMapping));
     return "?";
   }
 
@@ -62,41 +61,28 @@ public class ParameterMappingCollector {
     return this.parameterMappings;
   }
 
-  private ParameterMapping itemize(ParameterMapping source, PropertyInfo var) {
-    StringBuilder sb = new StringBuilder().append("_RPTITEM_").append(this.uid++);
-    var.root = sb.toString();
-    String propertyName = sb.append(var.path).toString();
-    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, propertyName,
-        source.getJavaType());
+  private ParameterMapping mappingWithValue(ParameterMapping source) {
+    String property = source.getProperty();
+    ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, property, source.getJavaType());
     builder.expression(source.getExpression()).jdbcType(source.getJdbcType()).jdbcTypeName(source.getJdbcTypeName())
         .mode(source.getMode()).numericScale(source.getNumericScale()).resultMapId(source.getResultMapId())
         .typeHandler(source.getTypeHandler());
-    return builder.build();
-  }
 
-  private PropertyInfo getPropertyInfo(String name) {
-    PropertyInfo i = new PropertyInfo();
-    if (name != null) {
-      int p = name.indexOf('.');
-      if (p == -1) {
-        i.root = name;
+    PropertyTokenizer propertyTokenizer = new PropertyTokenizer(property);
+    Object parameterObject = context.get(SQLScriptSource.PARAMETER_OBJECT_KEY);
+    if (!ParameterMode.OUT.equals(source.getMode())) {
+      if (metaParameters.hasGetter(propertyTokenizer.getName())) {
+        builder.value(metaParameters.getValue(property));
+      } else if (parameterObject == null) {
+        builder.value(null);
+      } else if (configuration.getTypeHandlerRegistry().hasTypeHandler(parameterObject.getClass())) {
+        builder.value(parameterObject);
       } else {
-        i.root = name.substring(0, p);
-        i.path = name.substring(p);
+        MetaObject metaObject = configuration.newMetaObject(parameterObject);
+        builder.value(metaObject.getValue(property));
       }
     }
-    i.isIterable = this.itemKey != null && this.itemKey.equals(i.root);
-    return i;
-  }
-
-  static class PropertyInfo {
-    boolean isIterable = false;
-    String root = "";
-    String path = "";
-
-    public PropertyInfo() {
-      // Prevent synthetic access
-    }
+    return builder.build();
   }
 
 }
