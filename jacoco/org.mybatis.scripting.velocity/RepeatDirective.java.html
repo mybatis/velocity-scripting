@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepeatDirective.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">RepeatDirective.java</span></div><h1>RepeatDirective.java</h1><pre class="source lang-java linenums">/*
+ *    Copyright 2012-2024 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package org.mybatis.scripting.velocity;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Iterator;
+
+import org.apache.velocity.context.ChainedInternalContextAdapter;
+import org.apache.velocity.context.InternalContextAdapter;
+import org.apache.velocity.exception.TemplateInitException;
+import org.apache.velocity.exception.VelocityException;
+import org.apache.velocity.runtime.RuntimeServices;
+import org.apache.velocity.runtime.directive.Directive;
+import org.apache.velocity.runtime.directive.Scope;
+import org.apache.velocity.runtime.directive.StopCommand;
+import org.apache.velocity.runtime.parser.node.ASTReference;
+import org.apache.velocity.runtime.parser.node.ASTStringLiteral;
+import org.apache.velocity.runtime.parser.node.Node;
+import org.apache.velocity.runtime.parser.node.StandardParserTreeConstants;
+import org.apache.velocity.util.introspection.Info;
+
+/**
+ * #repeat($collection $item SEP OPEN CLOSE).
+ */
+<span class="fc" id="L40">public class RepeatDirective extends Directive {</span>
+
+  protected static final int MAX_IN_CLAUSE_SIZE = 1000;
+
+  /** Immutable fields */
+  private String var;
+<span class="fc" id="L46">  private String open = &quot;&quot;;</span>
+<span class="fc" id="L47">  private String close = &quot;&quot;;</span>
+<span class="fc" id="L48">  private String separator = &quot;&quot;;</span>
+  protected Info uberInfo;
+
+  @Override
+  public String getName() {
+<span class="fc" id="L53">    return &quot;repeat&quot;;</span>
+  }
+
+  @Override
+  public void init(RuntimeServices rs, InternalContextAdapter context, Node node) {
+<span class="fc" id="L58">    super.init(rs, context, node);</span>
+<span class="fc" id="L59">    final int n = node.jjtGetNumChildren() - 1;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">    for (int i = 1; i &lt; n; i++) {</span>
+<span class="fc" id="L61">      Node child = node.jjtGetChild(i);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">      if (i == 1) {</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (child.getType() == StandardParserTreeConstants.JJTREFERENCE) {</span>
+<span class="fc" id="L64">          this.var = ((ASTReference) child).getRootString();</span>
+        } else {
+<span class="nc" id="L66">          throw new TemplateInitException(&quot;Syntax error&quot;, getTemplateName(), getLine(), getColumn());</span>
+        }
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">      } else if (child.getType() == StandardParserTreeConstants.JJTSTRINGLITERAL) {</span>
+<span class="fc" id="L69">        String value = (String) ((ASTStringLiteral) child).value(context);</span>
+<span class="pc bpc" id="L70" title="1 of 4 branches missed.">        switch (i) {</span>
+          case 2:
+<span class="fc" id="L72">            this.separator = value;</span>
+<span class="fc" id="L73">            break;</span>
+          case 3:
+<span class="fc" id="L75">            this.open = value;</span>
+<span class="fc" id="L76">            break;</span>
+          case 4:
+<span class="fc" id="L78">            this.close = value;</span>
+<span class="fc" id="L79">            break;</span>
+          default:
+            break;
+        }
+<span class="fc" id="L83">      } else {</span>
+<span class="nc" id="L84">        throw new TemplateInitException(&quot;Syntax error&quot;, getTemplateName(), getLine(), getColumn());</span>
+      }
+    }
+<span class="fc" id="L87">    this.uberInfo = new Info(this.getTemplateName(), getLine(), getColumn());</span>
+<span class="fc" id="L88">  }</span>
+
+  @Override
+  public boolean render(InternalContextAdapter context, Writer writer, Node node) throws IOException {
+
+<span class="fc" id="L93">    Object listObject = node.jjtGetChild(0).value(context);</span>
+
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">    if (listObject == null) {</span>
+<span class="nc" id="L96">      return false;</span>
+    }
+
+<span class="fc" id="L99">    Iterator&lt;?&gt; i = null;</span>
+
+    try {
+<span class="fc" id="L102">      i = this.rsvc.getUberspect().getIterator(listObject, this.uberInfo);</span>
+<span class="nc" id="L103">    } catch (RuntimeException e) {</span>
+<span class="nc" id="L104">      throw e;</span>
+<span class="nc" id="L105">    } catch (Exception ee) {</span>
+<span class="nc" id="L106">      String msg = &quot;Error getting iterator for #repeat at &quot; + this.uberInfo;</span>
+<span class="nc" id="L107">      this.rsvc.getLog().error(msg, ee);</span>
+<span class="nc" id="L108">      throw new VelocityException(msg, ee);</span>
+<span class="fc" id="L109">    }</span>
+
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">    if (i == null) {</span>
+<span class="nc" id="L112">      throw new VelocityException(&quot;Invalid collection&quot;);</span>
+    }
+
+<span class="fc" id="L115">    int counter = 0;</span>
+<span class="fc" id="L116">    boolean maxNbrLoopsExceeded = false;</span>
+<span class="fc" id="L117">    Object o = context.get(this.var);</span>
+
+<span class="fc" id="L119">    ParameterMappingCollector collector = (ParameterMappingCollector) context</span>
+<span class="fc" id="L120">        .get(SQLScriptSource.MAPPING_COLLECTOR_KEY);</span>
+<span class="fc" id="L121">    String savedItemKey = collector.getItemKey();</span>
+<span class="fc" id="L122">    collector.setItemKey(this.var);</span>
+<span class="fc" id="L123">    RepeatScope foreach = new RepeatScope(this, context.get(getName()), this.var);</span>
+<span class="fc" id="L124">    context.put(getName(), foreach);</span>
+
+<span class="fc" id="L126">    NullHolderContext nullHolderContext = null;</span>
+<span class="fc" id="L127">    StringWriter buffer = new StringWriter();</span>
+<span class="fc bfc" id="L128" title="All 4 branches covered.">    while (!maxNbrLoopsExceeded &amp;&amp; i.hasNext()) {</span>
+<span class="fc" id="L129">      Object value = i.next();</span>
+<span class="fc" id="L130">      put(context, this.var, value);</span>
+<span class="fc" id="L131">      foreach.index++;</span>
+<span class="fc" id="L132">      foreach.hasNext = i.hasNext();</span>
+
+      try {
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">          if (nullHolderContext == null) {</span>
+<span class="nc" id="L137">            nullHolderContext = new NullHolderContext(this.var, context);</span>
+          }
+<span class="nc" id="L139">          node.jjtGetChild(node.jjtGetNumChildren() - 1).render(nullHolderContext, buffer);</span>
+        } else {
+<span class="fc" id="L141">          node.jjtGetChild(node.jjtGetNumChildren() - 1).render(context, buffer);</span>
+        }
+<span class="nc" id="L143">      } catch (StopCommand stop) {</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (stop.isFor(this)) {</span>
+<span class="nc" id="L145">          break;</span>
+        }
+<span class="nc" id="L147">        clean(context, o, collector, savedItemKey);</span>
+        // close does not perform any action and this is here
+        // to avoid eclipse reporting possible leak.
+<span class="nc" id="L150">        buffer.close();</span>
+<span class="nc" id="L151">        throw stop;</span>
+<span class="fc" id="L152">      }</span>
+
+<span class="fc" id="L154">      counter++;</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">      maxNbrLoopsExceeded = counter &gt;= MAX_IN_CLAUSE_SIZE;</span>
+
+<span class="fc bfc" id="L157" title="All 4 branches covered.">      if (i.hasNext() &amp;&amp; !maxNbrLoopsExceeded) {</span>
+<span class="fc" id="L158">        buffer.append(this.separator);</span>
+      }
+
+<span class="fc" id="L161">    }</span>
+<span class="fc" id="L162">    String content = buffer.toString().trim();</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">    if (!&quot;&quot;.equals(content)) {</span>
+<span class="fc" id="L164">      writer.append(this.open);</span>
+<span class="fc" id="L165">      writer.append(content);</span>
+<span class="fc" id="L166">      writer.append(this.close);</span>
+    }
+<span class="fc" id="L168">    clean(context, o, collector, savedItemKey);</span>
+<span class="fc" id="L169">    return true;</span>
+
+  }
+
+  protected void clean(InternalContextAdapter context, Object o, ParameterMappingCollector collector,
+      String savedItemKey) {
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">    if (o != null) {</span>
+<span class="nc" id="L176">      context.put(this.var, o);</span>
+    } else {
+<span class="fc" id="L178">      context.remove(this.var);</span>
+    }
+<span class="fc" id="L180">    collector.setItemKey(savedItemKey);</span>
+<span class="fc" id="L181">    postRender(context);</span>
+<span class="fc" id="L182">  }</span>
+
+  protected void put(InternalContextAdapter context, String key, Object value) {
+<span class="fc" id="L185">    context.put(key, value);</span>
+<span class="fc" id="L186">  }</span>
+
+  @Override
+  public int getType() {
+<span class="fc" id="L190">    return BLOCK;</span>
+  }
+
+  public static class RepeatScope extends Scope {
+
+<span class="fc" id="L195">    protected int index = -1;</span>
+<span class="fc" id="L196">    protected boolean hasNext = false;</span>
+    protected final String var;
+
+    public RepeatScope(Object newOwner, Object replaces, String newVar) {
+<span class="fc" id="L200">      super(newOwner, replaces);</span>
+<span class="fc" id="L201">      this.var = newVar;</span>
+<span class="fc" id="L202">    }</span>
+
+    public int getIndex() {
+<span class="nc" id="L205">      return this.index;</span>
+    }
+
+    public int getCount() {
+<span class="nc" id="L209">      return this.index + 1;</span>
+    }
+
+    public boolean hasNext() {
+<span class="nc" id="L213">      return getHasNext();</span>
+    }
+
+    public boolean getHasNext() {
+<span class="nc" id="L217">      return this.hasNext;</span>
+    }
+
+    public boolean isFirst() {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">      return this.index &lt; 1;</span>
+    }
+
+    public boolean getFirst() {
+<span class="nc" id="L225">      return isFirst();</span>
+    }
+
+    public boolean isLast() {
+<span class="nc bnc" id="L229" title="All 2 branches missed.">      return !this.hasNext;</span>
+    }
+
+    public boolean getLast() {
+<span class="nc" id="L233">      return isLast();</span>
+    }
+
+    public String getVar() {
+<span class="nc" id="L237">      return this.var;</span>
+    }
+
+  }
+
+  protected static class NullHolderContext extends ChainedInternalContextAdapter {
+
+<span class="nc" id="L244">    private String loopVariableKey = &quot;&quot;;</span>
+<span class="nc" id="L245">    private boolean active = true;</span>
+
+    protected NullHolderContext(String key, InternalContextAdapter context) {
+<span class="nc" id="L248">      super(context);</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">      if (key != null) {</span>
+<span class="nc" id="L250">        this.loopVariableKey = key;</span>
+      }
+<span class="nc" id="L252">    }</span>
+
+    @Override
+    public Object get(String key) {
+<span class="nc bnc" id="L256" title="All 4 branches missed.">      return (this.active &amp;&amp; this.loopVariableKey.equals(key)) ? null : super.get(key);</span>
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+<span class="nc bnc" id="L261" title="All 4 branches missed.">      if (this.loopVariableKey.equals(key) &amp;&amp; (value == null)) {</span>
+<span class="nc" id="L262">        this.active = true;</span>
+      }
+
+<span class="nc" id="L265">      return super.put(key, value);</span>
+    }
+
+    @Override
+    public Object remove(String key) {
+<span class="nc bnc" id="L270" title="All 2 branches missed.">      if (this.loopVariableKey.equals(key)) {</span>
+<span class="nc" id="L271">        this.active = false;</span>
+      }
+<span class="nc" id="L273">      return super.remove(key);</span>
+    }
+  }
+
+  @Override
+  public boolean isScopeProvided() {
+<span class="fc" id="L279">    return true;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

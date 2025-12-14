@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VelocityLanguageDriver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">VelocityLanguageDriver.java</span></div><h1>VelocityLanguageDriver.java</h1><pre class="source lang-java linenums">/*
+ *    Copyright 2012-2022 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package org.mybatis.scripting.velocity;
+
+import org.apache.ibatis.executor.parameter.ParameterHandler;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.SqlSource;
+import org.apache.ibatis.parsing.XNode;
+import org.apache.ibatis.scripting.LanguageDriver;
+import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
+import org.apache.ibatis.session.Configuration;
+
+/**
+ * The {@link LanguageDriver} using Velocity.
+ * &lt;p&gt;
+ * This class rename from {@code Driver}.
+ * &lt;/p&gt;
+ *
+ * @since 2.1.0
+ *
+ * @author Kazuki Shimizu
+ */
+public class VelocityLanguageDriver implements LanguageDriver {
+
+  /**
+   * Default constructor.
+   */
+  public VelocityLanguageDriver() {
+<span class="fc" id="L43">    this(VelocityLanguageDriverConfig.newInstance());</span>
+<span class="fc" id="L44">  }</span>
+
+  /**
+   * Constructor.
+   *
+   * @param driverConfig
+   *          a language driver configuration
+   */
+<span class="fc" id="L52">  public VelocityLanguageDriver(VelocityLanguageDriverConfig driverConfig) {</span>
+<span class="fc" id="L53">    VelocityFacade.initialize(driverConfig);</span>
+<span class="fc" id="L54">  }</span>
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ParameterHandler createParameterHandler(MappedStatement mappedStatement, Object parameterObject,
+      BoundSql boundSql) {
+<span class="fc" id="L62">    return new DefaultParameterHandler(mappedStatement, parameterObject, boundSql);</span>
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public SqlSource createSqlSource(Configuration configuration, XNode script, Class&lt;?&gt; parameterTypeClass) {
+<span class="fc" id="L70">    return new SQLScriptSource(configuration, script.getNode().getTextContent(),</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        parameterTypeClass == null ? Object.class : parameterTypeClass);</span>
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public SqlSource createSqlSource(Configuration configuration, String script, Class&lt;?&gt; parameterTypeClass) {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    return new SQLScriptSource(configuration, script, parameterTypeClass == null ? Object.class : parameterTypeClass);</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

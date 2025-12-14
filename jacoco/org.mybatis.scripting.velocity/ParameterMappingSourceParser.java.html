@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMappingSourceParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MyBatis Velocity</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.scripting.velocity</a> &gt; <span class="el_source">ParameterMappingSourceParser.java</span></div><h1>ParameterMappingSourceParser.java</h1><pre class="source lang-java linenums">/*
+ *    Copyright 2012-2022 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package org.mybatis.scripting.velocity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.builder.BaseBuilder;
+import org.apache.ibatis.builder.BuilderException;
+import org.apache.ibatis.builder.ParameterExpression;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.parsing.GenericTokenParser;
+import org.apache.ibatis.parsing.TokenHandler;
+import org.apache.ibatis.reflection.DefaultReflectorFactory;
+import org.apache.ibatis.reflection.MetaClass;
+import org.apache.ibatis.reflection.ReflectorFactory;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.type.JdbcType;
+
+public class ParameterMappingSourceParser {
+
+  private static final String VALID_PROPERTIES = &quot;javaType,jdbcType,mode,numericScale,resultMap,typeHandler,jdbcTypeName&quot;;
+
+  private final String sql;
+
+  private final ParameterMapping[] parameterMappingSources;
+
+<span class="fc" id="L42">  public ParameterMappingSourceParser(Configuration configuration, String script, Class&lt;?&gt; parameterType) {</span>
+<span class="fc" id="L43">    ParameterMappingTokenHandler handler = new ParameterMappingTokenHandler(configuration, parameterType);</span>
+<span class="fc" id="L44">    GenericTokenParser parser = new GenericTokenParser(&quot;@{&quot;, &quot;}&quot;, handler);</span>
+<span class="fc" id="L45">    this.sql = parser.parse(script);</span>
+<span class="fc" id="L46">    this.parameterMappingSources = handler.getParameterMappingSources();</span>
+<span class="fc" id="L47">  }</span>
+
+  public ParameterMapping[] getParameterMappingSources() {
+<span class="fc" id="L50">    return this.parameterMappingSources;</span>
+  }
+
+  public String getSql() {
+<span class="fc" id="L54">    return this.sql;</span>
+  }
+
+  private static class ParameterMappingTokenHandler extends BaseBuilder implements TokenHandler {
+
+<span class="fc" id="L59">    private final List&lt;ParameterMapping&gt; parameterMappings = new ArrayList&lt;&gt;();</span>
+    private final Class&lt;?&gt; parameterType;
+
+    public ParameterMappingTokenHandler(Configuration newConfiguration, Class&lt;?&gt; newParameterType) {
+<span class="fc" id="L63">      super(newConfiguration);</span>
+<span class="fc" id="L64">      this.parameterType = newParameterType;</span>
+<span class="fc" id="L65">    }</span>
+
+    public ParameterMapping[] getParameterMappingSources() {
+<span class="fc" id="L68">      return this.parameterMappings.toArray(new ParameterMapping[this.parameterMappings.size()]);</span>
+    }
+
+    @Override
+    public String handleToken(String content) {
+<span class="fc" id="L73">      int index = this.parameterMappings.size();</span>
+<span class="fc" id="L74">      ParameterMapping pm = buildParameterMapping(content);</span>
+<span class="fc" id="L75">      this.parameterMappings.add(pm);</span>
+<span class="fc" id="L76">      return new StringBuilder().append('$').append(SQLScriptSource.MAPPING_COLLECTOR_KEY).append(&quot;.g(&quot;).append(index)</span>
+<span class="fc" id="L77">          .append(&quot;)&quot;).toString();</span>
+    }
+
+    private ParameterMapping buildParameterMapping(String content) {
+<span class="fc" id="L81">      Map&lt;String, String&gt; propertiesMap = parseParameterMapping(content);</span>
+<span class="fc" id="L82">      String property = propertiesMap.get(&quot;property&quot;);</span>
+<span class="fc" id="L83">      String jdbcType = propertiesMap.get(&quot;jdbcType&quot;);</span>
+      Class&lt;?&gt; propertyType;
+<span class="fc bfc" id="L85" title="All 2 branches covered.">      if (this.typeHandlerRegistry.hasTypeHandler(this.parameterType)) {</span>
+<span class="fc" id="L86">        propertyType = this.parameterType;</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">      } else if (JdbcType.CURSOR.name().equals(jdbcType)) {</span>
+<span class="nc" id="L88">        propertyType = java.sql.ResultSet.class;</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">      } else if (property != null) {</span>
+<span class="fc" id="L90">        ReflectorFactory reflectorFactory = new DefaultReflectorFactory();</span>
+<span class="fc" id="L91">        MetaClass metaClass = MetaClass.forClass(this.parameterType, reflectorFactory);</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (metaClass.hasGetter(property)) {</span>
+<span class="fc" id="L93">          propertyType = metaClass.getGetterType(property);</span>
+        } else {
+<span class="nc" id="L95">          propertyType = Object.class;</span>
+        }
+<span class="fc" id="L97">      } else {</span>
+<span class="nc" id="L98">        propertyType = Object.class;</span>
+      }
+<span class="fc" id="L100">      ParameterMapping.Builder builder = new ParameterMapping.Builder(this.configuration, property, propertyType);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">      if (jdbcType != null) {</span>
+<span class="nc" id="L102">        builder.jdbcType(resolveJdbcType(jdbcType));</span>
+      }
+<span class="fc" id="L104">      Class&lt;?&gt; javaType = null;</span>
+<span class="fc" id="L105">      String typeHandlerAlias = null;</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">      for (Map.Entry&lt;String, String&gt; entry : propertiesMap.entrySet()) {</span>
+<span class="fc" id="L107">        String name = entry.getKey();</span>
+<span class="fc" id="L108">        String value = entry.getValue();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (&quot;javaType&quot;.equals(name)) {</span>
+<span class="fc" id="L110">          javaType = resolveClass(value);</span>
+<span class="fc" id="L111">          builder.javaType(javaType);</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        } else if (&quot;jdbcType&quot;.equals(name)) {</span>
+<span class="nc" id="L113">          builder.jdbcType(resolveJdbcType(value));</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        } else if (&quot;mode&quot;.equals(name)) {</span>
+<span class="nc" id="L115">          builder.mode(resolveParameterMode(value));</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        } else if (&quot;numericScale&quot;.equals(name)) {</span>
+<span class="nc" id="L117">          builder.numericScale(Integer.valueOf(value));</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        } else if (&quot;resultMap&quot;.equals(name)) {</span>
+<span class="nc" id="L119">          builder.resultMapId(value);</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        } else if (&quot;typeHandler&quot;.equals(name)) {</span>
+<span class="nc" id="L121">          typeHandlerAlias = value;</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        } else if (&quot;jdbcTypeName&quot;.equals(name)) {</span>
+<span class="nc" id="L123">          builder.jdbcTypeName(value);</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        } else if (&quot;property&quot;.equals(name)) {</span>
+          // Do Nothing
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        } else if (&quot;expression&quot;.equals(name)) {</span>
+<span class="nc" id="L127">          throw new BuilderException(&quot;Expression based parameters are not supported yet&quot;);</span>
+        } else {
+<span class="nc" id="L129">          throw new BuilderException(&quot;An invalid property '&quot; + name + &quot;' was found in mapping @{&quot; + content</span>
+              + &quot;}.  Valid properties are &quot; + VALID_PROPERTIES);
+        }
+<span class="fc" id="L132">      }</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">      if (typeHandlerAlias != null) {</span>
+<span class="nc" id="L134">        builder.typeHandler(resolveTypeHandler(javaType, typeHandlerAlias));</span>
+      }
+<span class="fc" id="L136">      return builder.build();</span>
+    }
+
+    private Map&lt;String, String&gt; parseParameterMapping(String content) {
+      try {
+<span class="fc" id="L141">        return new ParameterExpression(content);</span>
+<span class="nc" id="L142">      } catch (BuilderException ex) {</span>
+<span class="nc" id="L143">        throw ex;</span>
+<span class="nc" id="L144">      } catch (Exception ex) {</span>
+<span class="nc" id="L145">        throw new BuilderException(&quot;Parsing error was found in mapping @{&quot; + content</span>
+            + &quot;}.  Check syntax #{property|(expression), var1=value1, var2=value2, ...} &quot;, ex);
+      }
+    }
+
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
