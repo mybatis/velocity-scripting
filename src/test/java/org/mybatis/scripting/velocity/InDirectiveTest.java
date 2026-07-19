@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -53,7 +53,7 @@ class InDirectiveTest {
   @Test
   void ensureInClauseHasEmpty() {
     StringWriter w = new StringWriter();
-    ctxt.put("list", Collections.emptyList());
+    ctxt.put("list", List.of());
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
     assertEquals("((id NOT IN ( NULL )))", result);
@@ -62,7 +62,7 @@ class InDirectiveTest {
   @Test
   void ensureInClauseHasOne() {
     StringWriter w = new StringWriter();
-    ctxt.put("list", Collections.singletonList("?"));
+    ctxt.put("list", List.of("?"));
     velocity.evaluate(ctxt, w, "TEST", "#in($list $id 'id')?#end");
     String result = w.toString();
     assertEquals(1, result.split("\\?").length - 1);
