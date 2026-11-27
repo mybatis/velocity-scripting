@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2012-2022 the original author or authors.
+       Copyright 2012-2025 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -90,6 +90,29 @@
         @{name.id}
       #end
     #end
+  </select>
+
+  <select id="selectWithSetInsideRepeat" resultType="org.mybatis.scripting.velocity.use.Name">
+    SELECT *
+    FROM names
+    #where()
+      #repeat($_parameter.names $name ',' 'id IN (' ')')
+        #set( $nid = $name.id)
+        @{nid}
+      #end
+      or id = @{nid}
+    #end
+    order by id
+  </select>
+
+  <select id="selectNestedRepeat" resultType="int">
+    SELECT
+    #repeat($_parameter.ids $level1 '+' '' '')
+      #repeat($level1 $level2 '+' '' '')
+        @{level1[0]}
+      #end
+    #end
+    FROM (VALUES(0))
   </select>
 
  <select id="selectWithCustomUserDirective" resultType="org.mybatis.scripting.velocity.use.Name">
